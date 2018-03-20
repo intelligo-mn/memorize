@@ -6,4 +6,5 @@
 * [Null Safety](null-safety.md)
 * [String Operations](string-operations.md)
 * [Loops and Control Statements](loops-and-control-statements.md)
+* [Classes](classes.md)
 
