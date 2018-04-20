@@ -1,7 +1,9 @@
-package cloud.techstar.jisho;
+package cloud.techstar.jisho.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import cloud.techstar.jisho.R;
 
 public class MainActivity extends AppCompatActivity {
 

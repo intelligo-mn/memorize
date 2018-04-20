@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".activity.MainActivity"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
@@ -19,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_gravity="bottom"
-
         android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_menu" />
 </android.support.design.widget.CoordinatorLayout>
