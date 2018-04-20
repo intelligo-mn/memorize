@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
-import java.util.logging.Logger;
+import com.orhanobut.logger.AndroidLogAdapter;
+
+import cloud.techstar.jisho.database.DatabaseHelper;
+import cloud.techstar.jisho.database.DatabaseManager;
 
 public class AppMain extends Application {
 
@@ -16,6 +19,9 @@ public class AppMain extends Application {
     {
         super.onCreate();
         context = this.getApplicationContext();
+        DatabaseHelper dbHelper = new DatabaseHelper();
+        DatabaseManager.initializeInstance(dbHelper);
+        com.orhanobut.logger.Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
     public static Context getContext(){
