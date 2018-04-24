@@ -14,13 +14,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/username_text"
+            android:id="@+id/character_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="19sp"
             android:textStyle="bold"/>
         <TextView
-            android:id="@+id/position_text"
+            android:id="@+id/meaning_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="13sp"
