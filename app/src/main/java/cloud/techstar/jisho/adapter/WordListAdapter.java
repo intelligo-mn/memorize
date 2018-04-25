@@ -24,6 +24,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         private CardView cardView;
         private TextView characterText;
         private TextView meaningText;
+        private TextView meaningMnText;
         private ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
@@ -31,6 +32,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             cardView = v.findViewById(R.id.user_card_view);
             characterText = v.findViewById(R.id.character_text);
             meaningText = v.findViewById(R.id.meaning_text);
+            meaningMnText = v.findViewById(R.id.meaning_mn_text);
         }
 
         @Override
@@ -57,6 +59,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     public void onBindViewHolder(WordListAdapter.ViewHolder holder, int position) {
         holder.characterText.setText(words.get(position).getCharacter());
         holder.meaningText.setText(words.get(position).getMeaning());
+        holder.meaningMnText.setText(words.get(position).getMeaningMon());
     }
 
     @Override
