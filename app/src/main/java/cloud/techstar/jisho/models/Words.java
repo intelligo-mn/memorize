@@ -6,32 +6,40 @@ public class Words {
     public static final String WORDS_ID          = "id";
     public static final String WORDS_CHARACTER   = "character";
     public static final String WORDS_MEANING     = "meaning";
+    public static final String WORDS_MEANING_MN  = "meaningMon";
     public static final String WORDS_KANJI       = "kanji";
+    public static final String WORDS_PART_OF_SPEECH = "partOfSpeech";
     public static final String WORDS_LEVEL       = "level";
     public static final String WORDS_ISMEMORIZE  = "ismemorize";
 
     public static final int WORDS_ID_INDEX         = 0;
     public static final int WORDS_CHARACTER_INDEX  = 1;
     public static final int WORDS_MEANING_INDEX    = 2;
-    public static final int WORDS_KANJI_INDEX      = 3;
-    public static final int WORDS_LEVEL_INDEX      = 4;
-    public static final int WORDS_ISMEMORIZE_INDEX = 5;
+    public static final int WORDS_MEANING_MN_INDEX = 3;
+    public static final int WORDS_KANJI_INDEX      = 4;
+    public static final int WORDS_PART_OF_SPEECH_INDEX = 5;
+    public static final int WORDS_LEVEL_INDEX      = 6;
+    public static final int WORDS_ISMEMORIZE_INDEX = 7;
 
     private String id;
     private String character;
     private String meaning;
+    private String meaningMon;
     private String kanji;
+    private String partOfSpeech;
     private String level;
     private String isMemorize;
 
     public Words() {
     }
 
-    public Words(String id, String character, String meaning, String kanji, String level, String isMemorize) {
+    public Words(String id, String character, String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String isMemorize) {
         this.id = id;
         this.character = character;
         this.meaning = meaning;
+        this.meaningMon = meaningMon;
         this.kanji = kanji;
+        this.partOfSpeech = partOfSpeech;
         this.level = level;
         this.isMemorize = isMemorize;
     }
@@ -60,12 +68,28 @@ public class Words {
         this.meaning = meaning;
     }
 
+    public String getMeaningMon() {
+        return meaningMon;
+    }
+
+    public void setMeaningMon(String meaningMon) {
+        this.meaningMon = meaningMon;
+    }
+
     public String getKanji() {
         return kanji;
     }
 
     public void setKanji(String kanji) {
         this.kanji = kanji;
+    }
+
+    public String getPartOfSpeech() {
+        return partOfSpeech;
+    }
+
+    public void setPartOfSpeech(String partOfSpeech) {
+        this.partOfSpeech = partOfSpeech;
     }
 
     public String getLevel() {

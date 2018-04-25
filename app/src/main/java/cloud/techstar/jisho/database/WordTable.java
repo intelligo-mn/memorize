@@ -21,7 +21,9 @@ public class WordTable {
                 Words.WORDS_ID + " TEXT PRIMARY KEY," +
                 Words.WORDS_CHARACTER + " TEXT," +
                 Words.WORDS_MEANING + " TEXT," +
+                Words.WORDS_MEANING_MN + " TEXT," +
                 Words.WORDS_KANJI + " TEXT," +
+                Words.WORDS_PART_OF_SPEECH + " TEXT," +
                 Words.WORDS_LEVEL + " TEXT," +
                 Words.WORDS_ISMEMORIZE + " TEXT);";
     }
@@ -40,7 +42,9 @@ public class WordTable {
             cv.put(Words.WORDS_ID, word.getId());
             cv.put(Words.WORDS_CHARACTER, word.getCharacter());
             cv.put(Words.WORDS_MEANING, word.getMeaning());
+            cv.put(Words.WORDS_MEANING_MN, word.getMeaningMon());
             cv.put(Words.WORDS_KANJI, word.getKanji());
+            cv.put(Words.WORDS_PART_OF_SPEECH, word.getPartOfSpeech());
             cv.put(Words.WORDS_LEVEL, word.getLevel());
             cv.put(Words.WORDS_ISMEMORIZE, word.getIsMemorize());
             db.insert(Words.TABLE_WORDS, null, cv);
@@ -62,7 +66,9 @@ public class WordTable {
                         Words.WORDS_ID,
                         Words.WORDS_CHARACTER,
                         Words.WORDS_MEANING,
+                        Words.WORDS_MEANING_MN,
                         Words.WORDS_KANJI,
+                        Words.WORDS_PART_OF_SPEECH,
                         Words.WORDS_LEVEL,
                         Words.WORDS_ISMEMORIZE
                 }, Words.WORDS_ID + "=?",
@@ -75,7 +81,9 @@ public class WordTable {
         word.setId(cursor.getString(Words.WORDS_ID_INDEX));
         word.setCharacter(cursor.getString(Words.WORDS_CHARACTER_INDEX));
         word.setMeaning(cursor.getString(Words.WORDS_MEANING_INDEX));
+        word.setMeaningMon(cursor.getString(Words.WORDS_MEANING_MN_INDEX));
         word.setKanji(cursor.getString(Words.WORDS_KANJI_INDEX));
+        word.setPartOfSpeech(cursor.getString(Words.WORDS_PART_OF_SPEECH_INDEX));
         word.setLevel(cursor.getString(Words.WORDS_LEVEL_INDEX));
         word.setIsMemorize(cursor.getString(Words.WORDS_ISMEMORIZE_INDEX));
         cursor.close();
@@ -94,7 +102,11 @@ public class WordTable {
                 word.setId(cursor.getString(Words.WORDS_ID_INDEX));
                 word.setCharacter(cursor.getString(Words.WORDS_CHARACTER_INDEX));
                 word.setMeaning(cursor.getString(Words.WORDS_MEANING_INDEX));
+                word.setMeaningMon(cursor.getString(Words.WORDS_MEANING_MN_INDEX));
                 word.setKanji(cursor.getString(Words.WORDS_KANJI_INDEX));
+                word.setPartOfSpeech(cursor.getString(Words.WORDS_PART_OF_SPEECH_INDEX));
+                word.setLevel(cursor.getString(Words.WORDS_LEVEL_INDEX));
+                word.setIsMemorize(cursor.getString(Words.WORDS_ISMEMORIZE_INDEX));
                 words.add(word);
             } while (cursor.moveToNext());
         }
@@ -115,7 +127,11 @@ public class WordTable {
         cv.put(Words.WORDS_ID, word.getId());
         cv.put(Words.WORDS_CHARACTER, word.getCharacter());
         cv.put(Words.WORDS_MEANING, word.getMeaning());
+        cv.put(Words.WORDS_MEANING_MN, word.getMeaningMon());
         cv.put(Words.WORDS_KANJI, word.getKanji());
+        cv.put(Words.WORDS_PART_OF_SPEECH, word.getPartOfSpeech());
+        cv.put(Words.WORDS_LEVEL, word.getLevel());
+        cv.put(Words.WORDS_ISMEMORIZE, word.getIsMemorize());
         int rowCount = db.update(Words.TABLE_WORDS, cv, Words.WORDS_ID + "=?",
                 new String[]{String.valueOf(word.getId())});
         DatabaseManager.getInstance().closeDatabase();
