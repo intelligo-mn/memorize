@@ -7,32 +7,36 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.R;
+import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.models.Words;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
     private final Context context;
     private List<Words> words;
-
+    private WordTable wordTable;
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView imageView;
-        private CardView cardView;
+
         private TextView characterText;
         private TextView meaningText;
         private TextView meaningMnText;
+        private ImageButton favButton;
         private ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
-
-            cardView = v.findViewById(R.id.word_card_view);
+            wordTable = new WordTable();
             characterText = v.findViewById(R.id.character_text);
             meaningText = v.findViewById(R.id.meaning_text);
             meaningMnText = v.findViewById(R.id.meaning_mn_text);
+            favButton = v.findViewById(R.id.fav_button);
         }
 
         @Override
@@ -56,10 +60,23 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(WordListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(WordListAdapter.ViewHolder holder, final int position) {
         holder.characterText.setText(words.get(position).getCharacter());
         holder.meaningText.setText(words.get(position).getMeaning());
         holder.meaningMnText.setText(words.get(position).getMeaningMon());
+        if (words.get(position).getIsMemorize() == "true") {
+            holder.favButton.setImageResource(R.drawable.ic_favorite_full);
+        }
+        holder.favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Words word = words.get(position);
+                word.setIsMemorize("true");
+                wordTable.update(word);
+
+                Toast.makeText(AppMain.getContext(), "Add favorite "+word.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

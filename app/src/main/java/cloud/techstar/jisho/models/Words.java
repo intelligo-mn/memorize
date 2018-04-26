@@ -107,4 +107,18 @@ public class Words {
     public void setIsMemorize(String isMemorize) {
         this.isMemorize = isMemorize;
     }
+
+    @Override
+    public String toString() {
+        return "Words{" +
+                "id='" + id + '\'' +
+                ", character='" + character + '\'' +
+                ", meaning='" + meaning + '\'' +
+                ", meaningMon='" + meaningMon + '\'' +
+                ", kanji='" + kanji + '\'' +
+                ", partOfSpeech='" + partOfSpeech + '\'' +
+                ", level='" + level + '\'' +
+                ", isMemorize='" + isMemorize + '\'' +
+                '}';
+    }
 }

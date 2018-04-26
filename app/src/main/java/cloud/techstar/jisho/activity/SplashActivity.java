@@ -92,12 +92,12 @@ public class SplashActivity extends AppCompatActivity {
 
                                 for (int i = 0; i < memorize.length(); i++) {
                                     Words words = new Words();
+                                    words.setId(memorize.getJSONObject(i).getString("_id"));
                                     words.setCharacter(memorize.getJSONObject(i).getString("character"));
                                     words.setMeaning(memorize.getJSONObject(i).getString("meanings"));
                                     words.setMeaningMon(memorize.getJSONObject(i).getString("meaningsMongolia"));
                                     words.setKanji(memorize.getJSONObject(i).getString("kanji"));
                                     words.setPartOfSpeech(memorize.getJSONObject(i).getString("partOfSpeech"));
-                                    words.setIsMemorize("false");
                                     words.setLevel(memorize.getJSONObject(i).getString("level"));
                                     wordTable.insert(words);
                                 }
