@@ -15,11 +15,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.utils.ConnectionDetector;
 import cloud.techstar.jisho.utils.JishoConstant;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.models.Words;
+import cloud.techstar.jisho.utils.PrefManager;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -39,23 +41,31 @@ public class SplashActivity extends AppCompatActivity {
 
         mHandler = new Handler(Looper.getMainLooper());
         Handler handler = new Handler(Looper.getMainLooper());
-
+        PrefManager prefManager = new PrefManager(AppMain.getContext());
         //
-        if (!ConnectionDetector.isNetworkAvailable(SplashActivity.this)){
-            Toast.makeText(SplashActivity.this, "No internet connections", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
 
-        } else {
+        if (prefManager.isFirstTimeLaunch()){
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     connectServer();
                 }
             }, 100);
+            prefManager.setIsFirstTimeLaunch(false);
+        } else {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finish();
         }
     }
 
     public void connectServer() {
+
+        if (!ConnectionDetector.isNetworkAvailable(SplashActivity.this)) {
+            Toast.makeText(SplashActivity.this, "No internet connections", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finish();
+            return;
+        }
 
         OkHttpClient client = new OkHttpClient();
 

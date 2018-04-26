@@ -2,6 +2,7 @@ package cloud.techstar.jisho.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -73,8 +74,8 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
                 Words word = words.get(position);
                 word.setIsMemorize("true");
                 wordTable.update(word);
-
-                Toast.makeText(AppMain.getContext(), "Add favorite "+word.toString(), Toast.LENGTH_SHORT).show();
+                Snackbar.make(v, "Added to favorite", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", null).show();
             }
         });
     }
