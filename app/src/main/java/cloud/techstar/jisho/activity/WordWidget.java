@@ -24,7 +24,7 @@ public class WordWidget extends AppWidgetProvider {
         PendingIntent pendingIntent = PendingIntent.getService(
                 context.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        remoteViews.setOnClickPendingIntent(R.id.widget_word_text, pendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
         context.startService(intent);
     }

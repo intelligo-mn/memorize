@@ -10,6 +10,7 @@ import android.widget.RemoteViews;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.activity.WordWidget;
@@ -41,7 +42,9 @@ public class UpdateWidgetService extends Service {
                     List<Words> qList = wordTable.selectFavorite();
                     int nextInt = random.nextInt(qList.size());
                     RemoteViews remoteViews = new RemoteViews(getPackageName(),	R.layout.word_widget);
-                    remoteViews.setTextViewText(R.id.widget_word_text, qList.get(nextInt).getCharacter()+" - "+qList.get(nextInt).getMeaning());
+                    remoteViews.setTextViewText(R.id.widget_character, qList.get(nextInt).getCharacter());
+                    remoteViews.setTextViewText(R.id.widget_meaning, qList.get(nextInt).getMeaning());
+                    remoteViews.setTextViewText(R.id.widget_meaning_mn, qList.get(nextInt).getMeaningMon());
                     appWidgetManager.updateAppWidget(widgetId, remoteViews);
                 }
                 stopSelf();
