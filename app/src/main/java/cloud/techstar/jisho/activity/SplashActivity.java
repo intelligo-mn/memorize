@@ -45,16 +45,16 @@ public class SplashActivity extends AppCompatActivity {
         //
 
         if (prefManager.isFirstTimeLaunch()){
+            connectServer();
+            prefManager.setIsFirstTimeLaunch(false);
+        } else {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    connectServer();
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
                 }
-            }, 100);
-            prefManager.setIsFirstTimeLaunch(false);
-        } else {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            finish();
+            }, 300);
         }
     }
 

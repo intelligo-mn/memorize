@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_launcher_background"
+        android:src="@drawable/logo"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp" />
@@ -18,10 +18,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="JISHO"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
+        android:text="Jisho"
+        android:textColor="@color/appColor"
         android:textSize="30sp"
+        android:textStyle="italic"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
