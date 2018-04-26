@@ -1,4 +1,4 @@
-package cloud.techstar.jisho.Utils;
+package cloud.techstar.jisho.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

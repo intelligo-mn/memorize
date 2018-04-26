@@ -14,20 +14,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import cloud.techstar.jisho.R;
-import cloud.techstar.jisho.Utils.ConnectionDetector;
-import cloud.techstar.jisho.Utils.JishoConstant;
+import cloud.techstar.jisho.utils.ConnectionDetector;
+import cloud.techstar.jisho.utils.JishoConstant;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.models.Words;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {

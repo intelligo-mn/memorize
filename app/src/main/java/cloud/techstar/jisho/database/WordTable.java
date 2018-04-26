@@ -115,6 +115,30 @@ public class WordTable {
         return words;
     }
 
+    public List<Words> selectFavorite() {
+        List<Words> words = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + Words.TABLE_WORDS + " WHERE " + Words.WORDS_ISMEMORIZE + " = 'true'" ;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Words word = new Words();
+                word.setId(cursor.getString(Words.WORDS_ID_INDEX));
+                word.setCharacter(cursor.getString(Words.WORDS_CHARACTER_INDEX));
+                word.setMeaning(cursor.getString(Words.WORDS_MEANING_INDEX));
+                word.setMeaningMon(cursor.getString(Words.WORDS_MEANING_MN_INDEX));
+                word.setKanji(cursor.getString(Words.WORDS_KANJI_INDEX));
+                word.setPartOfSpeech(cursor.getString(Words.WORDS_PART_OF_SPEECH_INDEX));
+                word.setLevel(cursor.getString(Words.WORDS_LEVEL_INDEX));
+                word.setIsMemorize(cursor.getString(Words.WORDS_ISMEMORIZE_INDEX));
+                words.add(word);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+        return words;
+    }
+
     public int update(Words word) {
         if (word == null) {
             return -1;

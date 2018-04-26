@@ -1,4 +1,4 @@
-package cloud.techstar.jisho.Utils;
+package cloud.techstar.jisho.utils;
 
 public class JishoConstant {
 
