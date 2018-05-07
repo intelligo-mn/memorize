@@ -109,6 +109,9 @@ public class SplashActivity extends AppCompatActivity {
                                     words.setKanji(memorize.getJSONObject(i).getString("kanji"));
                                     words.setPartOfSpeech(memorize.getJSONObject(i).getString("partOfSpeech"));
                                     words.setLevel(memorize.getJSONObject(i).getString("level"));
+                                    words.setIsMemorize(memorize.getJSONObject(i).getString("isMemorize"));
+                                    words.setIsFavorite(memorize.getJSONObject(i).getString("isFavorite"));
+                                    words.setCreated(memorize.getJSONObject(i).getString("created"));
                                     wordTable.insert(words);
                                 }
                             } else {

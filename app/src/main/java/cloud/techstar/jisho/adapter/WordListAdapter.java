@@ -65,16 +65,16 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         holder.characterText.setText(words.get(position).getCharacter());
         holder.meaningText.setText(words.get(position).getMeaning());
         holder.meaningMnText.setText(words.get(position).getMeaningMon());
-        if (words.get(position).getIsMemorize() == "true") {
+        if (words.get(position).getIsFavorite().equals("true")) {
             holder.favButton.setImageResource(R.drawable.ic_favorite_full);
         }
         holder.favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Words word = words.get(position);
-                word.setIsMemorize("true");
+                word.setIsFavorite("true");
                 wordTable.update(word);
-                Snackbar.make(v, "Added to favorite", Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "Added to favorite", Snackbar.LENGTH_SHORT)
                         .setAction("Undo", null).show();
             }
         });

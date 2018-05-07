@@ -77,5 +77,4 @@ public class WordSuggestionsAdapter extends SuggestionsAdapter<Words, WordSugges
             subtitle = (TextView) itemView.findViewById(R.id.suggest_meaning);
         }
     }
-
 }
