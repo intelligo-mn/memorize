@@ -11,7 +11,8 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginBottom="10dp"
-    card_view:cardCornerRadius="0dp">
+    card_view:cardCornerRadius="0dp"
+    app:cardBackgroundColor="@color/colorPrimary">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="19sp"
+                    android:textColor="@color/greyple"
                     android:textStyle="bold"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -43,6 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
+                        android:textColor="@color/greyple"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
                     <TextView
@@ -50,6 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
+                        android:textColor="@color/greyple"
                         android:textStyle="italic"/>
                 </LinearLayout>
             </LinearLayout>

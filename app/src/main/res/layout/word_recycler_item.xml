@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/word_card_view"
+    android:background="@color/colorPrimary"
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="60dp"
@@ -12,7 +13,8 @@
     android:layout_marginRight="10dp"
     android:layout_marginBottom="5dp"
     android:layout_marginTop="5dp"
-    card_view:cardCornerRadius="5dp">
+    card_view:cardCornerRadius="0dp"
+    app:cardBackgroundColor="@color/colorPrimary">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="19sp"
+                    android:textColor="@color/greyple"
                     android:textStyle="bold"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -45,23 +48,40 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textSize="16sp"
+                        android:textColor="@color/greyple"
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/meaning_mn_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
+                        android:textColor="@color/greyple"
                         android:textStyle="italic"/>
                 </LinearLayout>
             </LinearLayout>
-            <ImageButton
-                android:id="@+id/fav_button"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:background="@color/transparent"
-                card_view:srcCompat="@drawable/ic_favorite"
-                android:layout_alignParentEnd="true" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true">
+                <ImageButton
+                    android:id="@+id/speech_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/transparent"
+                    card_view:srcCompat="@drawable/ic_favorite"
+                    android:layout_alignParentEnd="true" />
+                <ImageButton
+                    android:id="@+id/fav_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/transparent"
+                    card_view:srcCompat="@drawable/ic_favorite"
+                    android:layout_alignParentEnd="true" />
+            </LinearLayout>
+
         </RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
