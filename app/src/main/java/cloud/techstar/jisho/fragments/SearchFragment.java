@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.R;
@@ -46,6 +48,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
+
         searchBar = (MaterialSearchBar) root.findViewById(R.id.searchBar);
         wordSuggestionsAdapter = new WordSuggestionsAdapter(inflater);
         WordTable wordTable = new WordTable();
