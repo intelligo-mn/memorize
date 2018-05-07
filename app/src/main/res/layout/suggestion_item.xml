@@ -19,7 +19,6 @@
         android:layout_marginLeft="5dp">
 
         <TextView
-            android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/suggest_char"
@@ -28,7 +27,6 @@
             android:textStyle="normal|bold" />
 
         <TextView
-            android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/suggest_meaning"

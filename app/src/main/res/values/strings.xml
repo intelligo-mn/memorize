@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Jisho</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="menu">Menu</string>
+    <string name="jisho">Jisho</string>
+    <string name="japan_character">Japan character</string>
+    <string name="english_meaning">English meaning</string>
+    <string name="mongolian_meaning">Mongolian meaning</string>
 
 </resources>

@@ -31,13 +31,12 @@ import okhttp3.Response;
 public class SplashActivity extends AppCompatActivity {
 
     private Handler mHandler;
-    private WordTable wordTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        wordTable = new WordTable();
+        WordTable wordTable = new WordTable();
 
         mHandler = new Handler(Looper.getMainLooper());
         Handler handler = new Handler(Looper.getMainLooper());
@@ -82,6 +81,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
+                assert response.body() != null;
                 final String res = response.body().string();
                 Logger.json(res);
                 mHandler.post(new Runnable() {

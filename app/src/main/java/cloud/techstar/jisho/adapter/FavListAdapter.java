@@ -1,12 +1,10 @@
 package cloud.techstar.jisho.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -15,7 +13,6 @@ import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.models.Words;
 
 public class FavListAdapter extends RecyclerView.Adapter<FavListAdapter.ViewHolder> {
-    private final Context context;
     private List<Words> words;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -37,7 +34,7 @@ public class FavListAdapter extends RecyclerView.Adapter<FavListAdapter.ViewHold
     }
 
     public FavListAdapter(Context context, List<Words> words) {
-        this.context = context;
+        Context context1 = context;
         this.words = words;
     }
 

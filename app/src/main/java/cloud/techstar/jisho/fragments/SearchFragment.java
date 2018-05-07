@@ -26,14 +26,9 @@ import cloud.techstar.jisho.adapter.WordSuggestionsAdapter;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.models.Words;
 
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-
 public class SearchFragment extends Fragment {
 
-    private WordTable wordTable;
-    private Handler mHandler;
     private MaterialSearchBar searchBar;
-    private List<Words> words = new ArrayList<>();
     private WordSuggestionsAdapter wordSuggestionsAdapter;
 
     public static android.app.Fragment newInstance() {
@@ -53,9 +48,9 @@ public class SearchFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
         searchBar = (MaterialSearchBar) root.findViewById(R.id.searchBar);
         wordSuggestionsAdapter = new WordSuggestionsAdapter(inflater);
-        wordTable = new WordTable();
-        mHandler = new Handler(Looper.getMainLooper());
-        words = wordTable.selectAll();
+        WordTable wordTable = new WordTable();
+        Handler mHandler = new Handler(Looper.getMainLooper());
+        List<Words> words = wordTable.selectAll();
         searchBar.setMaxSuggestionCount(2);
         searchBar.setHint("Find words..");
 

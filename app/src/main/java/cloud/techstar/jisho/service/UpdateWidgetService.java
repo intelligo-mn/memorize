@@ -4,16 +4,12 @@ import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.RemoteViews;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import cloud.techstar.jisho.R;
-import cloud.techstar.jisho.activity.WordWidget;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.models.Words;
 
