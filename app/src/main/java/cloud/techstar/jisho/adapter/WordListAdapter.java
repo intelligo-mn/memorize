@@ -24,19 +24,11 @@ import cloud.techstar.jisho.models.Words;
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
     private Context context;
     private List<Words> words;
-    private TextToSpeech kanaSpeech;
 
     public WordListAdapter(Context context, List<Words> words) {
         this.context = context;
         this.words = words;
-        kanaSpeech = new TextToSpeech(AppMain.getContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    kanaSpeech.setLanguage(Locale.JAPAN);
-                }
-            }
-        });
+
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -65,8 +57,6 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.word_recycler_item, parent, false);
         WordListAdapter.ViewHolder vh = new WordListAdapter.ViewHolder(v);
-
-
         return vh;
     }
 
@@ -75,19 +65,6 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         holder.kanjiText.setText(words.get(position).getKanji());
         holder.characterText.setText(words.get(position).getCharacter());
         holder.meaningText.setText(words.get(position).getMeaning());
-
-//        holder.favButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Words word = words.get(position);
-//                word.setIsFavorite("true");
-//                wordTable.update(word);
-//                Snackbar.make(v, "Added to favorite", Snackbar.LENGTH_SHORT)
-//                        .setAction("Undo", null).show();
-//                kanaSpeech.speak("はい", TextToSpeech.QUEUE_FLUSH, null);
-//            }
-//        });
-
     }
 
     @Override

@@ -131,4 +131,20 @@ public class Words {
     public void setCreated(String created) {
         this.created = created;
     }
+
+    @Override
+    public String toString() {
+        return "Words{" +
+                "id='" + id + '\'' +
+                ", character='" + character + '\'' +
+                ", meaning='" + meaning + '\'' +
+                ", meaningMon='" + meaningMon + '\'' +
+                ", kanji='" + kanji + '\'' +
+                ", partOfSpeech='" + partOfSpeech + '\'' +
+                ", level='" + level + '\'' +
+                ", isMemorize='" + isMemorize + '\'' +
+                ", isFavorite='" + isFavorite + '\'' +
+                ", created='" + created + '\'' +
+                '}';
+    }
 }

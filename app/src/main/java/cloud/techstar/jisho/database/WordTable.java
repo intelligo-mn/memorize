@@ -92,6 +92,8 @@ public class WordTable {
         word.setPartOfSpeech(cursor.getString(Words.WORDS_PART_OF_SPEECH_INDEX));
         word.setLevel(cursor.getString(Words.WORDS_LEVEL_INDEX));
         word.setIsMemorize(cursor.getString(Words.WORDS_IS_MEMORIZE_INDEX));
+        word.setIsFavorite(cursor.getString(Words.WORDS_IS_FAVORITE_INDEX));
+        word.setCreated(cursor.getString(Words.WORDS_CREATED_INDEX));
         cursor.close();
         DatabaseManager.getInstance().closeDatabase();
         return word;
