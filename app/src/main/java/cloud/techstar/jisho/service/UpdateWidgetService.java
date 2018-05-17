@@ -41,6 +41,7 @@ public class UpdateWidgetService extends Service {
                     remoteViews.setTextViewText(R.id.widget_character, qList.get(nextInt).getCharacter());
                     remoteViews.setTextViewText(R.id.widget_meaning, qList.get(nextInt).getMeaning());
                     remoteViews.setTextViewText(R.id.widget_meaning_mn, qList.get(nextInt).getMeaningMon());
+                    remoteViews.setTextViewText(R.id.widget_kanji, qList.get(nextInt).getKanji());
                     appWidgetManager.updateAppWidget(widgetId, remoteViews);
                 }
                 stopSelf();

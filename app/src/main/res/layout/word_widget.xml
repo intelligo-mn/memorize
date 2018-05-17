@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:id="@+id/widget_layout"
     android:orientation="vertical"
     android:layout_gravity="center"
+    android:layout_margin="20dp"
     android:layout_height="wrap_content">
 
     <RelativeLayout
@@ -12,10 +14,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/widget_kanji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/japan_character"
+            android:textSize="60sp"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:textAlignment="center">
             <TextView
                 android:id="@+id/widget_character"
                 android:layout_width="wrap_content"
@@ -44,6 +57,7 @@
                     android:textStyle="italic"/>
             </LinearLayout>
         </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>
