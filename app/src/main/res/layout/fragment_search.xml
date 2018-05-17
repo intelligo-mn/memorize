@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             app:mt_navIconEnabled="true"
-            app:mt_placeholder="Search words" />
+            app:mt_placeholder="Хайх" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/word_recycler_view"
             android:scrollbars="vertical"

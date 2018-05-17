@@ -1,11 +1,15 @@
 <resources>
-    <string name="app_name">Jisho</string>
-    <string name="search">Search</string>
-    <string name="favorite">Favorite</string>
-    <string name="menu">Menu</string>
-    <string name="jisho">Jisho</string>
-    <string name="japan_character">Japan character</string>
-    <string name="english_meaning">English meaning</string>
-    <string name="mongolian_meaning">Mongolian meaning</string>
+    <string name="app_name">Япон ханз</string>
+    <string name="search">Хайх</string>
+    <string name="favorite">Таалагдсан</string>
+    <string name="menu">Цэс</string>
+    <string name="jisho">Япон ханз</string>
+    <string name="japan_character">Япон үг</string>
+    <string name="english_meaning">Англи орчуулга</string>
+    <string name="mongolian_meaning">Монгол орчуулга</string>
+    <string name="meaning">Орчуулга</string>
+    <string name="tags">Шошго</string>
+    <string name="search_more">Дэлгэрэнгүй хайх</string>
+    <string name="kanji">Ханз</string>
 
 </resources>

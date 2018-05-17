@@ -35,7 +35,7 @@ public class WordSuggestionsAdapter extends SuggestionsAdapter<Words, WordSugges
     @Override
     public void onBindSuggestionHolder(Words suggestion, SuggestionHolder holder, int position) {
         holder.title.setText(suggestion.getCharacter());
-        holder.subtitle.setText("The meaning is " + suggestion.getMeaning());
+        holder.subtitle.setText("орчуулга нь " + suggestion.getMeaning());
     }
 
 

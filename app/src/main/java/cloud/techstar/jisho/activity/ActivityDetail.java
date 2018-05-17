@@ -43,8 +43,8 @@ public class ActivityDetail extends AppCompatActivity {
 
         headKanji.setText(word.getKanji());
         headHiragana.setText(word.getCharacter());
-        meaning.setText(word.getMeaning());
-        meaningMn.setText(word.getMeaningMon());
+        meaning.setText("\u2022 ".concat(word.getMeaning()));
+        meaningMn.setText("\u2022 ".concat(word.getMeaningMon()));
         partOfSpeech.setText(word.getPartOfSpeech());
         level.setText(word.getLevel());
         kanji.setText(word.getKanji());

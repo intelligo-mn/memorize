@@ -55,7 +55,6 @@
             android:layout_height="match_parent"
             android:textSize="27sp"
             android:padding="5dp"
-            android:text="Demo"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

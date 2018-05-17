@@ -55,7 +55,7 @@ public class SearchFragment extends Fragment {
         Handler mHandler = new Handler(Looper.getMainLooper());
         List<Words> words = wordTable.selectAll();
         searchBar.setMaxSuggestionCount(2);
-        searchBar.setHint("Find words..");
+        searchBar.setHint("Хайх үгээ оруул..");
         searchBar.setCustomSuggestionAdapter(wordSuggestionsAdapter);
 
         searchBar.addTextChangeListener(new TextWatcher() {
