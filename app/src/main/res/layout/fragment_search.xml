@@ -19,19 +19,22 @@
         </FrameLayout>
 
         <com.mancj.materialsearchbar.MaterialSearchBar
-            style="@style/MaterialSearchBarLight"
             android:id="@+id/searchBar"
-            app:mt_navIconEnabled="true"
-            app:mt_placeholder="Search words"
-            app:mt_searchBarColor="@color/colorPrimary"
-            app:mt_hintColor="@color/greyple"
-            app:mt_dividerColor="@color/greyple"
-            app:mt_textColor="@color/greyple"
-            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
-            />
+            app:mt_backIconTint="@color/colorAccent"
+            app:mt_dividerColor="@color/colorAccent"
+            app:mt_searchIconTint="@color/colorAccent"
+            app:mt_navIconTint="@color/colorAccent"
+            app:mt_clearIconTint="@color/colorAccent"
+            app:mt_hintColor="@color/colorAccent"
+            app:mt_navIconEnabled="true"
+            app:mt_placeholder="Search words"
+            app:mt_placeholderColor="@color/colorAccent"
+            app:mt_searchBarColor="@color/colorPrimary"
+            app:mt_searchIconDrawable="@drawable/ic_search"
+            app:mt_textColor="@color/colorAccent" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/word_recycler_view"
             android:scrollbars="vertical"

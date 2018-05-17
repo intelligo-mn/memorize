@@ -1,6 +1,7 @@
 package cloud.techstar.jisho.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -15,13 +16,29 @@ import java.util.Locale;
 
 import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.R;
+import cloud.techstar.jisho.activity.ActivityDetail;
+import cloud.techstar.jisho.activity.MainActivity;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.models.Words;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
+    private Context context;
     private List<Words> words;
     private WordTable wordTable;
     private TextToSpeech kanaSpeech;
+
+    public WordListAdapter(Context context, List<Words> words) {
+        this.context = context;
+        this.words = words;
+        kanaSpeech = new TextToSpeech(AppMain.getContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    kanaSpeech.setLanguage(Locale.JAPAN);
+                }
+            }
+        });
+    }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView characterText;
@@ -40,22 +57,11 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
+            Intent intent = new Intent(context, ActivityDetail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         }
     }
-
-    public WordListAdapter(Context context, List<Words> words) {
-        Context context1 = context;
-        this.words = words;
-        kanaSpeech = new TextToSpeech(AppMain.getContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    kanaSpeech.setLanguage(Locale.JAPAN);
-                }
-            }
-        });
-    }
-
     @Override
     public WordListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
