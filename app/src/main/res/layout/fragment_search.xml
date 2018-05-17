@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.SearchFragment">
     <LinearLayout
@@ -13,8 +13,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/transparentBlack">
+            android:layout_height="match_parent">
 
         </FrameLayout>
 
@@ -23,18 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
-            app:mt_backIconTint="@color/colorAccent"
-            app:mt_dividerColor="@color/colorAccent"
-            app:mt_searchIconTint="@color/colorAccent"
-            app:mt_navIconTint="@color/colorAccent"
-            app:mt_clearIconTint="@color/colorAccent"
-            app:mt_hintColor="@color/colorAccent"
             app:mt_navIconEnabled="true"
-            app:mt_placeholder="Search words"
-            app:mt_placeholderColor="@color/colorAccent"
-            app:mt_searchBarColor="@color/colorPrimary"
-            app:mt_searchIconDrawable="@drawable/ic_search"
-            app:mt_textColor="@color/colorAccent" />
+            app:mt_placeholder="Search words" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/word_recycler_view"
             android:scrollbars="vertical"

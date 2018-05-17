@@ -6,4 +6,10 @@
     <color name="transparent">#00000000</color>
     <color name="white">#FAFAFA</color>
     <color name="greyple">#99AAB5</color>
+
+    <color name="intelligoBlack">#2C2F33</color>
+    <color name="intelligoDark">#23272A</color>
+    <color name="intelligoBlurple">#7289da</color>
+    <color name="intelligoWhite">#FAFAFA</color>
+    <color name="intelligoGreyple">#99AAB5</color>
 </resources>

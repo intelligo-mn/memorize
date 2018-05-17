@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
     tools:context=".activity.MainActivity"
     android:orientation="vertical">
 
@@ -21,8 +20,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
-        android:background="@color/colorPrimary"
-        app:itemTextColor="@color/colorAccent"
-        app:itemIconTint="@color/colorAccent"
         app:menu="@menu/bottom_menu" />
 </RelativeLayout>

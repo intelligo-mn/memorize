@@ -24,7 +24,6 @@ import cloud.techstar.jisho.models.Words;
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
     private Context context;
     private List<Words> words;
-    private WordTable wordTable;
     private TextToSpeech kanaSpeech;
 
     public WordListAdapter(Context context, List<Words> words) {
@@ -41,18 +40,15 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private TextView kanjiText;
         private TextView characterText;
         private TextView meaningText;
-        private TextView meaningMnText;
-        private ImageButton favButton;
         private ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
-            wordTable = new WordTable();
+            kanjiText = v.findViewById(R.id.kanji_text);
             characterText = v.findViewById(R.id.character_text);
             meaningText = v.findViewById(R.id.meaning_text);
-            meaningMnText = v.findViewById(R.id.meaning_mn_text);
-            favButton = v.findViewById(R.id.fav_button);
         }
 
         @Override
@@ -75,24 +71,21 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final WordListAdapter.ViewHolder holder, final int position) {
+        holder.kanjiText.setText(words.get(position).getKanji());
         holder.characterText.setText(words.get(position).getCharacter());
         holder.meaningText.setText(words.get(position).getMeaning());
-        holder.meaningMnText.setText(words.get(position).getMeaningMon());
-        if (words.get(position).getIsFavorite().equals("true")) {
-            holder.favButton.setImageResource(R.drawable.ic_favorite_full);
-        }
 
-        holder.favButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Words word = words.get(position);
-                word.setIsFavorite("true");
-                wordTable.update(word);
-                Snackbar.make(v, "Added to favorite", Snackbar.LENGTH_SHORT)
-                        .setAction("Undo", null).show();
-                kanaSpeech.speak("はい", TextToSpeech.QUEUE_FLUSH, null);
-            }
-        });
+//        holder.favButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Words word = words.get(position);
+//                word.setIsFavorite("true");
+//                wordTable.update(word);
+//                Snackbar.make(v, "Added to favorite", Snackbar.LENGTH_SHORT)
+//                        .setAction("Undo", null).show();
+//                kanaSpeech.speak("はい", TextToSpeech.QUEUE_FLUSH, null);
+//            }
+//        });
 
     }
 
