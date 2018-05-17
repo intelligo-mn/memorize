@@ -55,6 +55,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         public void onClick(View view) {
             Intent intent = new Intent(context, ActivityDetail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("word_id", words.get(this.getAdapterPosition()).getId());
             context.startActivity(intent);
         }
     }

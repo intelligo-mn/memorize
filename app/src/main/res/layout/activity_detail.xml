@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:id="@+id/background"
     tools:context=".activity.ActivityDetail">
@@ -17,19 +16,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvJapanese"
+            android:id="@+id/header_kanji"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            tools:text="気をつけて" />
+            android:textSize="30sp"
+            android:textStyle="bold"
+            tools:text="@string/app_name"/>
 
         <TextView
-            android:id="@+id/tvHiragana"
+            android:id="@+id/header_hiragana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            tools:text="きをつけて" />
+            android:textSize="25sp"
+            tools:text="@string/app_name"/>
 
     </LinearLayout>
 
@@ -37,8 +36,6 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -51,36 +48,107 @@
                 android:layout_height="150dp"
                 android:clickable="false" />
 
-            <FrameLayout
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp">
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
                 <ImageView
                     android:id="@+id/ivCommon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|top"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
                     android:src="@drawable/ic_indicator_dot" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:layout_margin="10dp">
                     <LinearLayout
-                        android:id="@+id/sensesContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical" />
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/tvInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="12sp"
+                            android:text="information" />
+
+                        <TextView
+                            android:id="@+id/detail_meaning"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            tools:text="Meaning" />
+
+                        <TextView
+                            android:id="@+id/detail_meaning_mn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            tools:text="Meaning" />
+
+
+                        <TextView
+                            android:id="@+id/tvTags"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="12sp"
+                            android:text="Tags"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/detail_part_of"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Check お陰で"
+                                android:padding="5dp"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:background="@drawable/ic_round_rectangle" />
+
+                            <TextView
+                                android:id="@+id/detail_level"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/ic_round_rectangle"
+                                android:padding="5dp"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:text="Check お陰で" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/detail_see_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:padding="5dp"
+                            android:background="@drawable/ic_round_rectangle_second"
+                            android:text="See Inflections"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/tvKanjis"
                         android:layout_width="wrap_content"
@@ -89,30 +157,24 @@
                         android:layout_marginTop="5dp"
                         android:text="Kanji"
                         android:textColor="@color/greyple"
-                        android:textSize="16sp"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
-
-                    <LinearLayout
-                        android:id="@+id/kanjiContainer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal" />
-
-                    <TextView
-                        android:id="@+id/tvOtherForms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Other forms"
-                        android:textColor="@color/greyple"
                         android:textSize="16sp" />
+                    <android.support.v7.widget.CardView
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp">
+
+                        <TextView android:id="@+id/detail_kanji"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="行"
+                            android:textSize="24sp"
+                            android:padding="5dp"/>
+
+                    </android.support.v7.widget.CardView>
 
                 </LinearLayout>
-            </FrameLayout>
+            </android.support.v7.widget.CardView>
 
             <Space
                 android:layout_width="match_parent"
@@ -121,33 +183,6 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <RelativeLayout android:id="@+id/extraToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
-        android:alpha="0.0"
-        android:background="@color/colorPrimary"
-        tools:alpha="1.0">
-
-        <TextView android:id="@+id/tvExtraJapanese"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="気をつけて"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"/>
-
-        <TextView android:id="@+id/tvExtraHiragana"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="きをつけて"
-            android:textSize="11sp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/tvExtraJapanese"
-            android:textColor="@color/white"/>
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -170,8 +205,7 @@
             android:layout_alignParentRight="true"
             android:background="@null"
             app:srcCompat="@drawable/ic_favorite"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textAllCaps="false" />
 
     </RelativeLayout>
 

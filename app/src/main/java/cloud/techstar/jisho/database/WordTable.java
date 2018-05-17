@@ -61,7 +61,7 @@ public class WordTable {
         }
     }
 
-    public Words select(int id) {
+    public Words select(String id) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         if (db == null) {
             return null;

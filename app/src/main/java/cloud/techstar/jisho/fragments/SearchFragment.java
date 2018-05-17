@@ -56,8 +56,6 @@ public class SearchFragment extends Fragment {
         List<Words> words = wordTable.selectAll();
         searchBar.setMaxSuggestionCount(2);
         searchBar.setHint("Find words..");
-
-        wordSuggestionsAdapter.setSuggestions(words);
         searchBar.setCustomSuggestionAdapter(wordSuggestionsAdapter);
 
         searchBar.addTextChangeListener(new TextWatcher() {
