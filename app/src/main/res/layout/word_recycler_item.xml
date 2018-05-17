@@ -13,20 +13,13 @@
     android:layout_marginTop="5dp"
     card_view:cardCornerRadius="0dp"
     app:cardElevation="0dp">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         >
-        <TextView
-            android:id="@+id/kanji_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="27sp"
-            android:padding="5dp"
-            android:textStyle="bold"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -55,5 +48,14 @@
                     android:textStyle="italic"/>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/kanji_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="27sp"
+            android:padding="5dp"
+            android:text="Demo"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>
