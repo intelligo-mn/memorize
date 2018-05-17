@@ -65,14 +65,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true">
                 <ImageButton
-                    android:id="@+id/speech_button"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@color/transparent"
-                    card_view:srcCompat="@drawable/ic_favorite"
-                    android:layout_alignParentEnd="true" />
-                <ImageButton
                     android:id="@+id/fav_button"
                     android:layout_width="60dp"
                     android:layout_height="60dp"

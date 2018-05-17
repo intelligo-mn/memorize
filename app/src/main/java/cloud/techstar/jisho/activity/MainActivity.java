@@ -1,7 +1,9 @@
 package cloud.techstar.jisho.activity;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.support.annotation.NavigationRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.content, SearchFragment.newInstance()); // newInstance() is a static factory method.
-        transaction.commit();
+
+        setFragment(SearchFragment.newInstance());
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -34,25 +34,23 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_search:
-                    FragmentManager manager = getFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.content, SearchFragment.newInstance()); // newInstance() is a static factory method.
-                    transaction.commit();
+                    setFragment(SearchFragment.newInstance());
                     return true;
                 case R.id.navigation_favorite:
-                    FragmentManager newsManager = getFragmentManager();
-                    FragmentTransaction transaction1 = newsManager.beginTransaction();
-                    transaction1.replace(R.id.content, FavoriteFragment.newInstance()); // newInstance() is a static factory method.
-                    transaction1.commit();
+                    setFragment(FavoriteFragment.newInstance());
                     return true;
                 case R.id.navigation_options:
-                    FragmentManager projectManager = getFragmentManager();
-                    FragmentTransaction transaction2 = projectManager.beginTransaction();
-                    transaction2.replace(R.id.content, OptionsFragment.newInstance()); // newInstance() is a static factory method.
-                    transaction2.commit();
+                    setFragment(OptionsFragment.newInstance());
                     return true;
             }
             return false;
         }
     };
+
+    private void setFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.content, fragment); // newInstance() is a static factory method.
+        transaction.commit();
+    }
 }
