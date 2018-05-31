@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="title">
+        <item>@string/menu_new_word</item>
+        <item>@string/menu_memorize</item>
+        <item>@string/menu_history</item>
+        <item>@string/menu_language</item>
+        <item>@string/menu_download</item>
+        <item>@string/menu_about</item>
+        <item>@string/menu_license</item>
+    </string-array>
+
+    <string-array name="subtitle">
+        <item>@string/menu_desc_new</item>
+        <item>@string/menu_desc_memorize</item>
+        <item>@string/menu_desc_history</item>
+        <item>@string/menu_desc_language</item>
+        <item>@string/menu_desc_download</item>
+        <item>@string/menu_desc_about</item>
+        <item>@string/menu_desc_license</item>
+    </string-array>
+
+</resources>

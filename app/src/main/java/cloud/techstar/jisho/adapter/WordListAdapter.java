@@ -2,23 +2,16 @@ package cloud.techstar.jisho.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.speech.tts.TextToSpeech;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Locale;
 
-import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.activity.ActivityDetail;
-import cloud.techstar.jisho.activity.MainActivity;
-import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.models.Words;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
@@ -55,7 +48,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     public WordListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.word_recycler_item, parent, false);
+                .inflate(R.layout.item_word_recycler, parent, false);
         WordListAdapter.ViewHolder vh = new WordListAdapter.ViewHolder(v);
         return vh;
     }

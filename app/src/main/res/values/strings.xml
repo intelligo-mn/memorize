@@ -12,4 +12,20 @@
     <string name="search_more">Дэлгэрэнгүй хайх</string>
     <string name="kanji">Ханз</string>
 
+    <string name="menu_new_word">Шинэ үг</string>
+    <string name="menu_memorize">Цээжилсэн үг</string>
+    <string name="menu_history">Түүх</string>
+    <string name="menu_language">Хэл солих</string>
+    <string name="menu_download">Үгийн сан татах</string>
+    <string name="menu_about">Тухай</string>
+    <string name="menu_license">Лиценз</string>
+
+    <string name="menu_desc_new">Шинэ үг нэмэх</string>
+    <string name="menu_desc_memorize">Цээжилсэн үгийн жагсаалтыг харах</string>
+    <string name="menu_desc_history">Хайлтын түүх харах</string>
+    <string name="menu_desc_language">Хэл солих</string>
+    <string name="menu_desc_download">Сэрвэрээс үгийн сан татах</string>
+    <string name="menu_desc_about">Програмын тухай</string>
+    <string name="menu_desc_license">License Information</string>
+
 </resources>

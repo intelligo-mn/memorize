@@ -28,7 +28,7 @@ public class WordSuggestionsAdapter extends SuggestionsAdapter<Words, WordSugges
 
     @Override
     public SuggestionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = getLayoutInflater().inflate(R.layout.suggestion_item, parent, false);
+        View view = getLayoutInflater().inflate(R.layout.item_suggestion, parent, false);
         return new SuggestionHolder(view);
     }
 
