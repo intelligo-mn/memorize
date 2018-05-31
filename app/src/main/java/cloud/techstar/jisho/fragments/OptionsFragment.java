@@ -24,13 +24,13 @@ public class OptionsFragment extends Fragment {
     String[] subtitleId;
 
     Integer[] imageId = {
+            R.drawable.ic_add_list,
+            R.drawable.ic_memory,
+            R.drawable.ic_history,
+            R.drawable.ic_language,
+            R.drawable.ic_cloud_download,
             R.drawable.ic_menu,
-            R.drawable.ic_menu,
-            R.drawable.ic_menu,
-            R.drawable.ic_menu,
-            R.drawable.ic_menu,
-            R.drawable.ic_menu,
-            R.drawable.ic_menu
+            R.drawable.ic_public
     };
     public static OptionsFragment newInstance() {
         OptionsFragment fragment = new OptionsFragment();

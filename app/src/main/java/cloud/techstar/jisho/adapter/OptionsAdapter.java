@@ -54,10 +54,10 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(context, ActivityDetail.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-            context.startActivity(intent);
+//            Intent intent = new Intent(context, ActivityDetail.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//            context.startActivity(intent);
         }
     }
 
