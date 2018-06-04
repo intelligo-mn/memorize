@@ -29,7 +29,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity implements SplashContract.View{
 
     private Handler mHandler;
 
@@ -129,5 +129,10 @@ public class SplashActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public void setPresenter(SplashContract.Presenter presenter) {
+
     }
 }

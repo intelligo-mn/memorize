@@ -23,7 +23,7 @@ import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.database.Words;
 
-public class WordsFragment extends Fragment {
+public class WordsFragment extends Fragment implements WordsContract.View{
 
     private MaterialSearchBar searchBar;
     private WordSuggestionsAdapter wordSuggestionsAdapter;
@@ -81,5 +81,10 @@ public class WordsFragment extends Fragment {
         RecyclerView.Adapter mAdapter = new WordsAdapter(AppMain.getContext(), words);
         mRecyclerView.setAdapter(mAdapter);
         return root;
+    }
+
+    @Override
+    public void setPresenter(WordsContract.Presenter presenter) {
+
     }
 }

@@ -13,7 +13,7 @@ import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.database.Words;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements DetailContract.View{
 
     private WordTable wordTable;
     private Words word;
@@ -75,5 +75,10 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void setPresenter(DetailContract.Presenter presenter) {
+
     }
 }

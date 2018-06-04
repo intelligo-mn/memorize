@@ -18,7 +18,7 @@ import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.database.Words;
 
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends Fragment implements FavoriteContract.View{
 
     public static FavoriteFragment newInstance() {
         FavoriteFragment fragment = new FavoriteFragment();
@@ -45,5 +45,10 @@ public class FavoriteFragment extends Fragment {
         RecyclerView.Adapter mAdapter = new FavoriteAdapter(AppMain.getContext(), words);
         mRecyclerView.setAdapter(mAdapter);
         return root;
+    }
+
+    @Override
+    public void setPresenter(FavoriteContract.Presenter presenter) {
+
     }
 }

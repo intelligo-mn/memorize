@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.R;
 
-public class OptionsFragment extends Fragment {
+public class OptionsFragment extends Fragment implements OptionsContract.View{
 
     String[] titleId;
     String[] subtitleId;
@@ -53,5 +53,10 @@ public class OptionsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    @Override
+    public void setPresenter(OptionsContract.Presenter presenter) {
+
     }
 }
