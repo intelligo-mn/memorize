@@ -1,4 +1,4 @@
-package cloud.techstar.jisho.service;
+package cloud.techstar.jisho.widget;
 
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -11,7 +11,7 @@ import java.util.Random;
 
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.models.Words;
+import cloud.techstar.jisho.database.Words;
 
 public class UpdateWidgetService extends Service {
 

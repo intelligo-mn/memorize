@@ -1,4 +1,4 @@
-package cloud.techstar.jisho.adapter;
+package cloud.techstar.jisho.words;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 import java.util.ArrayList;
 
 import cloud.techstar.jisho.R;
-import cloud.techstar.jisho.models.Words;
+import cloud.techstar.jisho.database.Words;
 
 public class WordSuggestionsAdapter extends SuggestionsAdapter<Words, WordSuggestionsAdapter.SuggestionHolder> {
 

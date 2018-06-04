@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import cloud.techstar.jisho.models.Words;
-
 public class WordTable {
 
     public WordTable() {

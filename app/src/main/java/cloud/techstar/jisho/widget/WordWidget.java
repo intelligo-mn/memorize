@@ -1,4 +1,4 @@
-package cloud.techstar.jisho.activity;
+package cloud.techstar.jisho.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import cloud.techstar.jisho.R;
-import cloud.techstar.jisho.service.UpdateWidgetService;
 
 public class WordWidget extends AppWidgetProvider {
 

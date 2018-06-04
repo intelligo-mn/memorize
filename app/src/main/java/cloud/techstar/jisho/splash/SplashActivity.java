@@ -1,4 +1,4 @@
-package cloud.techstar.jisho.activity;
+package cloud.techstar.jisho.splash;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -16,11 +16,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import cloud.techstar.jisho.AppMain;
+import cloud.techstar.jisho.MainActivity;
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.utils.ConnectionDetector;
 import cloud.techstar.jisho.utils.JishoConstant;
 import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.models.Words;
+import cloud.techstar.jisho.database.Words;
 import cloud.techstar.jisho.utils.PrefManager;
 import okhttp3.Call;
 import okhttp3.Callback;

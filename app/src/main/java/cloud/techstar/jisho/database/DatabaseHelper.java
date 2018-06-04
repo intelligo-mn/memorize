@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.orhanobut.logger.Logger;
 
 import cloud.techstar.jisho.AppMain;
-import cloud.techstar.jisho.models.Words;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

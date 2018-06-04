@@ -1,19 +1,15 @@
-package cloud.techstar.jisho.adapter;
+package cloud.techstar.jisho.options;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import cloud.techstar.jisho.R;
-import cloud.techstar.jisho.activity.ActivityDetail;
 
 public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHolder> {
 
@@ -54,7 +50,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
-//            Intent intent = new Intent(context, ActivityDetail.class);
+//            Intent intent = new Intent(context, DetailActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //
 //            context.startActivity(intent);

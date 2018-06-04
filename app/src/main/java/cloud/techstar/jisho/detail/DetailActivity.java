@@ -1,23 +1,19 @@
-package cloud.techstar.jisho.activity;
+package cloud.techstar.jisho.detail;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 
-import org.w3c.dom.Text;
-
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.models.Words;
+import cloud.techstar.jisho.database.Words;
 
-public class ActivityDetail extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity {
 
     private WordTable wordTable;
     private Words word;
