@@ -21,7 +21,7 @@ import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.utils.ConnectionDetector;
 import cloud.techstar.jisho.utils.JishoConstant;
 import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.database.Words;
+import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.utils.PrefManager;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -101,7 +101,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
                                 wordTable.deleteAll();
 
                                 for (int i = 0; i < memorize.length(); i++) {
-                                    Words words = new Words();
+                                    Word words = new Word();
                                     words.setId(memorize.getJSONObject(i).getString("_id"));
                                     words.setCharacter(memorize.getJSONObject(i).getString("character"));
                                     words.setMeaning(memorize.getJSONObject(i).getString("meanings"));
@@ -115,7 +115,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
                                     wordTable.insert(words);
                                 }
                             } else {
-                                Toast.makeText(SplashActivity.this, "Words not found", Toast.LENGTH_LONG)
+                                Toast.makeText(SplashActivity.this, "Word not found", Toast.LENGTH_LONG)
                                         .show();
                             }
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));

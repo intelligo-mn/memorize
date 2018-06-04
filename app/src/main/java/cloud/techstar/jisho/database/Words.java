@@ -1,45 +1,57 @@
 package cloud.techstar.jisho.database;
 
-public class Words {
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-    public static final String TABLE_WORDS       = "words";
-    public static final String WORDS_ID          = "id";
-    public static final String WORDS_CHARACTER   = "character";
-    public static final String WORDS_MEANING     = "meaning";
-    public static final String WORDS_MEANING_MN  = "meaningMon";
-    public static final String WORDS_KANJI       = "kanji";
-    public static final String WORDS_PART_OF_SPEECH = "partOfSpeech";
-    public static final String WORDS_LEVEL       = "level";
-    public static final String WORDS_IS_MEMORIZE = "isMemorize";
-    public static final String WORDS_IS_FAVORITE = "isFavorite";
-    public static final String WORDS_CREATED = "created";
+@Entity(tableName = "words")
+public final class Words {
 
-    public static final int WORDS_ID_INDEX         = 0;
-    public static final int WORDS_CHARACTER_INDEX  = 1;
-    public static final int WORDS_MEANING_INDEX    = 2;
-    public static final int WORDS_MEANING_MN_INDEX = 3;
-    public static final int WORDS_KANJI_INDEX      = 4;
-    public static final int WORDS_PART_OF_SPEECH_INDEX = 5;
-    public static final int WORDS_LEVEL_INDEX      = 6;
-    public static final int WORDS_IS_MEMORIZE_INDEX = 7;
-    public static final int WORDS_IS_FAVORITE_INDEX = 8;
-    public static final int WORDS_CREATED_INDEX = 9;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private final String id;
 
-    private String id;
-    private String character;
-    private String meaning;
-    private String meaningMon;
-    private String kanji;
-    private String partOfSpeech;
-    private String level;
-    private String isMemorize;
-    private String isFavorite;
-    private String created;
+    @NonNull
+    @ColumnInfo(name = "character")
+    private final String character;
 
-    public Words() {
-    }
+    @NonNull
+    @ColumnInfo(name = "meaning")
+    private final String meaning;
 
-    public Words(String id, String character, String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String isMemorize, String isFavorite, String created) {
+    @Nullable
+    @ColumnInfo(name = "meaningMon")
+    private final String meaningMon;
+
+    @Nullable
+    @ColumnInfo(name = "kanji")
+    private final String kanji;
+
+    @Nullable
+    @ColumnInfo(name = "partOfSpeech")
+    private final String partOfSpeech;
+
+    @Nullable
+    @ColumnInfo(name = "level")
+    private final String level;
+
+    @Nullable
+    @ColumnInfo(name = "memorized")
+    private final boolean isMemorize;
+
+    @Nullable
+    @ColumnInfo(name = "favorited")
+    private final boolean isFavorite;
+
+    @Nullable
+    @ColumnInfo(name = "created")
+    private final String created;
+
+
+    public Words(String id, String character, String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created) {
         this.id = id;
         this.character = character;
         this.meaning = meaning;
@@ -52,99 +64,53 @@ public class Words {
         this.created = created;
     }
 
+    @NonNull
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    @NonNull
     public String getCharacter() {
         return character;
     }
 
-    public void setCharacter(String character) {
-        this.character = character;
-    }
-
+    @NonNull
     public String getMeaning() {
         return meaning;
     }
 
-    public void setMeaning(String meaning) {
-        this.meaning = meaning;
-    }
-
+    @Nullable
     public String getMeaningMon() {
         return meaningMon;
     }
 
-    public void setMeaningMon(String meaningMon) {
-        this.meaningMon = meaningMon;
-    }
-
+    @Nullable
     public String getKanji() {
         return kanji;
     }
 
-    public void setKanji(String kanji) {
-        this.kanji = kanji;
-    }
-
+    @Nullable
     public String getPartOfSpeech() {
         return partOfSpeech;
     }
 
-    public void setPartOfSpeech(String partOfSpeech) {
-        this.partOfSpeech = partOfSpeech;
-    }
-
+    @Nullable
     public String getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public String getIsMemorize() {
+    @Nullable
+    public boolean isMemorize() {
         return isMemorize;
     }
 
-    public void setIsMemorize(String isMemorize) {
-        this.isMemorize = isMemorize;
-    }
-
-    public String getIsFavorite() {
+    @Nullable
+    public boolean isFavorite() {
         return isFavorite;
     }
 
-    public void setIsFavorite(String isFavorite) {
-        this.isFavorite = isFavorite;
-    }
-
+    @Nullable
     public String getCreated() {
         return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    @Override
-    public String toString() {
-        return "Words{" +
-                "id='" + id + '\'' +
-                ", character='" + character + '\'' +
-                ", meaning='" + meaning + '\'' +
-                ", meaningMon='" + meaningMon + '\'' +
-                ", kanji='" + kanji + '\'' +
-                ", partOfSpeech='" + partOfSpeech + '\'' +
-                ", level='" + level + '\'' +
-                ", isMemorize='" + isMemorize + '\'' +
-                ", isFavorite='" + isFavorite + '\'' +
-                ", created='" + created + '\'' +
-                '}';
     }
 }

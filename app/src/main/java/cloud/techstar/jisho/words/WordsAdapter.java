@@ -11,14 +11,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import cloud.techstar.jisho.R;
+import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.detail.DetailActivity;
-import cloud.techstar.jisho.database.Words;
 
 public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> {
     private Context context;
-    private List<Words> words;
+    private List<Word> words;
 
-    public WordsAdapter(Context context, List<Words> words) {
+    public WordsAdapter(Context context, List<Word> words) {
         this.context = context;
         this.words = words;
 

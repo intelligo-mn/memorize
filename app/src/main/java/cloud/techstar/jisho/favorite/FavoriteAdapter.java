@@ -10,10 +10,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import cloud.techstar.jisho.R;
-import cloud.techstar.jisho.database.Words;
+import cloud.techstar.jisho.database.Word;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
-    private List<Words> words;
+    private List<Word> words;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView characterText;
@@ -33,7 +33,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         }
     }
 
-    public FavoriteAdapter(Context context, List<Words> words) {
+    public FavoriteAdapter(Context context, List<Word> words) {
         Context context1 = context;
         this.words = words;
     }

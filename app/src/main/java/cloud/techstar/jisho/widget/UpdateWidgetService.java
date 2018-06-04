@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Random;
 
 import cloud.techstar.jisho.R;
+import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.database.Words;
 
 public class UpdateWidgetService extends Service {
 
@@ -35,7 +35,7 @@ public class UpdateWidgetService extends Service {
         try {
             if (appWidgetIds.length > 0) {
                 for (int widgetId : appWidgetIds) {
-                    List<Words> qList = wordTable.selectFavorite();
+                    List<Word> qList = wordTable.selectFavorite();
                     int nextInt = random.nextInt(qList.size());
                     RemoteViews remoteViews = new RemoteViews(getPackageName(),	R.layout.word_widget);
                     remoteViews.setTextViewText(R.id.widget_character, qList.get(nextInt).getCharacter());

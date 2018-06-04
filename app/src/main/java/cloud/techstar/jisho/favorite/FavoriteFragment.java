@@ -16,7 +16,7 @@ import java.util.List;
 import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.database.Words;
+import cloud.techstar.jisho.database.Word;
 
 public class FavoriteFragment extends Fragment implements FavoriteContract.View{
 
@@ -36,7 +36,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         View root = inflater.inflate(R.layout.fragment_favorite, container, false);
         WordTable wordTable = new WordTable();
         Handler mHandler = new Handler(Looper.getMainLooper());
-        List<Words> words = wordTable.selectFavorite();
+        List<Word> words = wordTable.selectFavorite();
         final RecyclerView mRecyclerView = root.findViewById(R.id.fav_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(AppMain.getContext());

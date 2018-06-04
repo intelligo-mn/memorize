@@ -10,13 +10,13 @@ import android.widget.TextView;
 import com.orhanobut.logger.Logger;
 
 import cloud.techstar.jisho.R;
+import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.database.Words;
 
 public class DetailActivity extends AppCompatActivity implements DetailContract.View{
 
     private WordTable wordTable;
-    private Words word;
+    private Word word;
     private ImageButton favBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

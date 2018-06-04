@@ -11,24 +11,24 @@ import java.util.List;
 public class WordTable {
 
     public WordTable() {
-        Words word = new Words();
+        Word word = new Word();
     }
 
     public static String create(){
-        return "CREATE TABLE "+ Words.TABLE_WORDS+" (" +
-                Words.WORDS_ID + " TEXT PRIMARY KEY," +
-                Words.WORDS_CHARACTER + " TEXT," +
-                Words.WORDS_MEANING + " TEXT," +
-                Words.WORDS_MEANING_MN + " TEXT," +
-                Words.WORDS_KANJI + " TEXT," +
-                Words.WORDS_PART_OF_SPEECH + " TEXT," +
-                Words.WORDS_LEVEL + " TEXT," +
-                Words.WORDS_IS_MEMORIZE + " TEXT," +
-                Words.WORDS_IS_FAVORITE + " TEXT," +
-                Words.WORDS_CREATED + " TEXT);";
+        return "CREATE TABLE "+ Word.TABLE_WORDS+" (" +
+                Word.WORDS_ID + " TEXT PRIMARY KEY," +
+                Word.WORDS_CHARACTER + " TEXT," +
+                Word.WORDS_MEANING + " TEXT," +
+                Word.WORDS_MEANING_MN + " TEXT," +
+                Word.WORDS_KANJI + " TEXT," +
+                Word.WORDS_PART_OF_SPEECH + " TEXT," +
+                Word.WORDS_LEVEL + " TEXT," +
+                Word.WORDS_IS_MEMORIZE + " TEXT," +
+                Word.WORDS_IS_FAVORITE + " TEXT," +
+                Word.WORDS_CREATED + " TEXT);";
     }
 
-    public void insert(Words word) {
+    public void insert(Word word) {
         if (word == null) {
             return;
         }
@@ -39,17 +39,17 @@ public class WordTable {
         db.beginTransaction();
         try {
             ContentValues cv = new ContentValues();
-            cv.put(Words.WORDS_ID, word.getId());
-            cv.put(Words.WORDS_CHARACTER, word.getCharacter());
-            cv.put(Words.WORDS_MEANING, word.getMeaning());
-            cv.put(Words.WORDS_MEANING_MN, word.getMeaningMon());
-            cv.put(Words.WORDS_KANJI, word.getKanji());
-            cv.put(Words.WORDS_PART_OF_SPEECH, word.getPartOfSpeech());
-            cv.put(Words.WORDS_LEVEL, word.getLevel());
-            cv.put(Words.WORDS_IS_MEMORIZE, word.getIsMemorize());
-            cv.put(Words.WORDS_IS_FAVORITE, word.getIsFavorite());
-            cv.put(Words.WORDS_CREATED, word.getCreated());
-            db.insert(Words.TABLE_WORDS, null, cv);
+            cv.put(Word.WORDS_ID, word.getId());
+            cv.put(Word.WORDS_CHARACTER, word.getCharacter());
+            cv.put(Word.WORDS_MEANING, word.getMeaning());
+            cv.put(Word.WORDS_MEANING_MN, word.getMeaningMon());
+            cv.put(Word.WORDS_KANJI, word.getKanji());
+            cv.put(Word.WORDS_PART_OF_SPEECH, word.getPartOfSpeech());
+            cv.put(Word.WORDS_LEVEL, word.getLevel());
+            cv.put(Word.WORDS_IS_MEMORIZE, word.getIsMemorize());
+            cv.put(Word.WORDS_IS_FAVORITE, word.getIsFavorite());
+            cv.put(Word.WORDS_CREATED, word.getCreated());
+            db.insert(Word.TABLE_WORDS, null, cv);
             db.setTransactionSuccessful();
         } catch (Exception ex){
             ex.printStackTrace();
@@ -59,62 +59,62 @@ public class WordTable {
         }
     }
 
-    public Words select(String id) {
+    public Word select(String id) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         if (db == null) {
             return null;
         }
-        Cursor cursor = db.query(Words.TABLE_WORDS, new String[]{
-                        Words.WORDS_ID,
-                        Words.WORDS_CHARACTER,
-                        Words.WORDS_MEANING,
-                        Words.WORDS_MEANING_MN,
-                        Words.WORDS_KANJI,
-                        Words.WORDS_PART_OF_SPEECH,
-                        Words.WORDS_LEVEL,
-                        Words.WORDS_IS_MEMORIZE,
-                        Words.WORDS_IS_FAVORITE,
-                        Words.WORDS_CREATED
-                }, Words.WORDS_ID + "=?",
+        Cursor cursor = db.query(Word.TABLE_WORDS, new String[]{
+                        Word.WORDS_ID,
+                        Word.WORDS_CHARACTER,
+                        Word.WORDS_MEANING,
+                        Word.WORDS_MEANING_MN,
+                        Word.WORDS_KANJI,
+                        Word.WORDS_PART_OF_SPEECH,
+                        Word.WORDS_LEVEL,
+                        Word.WORDS_IS_MEMORIZE,
+                        Word.WORDS_IS_FAVORITE,
+                        Word.WORDS_CREATED
+                }, Word.WORDS_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (!cursor.moveToFirst()) {
             return null;
         }
 
-        Words word = new Words();
-        word.setId(cursor.getString(Words.WORDS_ID_INDEX));
-        word.setCharacter(cursor.getString(Words.WORDS_CHARACTER_INDEX));
-        word.setMeaning(cursor.getString(Words.WORDS_MEANING_INDEX));
-        word.setMeaningMon(cursor.getString(Words.WORDS_MEANING_MN_INDEX));
-        word.setKanji(cursor.getString(Words.WORDS_KANJI_INDEX));
-        word.setPartOfSpeech(cursor.getString(Words.WORDS_PART_OF_SPEECH_INDEX));
-        word.setLevel(cursor.getString(Words.WORDS_LEVEL_INDEX));
-        word.setIsMemorize(cursor.getString(Words.WORDS_IS_MEMORIZE_INDEX));
-        word.setIsFavorite(cursor.getString(Words.WORDS_IS_FAVORITE_INDEX));
-        word.setCreated(cursor.getString(Words.WORDS_CREATED_INDEX));
+        Word word = new Word();
+        word.setId(cursor.getString(Word.WORDS_ID_INDEX));
+        word.setCharacter(cursor.getString(Word.WORDS_CHARACTER_INDEX));
+        word.setMeaning(cursor.getString(Word.WORDS_MEANING_INDEX));
+        word.setMeaningMon(cursor.getString(Word.WORDS_MEANING_MN_INDEX));
+        word.setKanji(cursor.getString(Word.WORDS_KANJI_INDEX));
+        word.setPartOfSpeech(cursor.getString(Word.WORDS_PART_OF_SPEECH_INDEX));
+        word.setLevel(cursor.getString(Word.WORDS_LEVEL_INDEX));
+        word.setIsMemorize(cursor.getString(Word.WORDS_IS_MEMORIZE_INDEX));
+        word.setIsFavorite(cursor.getString(Word.WORDS_IS_FAVORITE_INDEX));
+        word.setCreated(cursor.getString(Word.WORDS_CREATED_INDEX));
         cursor.close();
         DatabaseManager.getInstance().closeDatabase();
         return word;
     }
 
-    public List<Words> selectAll() {
-        List<Words> words = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + Words.TABLE_WORDS;
+    public List<Word> selectAll() {
+        List<Word> words = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + Word.TABLE_WORDS;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                Words word = new Words();
-                word.setId(cursor.getString(Words.WORDS_ID_INDEX));
-                word.setCharacter(cursor.getString(Words.WORDS_CHARACTER_INDEX));
-                word.setMeaning(cursor.getString(Words.WORDS_MEANING_INDEX));
-                word.setMeaningMon(cursor.getString(Words.WORDS_MEANING_MN_INDEX));
-                word.setKanji(cursor.getString(Words.WORDS_KANJI_INDEX));
-                word.setPartOfSpeech(cursor.getString(Words.WORDS_PART_OF_SPEECH_INDEX));
-                word.setLevel(cursor.getString(Words.WORDS_LEVEL_INDEX));
-                word.setIsMemorize(cursor.getString(Words.WORDS_IS_MEMORIZE_INDEX));
-                word.setIsFavorite(cursor.getString(Words.WORDS_IS_FAVORITE_INDEX));
-                word.setCreated(cursor.getString(Words.WORDS_CREATED_INDEX));
+                Word word = new Word();
+                word.setId(cursor.getString(Word.WORDS_ID_INDEX));
+                word.setCharacter(cursor.getString(Word.WORDS_CHARACTER_INDEX));
+                word.setMeaning(cursor.getString(Word.WORDS_MEANING_INDEX));
+                word.setMeaningMon(cursor.getString(Word.WORDS_MEANING_MN_INDEX));
+                word.setKanji(cursor.getString(Word.WORDS_KANJI_INDEX));
+                word.setPartOfSpeech(cursor.getString(Word.WORDS_PART_OF_SPEECH_INDEX));
+                word.setLevel(cursor.getString(Word.WORDS_LEVEL_INDEX));
+                word.setIsMemorize(cursor.getString(Word.WORDS_IS_MEMORIZE_INDEX));
+                word.setIsFavorite(cursor.getString(Word.WORDS_IS_FAVORITE_INDEX));
+                word.setCreated(cursor.getString(Word.WORDS_CREATED_INDEX));
                 words.add(word);
             } while (cursor.moveToNext());
         }
@@ -123,24 +123,24 @@ public class WordTable {
         return words;
     }
 
-    public List<Words> selectFavorite() {
-        List<Words> words = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + Words.TABLE_WORDS + " WHERE " + Words.WORDS_IS_FAVORITE + " = 'true'" ;
+    public List<Word> selectFavorite() {
+        List<Word> words = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + Word.TABLE_WORDS + " WHERE " + Word.WORDS_IS_FAVORITE + " = 'true'" ;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                Words word = new Words();
-                word.setId(cursor.getString(Words.WORDS_ID_INDEX));
-                word.setCharacter(cursor.getString(Words.WORDS_CHARACTER_INDEX));
-                word.setMeaning(cursor.getString(Words.WORDS_MEANING_INDEX));
-                word.setMeaningMon(cursor.getString(Words.WORDS_MEANING_MN_INDEX));
-                word.setKanji(cursor.getString(Words.WORDS_KANJI_INDEX));
-                word.setPartOfSpeech(cursor.getString(Words.WORDS_PART_OF_SPEECH_INDEX));
-                word.setLevel(cursor.getString(Words.WORDS_LEVEL_INDEX));
-                word.setIsMemorize(cursor.getString(Words.WORDS_IS_MEMORIZE_INDEX));
-                word.setIsFavorite(cursor.getString(Words.WORDS_IS_FAVORITE_INDEX));
-                word.setCreated(cursor.getString(Words.WORDS_CREATED_INDEX));
+                Word word = new Word();
+                word.setId(cursor.getString(Word.WORDS_ID_INDEX));
+                word.setCharacter(cursor.getString(Word.WORDS_CHARACTER_INDEX));
+                word.setMeaning(cursor.getString(Word.WORDS_MEANING_INDEX));
+                word.setMeaningMon(cursor.getString(Word.WORDS_MEANING_MN_INDEX));
+                word.setKanji(cursor.getString(Word.WORDS_KANJI_INDEX));
+                word.setPartOfSpeech(cursor.getString(Word.WORDS_PART_OF_SPEECH_INDEX));
+                word.setLevel(cursor.getString(Word.WORDS_LEVEL_INDEX));
+                word.setIsMemorize(cursor.getString(Word.WORDS_IS_MEMORIZE_INDEX));
+                word.setIsFavorite(cursor.getString(Word.WORDS_IS_FAVORITE_INDEX));
+                word.setCreated(cursor.getString(Word.WORDS_CREATED_INDEX));
                 words.add(word);
             } while (cursor.moveToNext());
         }
@@ -149,7 +149,7 @@ public class WordTable {
         return words;
     }
 
-    public int update(Words word) {
+    public int update(Word word) {
         if (word == null) {
             return -1;
         }
@@ -158,23 +158,23 @@ public class WordTable {
             return -1;
         }
         ContentValues cv = new ContentValues();
-        cv.put(Words.WORDS_ID, word.getId());
-        cv.put(Words.WORDS_CHARACTER, word.getCharacter());
-        cv.put(Words.WORDS_MEANING, word.getMeaning());
-        cv.put(Words.WORDS_MEANING_MN, word.getMeaningMon());
-        cv.put(Words.WORDS_KANJI, word.getKanji());
-        cv.put(Words.WORDS_PART_OF_SPEECH, word.getPartOfSpeech());
-        cv.put(Words.WORDS_LEVEL, word.getLevel());
-        cv.put(Words.WORDS_IS_MEMORIZE, word.getIsMemorize());
-        cv.put(Words.WORDS_IS_FAVORITE, word.getIsFavorite());
-        cv.put(Words.WORDS_CREATED, word.getCreated());
-        int rowCount = db.update(Words.TABLE_WORDS, cv, Words.WORDS_ID + "=?",
+        cv.put(Word.WORDS_ID, word.getId());
+        cv.put(Word.WORDS_CHARACTER, word.getCharacter());
+        cv.put(Word.WORDS_MEANING, word.getMeaning());
+        cv.put(Word.WORDS_MEANING_MN, word.getMeaningMon());
+        cv.put(Word.WORDS_KANJI, word.getKanji());
+        cv.put(Word.WORDS_PART_OF_SPEECH, word.getPartOfSpeech());
+        cv.put(Word.WORDS_LEVEL, word.getLevel());
+        cv.put(Word.WORDS_IS_MEMORIZE, word.getIsMemorize());
+        cv.put(Word.WORDS_IS_FAVORITE, word.getIsFavorite());
+        cv.put(Word.WORDS_CREATED, word.getCreated());
+        int rowCount = db.update(Word.TABLE_WORDS, cv, Word.WORDS_ID + "=?",
                 new String[]{String.valueOf(word.getId())});
         DatabaseManager.getInstance().closeDatabase();
         return rowCount;
     }
 
-    public void delete(Words word) {
+    public void delete(Word word) {
         if (word == null) {
             return;
         }
@@ -182,19 +182,19 @@ public class WordTable {
         if (db == null) {
             return;
         }
-        db.delete(Words.TABLE_WORDS, Words.WORDS_ID + "=?", new String[]{String.valueOf(word.getId())});
+        db.delete(Word.TABLE_WORDS, Word.WORDS_ID + "=?", new String[]{String.valueOf(word.getId())});
         DatabaseManager.getInstance().closeDatabase();
     }
 
     public void deleteAll()
     {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Words.TABLE_WORDS, null, null);
+        db.delete(Word.TABLE_WORDS, null, null);
         DatabaseManager.getInstance().closeDatabase();
     }
 
     public int count() {
-        String query = "SELECT * FROM  " + Words.TABLE_WORDS;
+        String query = "SELECT * FROM  " + Word.TABLE_WORDS;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = db.rawQuery(query, null);
         int count = cursor.getCount();

@@ -21,7 +21,7 @@ import java.util.List;
 import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.database.Words;
+import cloud.techstar.jisho.database.Word;
 
 public class WordsFragment extends Fragment implements WordsContract.View{
 
@@ -48,7 +48,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         wordSuggestionsAdapter = new WordSuggestionsAdapter(inflater);
         WordTable wordTable = new WordTable();
         Handler mHandler = new Handler(Looper.getMainLooper());
-        List<Words> words = wordTable.selectAll();
+        List<Word> words = wordTable.selectAll();
         searchBar.setMaxSuggestionCount(2);
         searchBar.setHint("Хайх үгээ оруул..");
         searchBar.setCustomSuggestionAdapter(wordSuggestionsAdapter);
