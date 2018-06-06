@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.orhanobut.logger.Logger;
-
+@Deprecated
 public class DatabaseManager {
     private Integer mOpenCounter = 0;
 

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.orhanobut.logger.Logger;
 
 import cloud.techstar.jisho.AppMain;
-
+@Deprecated
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int    DATABASE_VERSION = 3;
