@@ -1,4 +1,4 @@
-package cloud.techstar.jisho.database;
+package cloud.techstar.jisho.database.local;
 
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;

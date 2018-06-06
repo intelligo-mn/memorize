@@ -1,9 +1,11 @@
-package cloud.techstar.jisho.database;
+package cloud.techstar.jisho.database.local;
 
 import android.support.annotation.NonNull;
 
-public class WordsRepository implements WordsDataSource {
+import cloud.techstar.jisho.database.Words;
+import cloud.techstar.jisho.database.WordsDataSource;
 
+public class WordsLocalDataSource implements WordsDataSource{
     @Override
     public void getWords(@NonNull LoadWordsCallback callback) {
 
