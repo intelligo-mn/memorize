@@ -2,9 +2,12 @@ package cloud.techstar.jisho.database;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import java.util.UUID;
 
 @Entity(tableName = "words")
 public final class Words {
@@ -50,8 +53,7 @@ public final class Words {
     @ColumnInfo(name = "created")
     private final String created;
 
-
-    public Words(String id, String character, String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created) {
+    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created) {
         this.id = id;
         this.character = character;
         this.meaning = meaning;
@@ -62,6 +64,11 @@ public final class Words {
         this.isMemorize = isMemorize;
         this.isFavorite = isFavorite;
         this.created = created;
+    }
+
+    @Ignore
+    public Words(@NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created) {
+        this(UUID.randomUUID().toString(), character, meaning, meaningMon, kanji, partOfSpeech, level, isMemorize, isFavorite, created);
     }
 
     @NonNull

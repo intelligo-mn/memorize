@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class WordsRepository implements WordsDataSource {
 
     private static  WordsRepository INSTANCE = null;
@@ -49,7 +51,7 @@ public class WordsRepository implements WordsDataSource {
 
     @Override
     public void getWords(@NonNull final LoadWordsCallback callback) {
-
+        checkNotNull(callback);
         // Respond immediately with cache if available and not dirty
         if (cachedWords != null && !mCacheIsDirty) {
             callback.onWordsLoaded(new ArrayList<>(cachedWords.values()));
@@ -76,16 +78,69 @@ public class WordsRepository implements WordsDataSource {
         }
     }
 
-    private void getWordsFromRemoteDataSource(LoadWordsCallback callback) {
+    private void getWordsFromRemoteDataSource(final LoadWordsCallback callback) {
+        checkNotNull(callback);
+        wordsRemoteDataSource.getWords(new LoadWordsCallback() {
+            @Override
+            public void onWordsLoaded(List<Words> words) {
+                refreshCache(words);
+                refreshLocalDataSource(words);
+                callback.onWordsLoaded(new ArrayList<Words>(cachedWords.values()));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
     }
 
     @Override
-    public void getWord(@NonNull String wordId, @NonNull GetWordCallback callback) {
+    public void getWord(@NonNull final String wordId, @NonNull final GetWordCallback callback) {
+        checkNotNull(callback);
+        final Words cachedWord = getWordsWithId(wordId);
 
+        if (cachedWord != null) {
+            callback.onWordLoaded(cachedWord);
+            return;
+        }
+
+        wordsLocalDataSource.getWord(wordId, new GetWordCallback(){
+
+            @Override
+            public void onWordLoaded(Words word) {
+                if (cachedWords == null) {
+                    cachedWords = new LinkedHashMap<>();
+                }
+                cachedWords.put(word.getId(), word);
+                callback.onWordLoaded(word);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                wordsRemoteDataSource.getWord(wordId, new GetWordCallback() {
+                    @Override
+                    public void onWordLoaded(Words word) {
+                        // Do in memory cache update to keep the app UI up to date
+                        if (cachedWords == null) {
+                            cachedWords = new LinkedHashMap<>();
+                        }
+                        cachedWords.put(word.getId(), word);
+                        callback.onWordLoaded(word);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+            }
+        });
     }
 
     @Override
     public void saveWord(@NonNull Words word) {
+
         wordsRemoteDataSource.saveWord(word);
         wordsLocalDataSource.saveWord(word);
 
@@ -115,13 +170,32 @@ public class WordsRepository implements WordsDataSource {
     }
 
     @Override
-    public void refreshWords() {
+    public void clearFavWords() {
 
     }
 
     @Override
-    public void deleteWord(@NonNull String wordId) {
+    public void refreshWords() {
+        mCacheIsDirty = true;
+    }
 
+    @Override
+    public void deleteWord(@NonNull String wordId) {
+        wordsRemoteDataSource.deleteWord(wordId);
+        wordsLocalDataSource.deleteWord(wordId);
+
+        cachedWords.remove(wordId);
+    }
+
+    @Override
+    public void deleteAllWords() {
+        wordsRemoteDataSource.deleteAllWords();
+        wordsLocalDataSource.deleteAllWords();
+
+        if (cachedWords == null) {
+            cachedWords = new LinkedHashMap<>();
+        }
+        cachedWords.clear();
     }
 
     private void refreshCache(List<Words> words) {
@@ -133,5 +207,21 @@ public class WordsRepository implements WordsDataSource {
             cachedWords.put(word.getId(), word);
         }
         mCacheIsDirty = false;
+    }
+
+    private void refreshLocalDataSource(List<Words> words){
+        wordsLocalDataSource.deleteAllWords();
+
+        for (Words word : words) {
+            wordsLocalDataSource.saveWord(word);
+        }
+    }
+
+    private Words getWordsWithId(@NonNull String id){
+        if (cachedWords == null || cachedWords.isEmpty()){
+            return null;
+        } else {
+            return cachedWords.get(id);
+        }
     }
 }

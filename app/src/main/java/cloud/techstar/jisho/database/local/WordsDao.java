@@ -8,7 +8,6 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.database.Words;
 
 @Dao
@@ -29,7 +28,7 @@ public interface WordsDao {
      * @return the word with wordId.
      */
     @Query("SELECT * FROM Words WHERE id = :wordId")
-    Word getWordById(String wordId);
+    Words getWordById(String wordId);
 
     /**
      * Insert a word in the database. If the word already exists, replace it.
