@@ -3,6 +3,7 @@ package cloud.techstar.jisho.splash;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.MainActivity;
 import cloud.techstar.jisho.R;
+import cloud.techstar.jisho.database.Words;
 import cloud.techstar.jisho.utils.ConnectionDetector;
 import cloud.techstar.jisho.utils.JishoConstant;
 import cloud.techstar.jisho.database.WordTable;
@@ -33,6 +35,12 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
 
     private Handler mHandler;
 
+    private SplashPresenter splashPresenter;
+
+    private SplashContract.Presenter presenter;
+
+    public static final String SHOULD_LOAD_DATA_FROM_REPO_KEY = "SHOULD_LOAD_DATA_FROM_REPO_KEY";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +49,18 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         mHandler = new Handler(Looper.getMainLooper());
         Handler handler = new Handler(Looper.getMainLooper());
         PrefManager prefManager = new PrefManager(AppMain.getContext());
-        //
 
+        boolean shouldLoadDataFromRepo = true;
+
+        // Prevent the presenter from loading data from the repository if this is a config change.
+        if (savedInstanceState != null) {
+            // Data might not have loaded when the config change happen, so we saved the state.
+            shouldLoadDataFromRepo = savedInstanceState.getBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY);
+        }
+
+        splashPresenter = new SplashPresenter(Injection.provideWordsRepository(getApplicationContext()),
+                this,
+                shouldLoadDataFromRepo);
         if (prefManager.isFirstTimeLaunch()){
             connectServer();
             prefManager.setIsFirstTimeLaunch(false);
@@ -95,31 +113,8 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
 
                             Logger.json(memorize.toString());
 
-                            if (memorize.length() > 0) {
-                                WordTable wordTable = new WordTable();
+                            presenter.saveWord(memorize);
 
-                                wordTable.deleteAll();
-
-                                for (int i = 0; i < memorize.length(); i++) {
-                                    Word words = new Word();
-                                    words.setId(memorize.getJSONObject(i).getString("_id"));
-                                    words.setCharacter(memorize.getJSONObject(i).getString("character"));
-                                    words.setMeaning(memorize.getJSONObject(i).getString("meanings"));
-                                    words.setMeaningMon(memorize.getJSONObject(i).getString("meaningsMongolia"));
-                                    words.setKanji(memorize.getJSONObject(i).getString("kanji"));
-                                    words.setPartOfSpeech(memorize.getJSONObject(i).getString("partOfSpeech"));
-                                    words.setLevel(memorize.getJSONObject(i).getString("level"));
-                                    words.setIsMemorize(memorize.getJSONObject(i).getString("isMemorize"));
-                                    words.setIsFavorite(memorize.getJSONObject(i).getString("isFavorite"));
-                                    words.setCreated(memorize.getJSONObject(i).getString("created"));
-                                    wordTable.insert(words);
-                                }
-                            } else {
-                                Toast.makeText(SplashActivity.this, "Word not found", Toast.LENGTH_LONG)
-                                        .show();
-                            }
-                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (Exception ex) {
@@ -133,6 +128,17 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
 
     @Override
     public void setPresenter(SplashContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
+    @Override
+    public void showEmptyWordError() {
+
+    }
+
+    @Override
+    public void showWordList() {
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        finish();
     }
 }

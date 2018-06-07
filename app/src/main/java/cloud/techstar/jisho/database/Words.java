@@ -7,6 +7,9 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+
 import java.util.UUID;
 
 @Entity(tableName = "words")
@@ -120,4 +123,38 @@ public final class Words {
     public String getCreated() {
         return created;
     }
+
+    public boolean isEmpty() {
+        return Strings.isNullOrEmpty(character) &&
+                Strings.isNullOrEmpty(meaning) &&
+                Strings.isNullOrEmpty(meaningMon) &&
+                Strings.isNullOrEmpty(kanji) &&
+                Strings.isNullOrEmpty(partOfSpeech) &&
+                Strings.isNullOrEmpty(level) &&
+                Strings.isNullOrEmpty(created);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Words words = (Words) o;
+        return isMemorize == words.isMemorize &&
+                isFavorite == words.isFavorite &&
+                Objects.equal(id, words.id) &&
+                Objects.equal(character, words.character) &&
+                Objects.equal(meaning, words.meaning) &&
+                Objects.equal(meaningMon, words.meaningMon) &&
+                Objects.equal(kanji, words.kanji) &&
+                Objects.equal(partOfSpeech, words.partOfSpeech) &&
+                Objects.equal(level, words.level) &&
+                Objects.equal(created, words.created);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, character, meaning, meaningMon, kanji, partOfSpeech, level, isMemorize, isFavorite, created);
+    }
+
+
 }
