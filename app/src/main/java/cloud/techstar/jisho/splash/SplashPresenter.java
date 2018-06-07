@@ -2,6 +2,8 @@ package cloud.techstar.jisho.splash;
 
 import android.support.annotation.NonNull;
 
+import com.orhanobut.logger.Logger;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -34,9 +36,10 @@ public class SplashPresenter implements SplashContract.Presenter, WordsDataSourc
     public void saveWord(JSONArray memorize) {
         if (memorize.length() > 0) {
             wordRepository.deleteAllWords();
-
+            int numWords = 0;
             for (int i = 0; i < memorize.length(); i++) {
                 Words words = null;
+                numWords += 1;
                 try {
                     words = new Words(
                             memorize.getJSONObject(i).getString("_id"),
@@ -54,6 +57,8 @@ public class SplashPresenter implements SplashContract.Presenter, WordsDataSourc
                 }
                 assert words != null;
                 wordRepository.saveWord(words);
+                Logger.d("Total words: "+numWords);
+
             }
         } else {
             splashView.showEmptyWordError();

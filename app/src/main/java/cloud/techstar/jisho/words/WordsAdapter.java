@@ -12,16 +12,28 @@ import java.util.List;
 
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.Word;
+import cloud.techstar.jisho.database.Words;
 import cloud.techstar.jisho.detail.DetailActivity;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> {
     private Context context;
-    private List<Word> words;
+    private List<Words> words;
 
-    public WordsAdapter(Context context, List<Word> words) {
+    public WordsAdapter(Context context, List<Words> words) {
         this.context = context;
         this.words = words;
 
+    }
+
+    public void replaceData(List<Words> words) {
+        setList(words);
+        notifyDataSetChanged();
+    }
+
+    private void setList(List<Words> words) {
+        this.words = checkNotNull(words);
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

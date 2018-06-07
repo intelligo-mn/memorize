@@ -3,7 +3,6 @@ package cloud.techstar.jisho.splash;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -17,13 +16,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import cloud.techstar.jisho.AppMain;
+import cloud.techstar.jisho.Injection;
 import cloud.techstar.jisho.MainActivity;
 import cloud.techstar.jisho.R;
-import cloud.techstar.jisho.database.Words;
 import cloud.techstar.jisho.utils.ConnectionDetector;
 import cloud.techstar.jisho.utils.JishoConstant;
-import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.utils.PrefManager;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -61,8 +58,10 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         splashPresenter = new SplashPresenter(Injection.provideWordsRepository(getApplicationContext()),
                 this,
                 shouldLoadDataFromRepo);
+
+        connectServer();
+
         if (prefManager.isFirstTimeLaunch()){
-            connectServer();
             prefManager.setIsFirstTimeLaunch(false);
         } else {
             handler.postDelayed(new Runnable() {
@@ -110,9 +109,6 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
 
                             JSONObject ob = new JSONObject(res);
                             JSONArray memorize = ob.getJSONArray("memorize");
-
-                            Logger.json(memorize.toString());
-
                             presenter.saveWord(memorize);
 
                         } catch (JSONException e) {

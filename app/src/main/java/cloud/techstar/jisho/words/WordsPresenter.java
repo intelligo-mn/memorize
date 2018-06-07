@@ -1,9 +1,100 @@
 package cloud.techstar.jisho.words;
 
-public class WordsPresenter implements WordsContract.Presenter {
+import android.support.annotation.NonNull;
+
+import com.orhanobut.logger.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cloud.techstar.jisho.database.Words;
+import cloud.techstar.jisho.database.WordsDataSource;
+
+public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.LoadWordsCallback {
+
+    @NonNull
+    private final WordsDataSource wordRepository;
+
+    @NonNull
+    private final WordsContract.View wordsView;
+
+    private boolean mFirstLoad = true;
+
+    public WordsPresenter(@NonNull WordsDataSource wordRepository, @NonNull WordsContract.View wordsView) {
+        this.wordRepository = wordRepository;
+        this.wordsView = wordsView;
+
+        wordsView.setPresenter(this);
+    }
 
     @Override
     public void start() {
+        loadWords(false);
+    }
+
+    @Override
+    public void onWordsLoaded(List<Words> words) {
+
+    }
+
+    @Override
+    public void onDataNotAvailable() {
+
+    }
+
+    @Override
+    public void result(int requestCode, int resultCode) {
+
+    }
+
+    @Override
+    public void loadWords(boolean forceUpdate) {
+        loadWords(forceUpdate || mFirstLoad, true);
+        mFirstLoad = false;
+    }
+
+    /**
+     * @param forceUpdate   Pass in true to refresh the data in the {@link WordsDataSource}
+     * @param showLoadingUI Pass in true to display a loading icon in the UI
+     */
+    private void loadWords(boolean forceUpdate, final boolean showLoadingUI) {
+        if (showLoadingUI) {
+            wordsView.setLoadingIndicator(true);
+        }
+        if (forceUpdate) {
+            wordRepository.refreshWords();
+        }
+
+        wordRepository.getWords(new WordsDataSource.LoadWordsCallback() {
+            @Override
+            public void onWordsLoaded(List<Words> words) {
+                List<Words> wordsToShow = new ArrayList<Words>();
+                int num = 0;
+                // We filter the tasks based on the requestType
+                for (Words word : words) {
+                    wordsToShow.add(word);
+                    num += 1;
+                }
+
+                Logger.e("Total get words: "+num);
+
+                if (showLoadingUI) {
+                    wordsView.setLoadingIndicator(false);
+                }
+
+                wordsView.showWords(words);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                wordsView.showLoadingWordsError();
+            }
+        });
+    }
+
+
+    @Override
+    public void openWordDetails(@NonNull Words requestedWord) {
 
     }
 }

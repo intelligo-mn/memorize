@@ -152,6 +152,15 @@ public final class Words {
     }
 
     @Override
+    public String toString() {
+        return "Words{" +
+                "character='" + character + '\'' +
+                ", meaning='" + meaning + '\'' +
+                ", meaningMon='" + meaningMon + '\'' +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hashCode(id, character, meaning, meaningMon, kanji, partOfSpeech, level, isMemorize, isFavorite, created);
     }

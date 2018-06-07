@@ -16,17 +16,32 @@ import android.view.ViewGroup;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cloud.techstar.jisho.AppMain;
+import cloud.techstar.jisho.Injection;
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.database.Word;
+import cloud.techstar.jisho.database.Words;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WordsFragment extends Fragment implements WordsContract.View{
 
+
     private MaterialSearchBar searchBar;
     private WordSuggestionsAdapter wordSuggestionsAdapter;
+
+    private WordsPresenter wordsPresenter;
+
+    private WordsContract.Presenter presenter;
+
+    WordsAdapter mAdapter;
+
+    public WordsFragment() {
+    }
 
     public static android.app.Fragment newInstance() {
         WordsFragment fragment = new WordsFragment();
@@ -36,13 +51,25 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAdapter = new WordsAdapter(AppMain.getContext(), new ArrayList<Words>(0));
 
+        wordsPresenter = new WordsPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
+
+        presenter.start();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_words, container, false);
+
+        wordsPresenter = new WordsPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
 
         searchBar = (MaterialSearchBar) root.findViewById(R.id.searchBar);
         wordSuggestionsAdapter = new WordSuggestionsAdapter(inflater);
@@ -78,13 +105,42 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(AppMain.getContext());
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        RecyclerView.Adapter mAdapter = new WordsAdapter(AppMain.getContext(), words);
         mRecyclerView.setAdapter(mAdapter);
         return root;
     }
 
     @Override
     public void setPresenter(WordsContract.Presenter presenter) {
+        this.presenter = checkNotNull(presenter);
+    }
 
+    @Override
+    public void setLoadingIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void showWords(List<Words> words) {
+        mAdapter.replaceData(words);
+    }
+
+    @Override
+    public void showWordDetail(String wordId) {
+
+    }
+
+    @Override
+    public void showLoadingWordsError() {
+
+    }
+
+    @Override
+    public void showNoWords() {
+
+    }
+
+    @Override
+    public boolean isActive() {
+        return false;
     }
 }
