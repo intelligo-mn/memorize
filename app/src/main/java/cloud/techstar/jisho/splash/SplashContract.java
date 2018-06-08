@@ -11,6 +11,8 @@ public interface SplashContract {
         void showEmptyWordError();
 
         void showWordList();
+
+        void getWordsRemote();
     }
 
     interface Presenter extends BasePresenter {

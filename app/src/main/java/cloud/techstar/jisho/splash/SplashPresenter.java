@@ -1,5 +1,6 @@
 package cloud.techstar.jisho.splash;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
@@ -7,8 +8,11 @@ import com.orhanobut.logger.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import cloud.techstar.jisho.AppMain;
+import cloud.techstar.jisho.MainActivity;
 import cloud.techstar.jisho.database.Words;
 import cloud.techstar.jisho.database.WordsDataSource;
+import cloud.techstar.jisho.utils.PrefManager;
 
 public class SplashPresenter implements SplashContract.Presenter, WordsDataSource.GetWordCallback{
 
@@ -20,16 +24,24 @@ public class SplashPresenter implements SplashContract.Presenter, WordsDataSourc
 
     private boolean isDataMissing;
 
+    private PrefManager prefManager;
+
     public SplashPresenter(@NonNull WordsDataSource wordRepository, @NonNull SplashContract.View splashView, boolean isDataMissing) {
         this.wordRepository = wordRepository;
         this.splashView = splashView;
         this.isDataMissing = isDataMissing;
         splashView.setPresenter(this);
+        prefManager = new PrefManager(AppMain.getContext());
     }
 
     @Override
-    public void start() {
-
+    public void init() {
+        if (prefManager.isFirstTimeLaunch()){
+            splashView.getWordsRemote();
+            prefManager.setIsFirstTimeLaunch(false);
+        } else {
+            splashView.showWordList();
+        }
     }
 
     @Override
@@ -57,9 +69,9 @@ public class SplashPresenter implements SplashContract.Presenter, WordsDataSourc
                 }
                 assert words != null;
                 wordRepository.saveWord(words);
-                Logger.d("Total words: "+numWords);
-
             }
+
+            Logger.d("Get remote total words: "+numWords);
         } else {
             splashView.showEmptyWordError();
         }

@@ -44,8 +44,6 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         setContentView(R.layout.activity_splash);
 
         mHandler = new Handler(Looper.getMainLooper());
-        Handler handler = new Handler(Looper.getMainLooper());
-        PrefManager prefManager = new PrefManager(AppMain.getContext());
 
         boolean shouldLoadDataFromRepo = true;
 
@@ -59,23 +57,27 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
                 this,
                 shouldLoadDataFromRepo);
 
-        connectServer();
-
-        if (prefManager.isFirstTimeLaunch()){
-            prefManager.setIsFirstTimeLaunch(false);
-        } else {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    finish();
-                }
-            }, 300);
-        }
+        splashPresenter.init();
     }
 
-    public void connectServer() {
+    @Override
+    public void setPresenter(SplashContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
+    @Override
+    public void showEmptyWordError() {
+        Toast.makeText(AppMain.getContext(), "Үгийн сан хоосон байна", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showWordList() {
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void getWordsRemote() {
         if (!ConnectionDetector.isNetworkAvailable(SplashActivity.this)) {
             Toast.makeText(SplashActivity.this, "No internet connections", Toast.LENGTH_LONG).show();
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
@@ -120,21 +122,5 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
                 });
             }
         });
-    }
-
-    @Override
-    public void setPresenter(SplashContract.Presenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
-    public void showEmptyWordError() {
-
-    }
-
-    @Override
-    public void showWordList() {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        finish();
     }
 }

@@ -55,13 +55,13 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
         wordsPresenter = new WordsPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
 
-        presenter.start();
+        wordsPresenter.init();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        presenter.start();
+        presenter.init();
     }
 
     @Override

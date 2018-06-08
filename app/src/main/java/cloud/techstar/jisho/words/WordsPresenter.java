@@ -28,7 +28,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     }
 
     @Override
-    public void start() {
+    public void init() {
         loadWords(false);
     }
 
@@ -68,20 +68,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
         wordRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
-                List<Words> wordsToShow = new ArrayList<Words>();
-                int num = 0;
-                // We filter the tasks based on the requestType
-                for (Words word : words) {
-                    wordsToShow.add(word);
-                    num += 1;
-                }
-
-                Logger.e("Total get words: "+num);
-
-                if (showLoadingUI) {
-                    wordsView.setLoadingIndicator(false);
-                }
-
+               Logger.e("Presenter words count : "+words.size());
                 wordsView.showWords(words);
             }
 

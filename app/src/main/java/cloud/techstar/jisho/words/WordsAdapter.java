@@ -24,7 +24,6 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
     public WordsAdapter(Context context, List<Words> words) {
         this.context = context;
         this.words = words;
-
     }
 
     public void replaceData(List<Words> words) {
@@ -35,6 +34,7 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
     private void setList(List<Words> words) {
         this.words = checkNotNull(words);
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView kanjiText;
