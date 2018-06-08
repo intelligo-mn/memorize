@@ -9,45 +9,51 @@ import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 
+import cloud.techstar.jisho.Injection;
 import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.database.WordTable;
+import cloud.techstar.jisho.database.Words;
 
 public class DetailActivity extends AppCompatActivity implements DetailContract.View{
 
-    private WordTable wordTable;
-    private Word word;
     private ImageButton favBtn;
+    private TextView meaningMn;
+    private TextView headKanji;
+    private TextView headHiragana;
+    private TextView meaning;
+    private TextView partOfSpeech;
+    private TextView level;
+    private TextView kanji;
+
+    private DetailContract.Presenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Intent intent = getIntent();
-        wordTable = new WordTable();
-        word = wordTable.select(intent.getStringExtra("word_id"));
 
-        TextView headKanji = (TextView) findViewById(R.id.header_kanji);
-        TextView headHiragana = (TextView) findViewById(R.id.header_hiragana);
-        TextView meaning = (TextView) findViewById(R.id.detail_meaning);
-        TextView meaningMn = (TextView) findViewById(R.id.detail_meaning_mn);
-        TextView partOfSpeech = (TextView) findViewById(R.id.detail_part_of);
-        TextView level = (TextView) findViewById(R.id.detail_level);
-        TextView kanji = (TextView) findViewById(R.id.detail_kanji);
+        headKanji = (TextView) findViewById(R.id.header_kanji);
+        headHiragana = (TextView) findViewById(R.id.header_hiragana);
+        meaning = (TextView) findViewById(R.id.detail_meaning);
+        meaningMn = (TextView) findViewById(R.id.detail_meaning_mn);
+        partOfSpeech = (TextView) findViewById(R.id.detail_part_of);
+        level = (TextView) findViewById(R.id.detail_level);
+        kanji = (TextView) findViewById(R.id.detail_kanji);
 
         ImageButton backBtn = findViewById(R.id.back);
         favBtn = findViewById(R.id.btnFav);
+        Intent intent = getIntent();
 
-        headKanji.setText(word.getKanji());
-        headHiragana.setText(word.getCharacter());
-        meaning.setText("\u2022 ".concat(word.getMeaning()));
-        meaningMn.setText("\u2022 ".concat(word.getMeaningMon()));
-        partOfSpeech.setText(word.getPartOfSpeech());
-        level.setText(word.getLevel());
-        kanji.setText(word.getKanji());
-        Logger.e(word.toString());
+        new DetailPresenter(
+                intent.getStringExtra("word_id"),
+                Injection.provideWordsRepository(getApplicationContext()),
+                this);
 
-        if (word.getIsFavorite().equals("true"))
-            favBtn.setImageResource(R.drawable.ic_favorite_full);
+        presenter.init();
+
+//        if (word.getIsFavorite().equals("true"))
+//            favBtn.setImageResource(R.drawable.ic_favorite_full);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,21 +61,21 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
                 finish();
             }
         });
-
-        favBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (word.getIsFavorite().equals("false")) {
-                    word.setIsFavorite("true");
-                    wordTable.update(word);
-                    favBtn.setImageResource(R.drawable.ic_favorite_full);
-                } else {
-                    word.setIsFavorite("false");
-                    wordTable.update(word);
-                    favBtn.setImageResource(R.drawable.ic_favorite);
-                }
-            }
-        });
+//
+//        favBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (word.getIsFavorite().equals("false")) {
+//                    word.setIsFavorite("true");
+//                    wordTable.update(word);
+//                    favBtn.setImageResource(R.drawable.ic_favorite_full);
+//                } else {
+//                    word.setIsFavorite("false");
+//                    wordTable.update(word);
+//                    favBtn.setImageResource(R.drawable.ic_favorite);
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -79,6 +85,27 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
 
     @Override
     public void setPresenter(DetailContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
+    @Override
+    public void setLoadingIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void showMissingWord() {
+
+    }
+
+    @Override
+    public void setData(Words word) {
+        headKanji.setText(word.getKanji());
+        headHiragana.setText(word.getCharacter());
+        meaning.setText("\u2022 ".concat(word.getMeaning()));
+        meaningMn.setText("\u2022 ".concat(word.getMeaningMon()));
+        partOfSpeech.setText(word.getPartOfSpeech());
+        level.setText(word.getLevel());
+        kanji.setText(word.getKanji());
     }
 }

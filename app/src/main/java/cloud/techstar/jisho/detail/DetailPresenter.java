@@ -1,8 +1,58 @@
 package cloud.techstar.jisho.detail;
 
+import android.support.annotation.Nullable;
+
+import com.google.common.base.Strings;
+
+import cloud.techstar.jisho.database.Words;
+import cloud.techstar.jisho.database.WordsDataSource;
+import cloud.techstar.jisho.database.WordsRepository;
+
 public class DetailPresenter implements DetailContract.Presenter{
+
+    private final WordsRepository wordsRepository;
+
+    private final DetailContract.View detailView;
+
+    @Nullable
+    private String wordId;
+
+    public DetailPresenter(String wordId, WordsRepository wordsRepository, DetailContract.View detailView) {
+        this.wordsRepository = wordsRepository;
+        this.detailView = detailView;
+        this.wordId = wordId;
+        detailView.setPresenter(this);
+    }
+
     @Override
     public void init() {
+        openWord();
+    }
 
+    private void openWord() {
+        if (Strings.isNullOrEmpty(wordId)) {
+            detailView.showMissingWord();
+            return;
+        }
+
+        detailView.setLoadingIndicator(true);
+        wordsRepository.getWord(wordId, new WordsDataSource.GetWordCallback(){
+
+            @Override
+            public void onWordLoaded(Words word) {
+                if (null == word) {
+                    detailView.showMissingWord();
+                } else {
+                    detailView.setData(word);
+                }
+
+                detailView.setLoadingIndicator(false);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                detailView.showMissingWord();
+            }
+        });
     }
 }

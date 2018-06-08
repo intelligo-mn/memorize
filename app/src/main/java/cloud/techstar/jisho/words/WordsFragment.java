@@ -1,6 +1,8 @@
 package cloud.techstar.jisho.words;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
@@ -26,11 +29,11 @@ import cloud.techstar.jisho.R;
 import cloud.techstar.jisho.database.WordTable;
 import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.database.Words;
+import cloud.techstar.jisho.detail.DetailActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WordsFragment extends Fragment implements WordsContract.View{
-
 
     private MaterialSearchBar searchBar;
     private WordSuggestionsAdapter wordSuggestionsAdapter;
@@ -53,7 +56,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new WordsAdapter(AppMain.getContext(), new ArrayList<Words>(0));
+        mAdapter = new WordsAdapter(new ArrayList<Words>(0));
 
         wordsPresenter = new WordsPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
 
@@ -82,9 +85,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             }
         });
         wordSuggestionsAdapter = new WordSuggestionsAdapter(inflater);
-        WordTable wordTable = new WordTable();
-        Handler mHandler = new Handler(Looper.getMainLooper());
-        List<Word> words = wordTable.selectAll();
         searchBar.setMaxSuggestionCount(2);
         searchBar.setHint("Хайх үгээ оруул..");
         searchBar.setCustomSuggestionAdapter(wordSuggestionsAdapter);
@@ -147,7 +147,10 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
     @Override
     public void showWordDetail(String wordId) {
-
+        Intent intent = new Intent(AppMain.getContext(), DetailActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("word_id", wordId);
+        AppMain.getContext().startActivity(intent);
     }
 
     @Override
@@ -163,5 +166,62 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     @Override
     public boolean isActive() {
         return false;
+    }
+
+
+    private class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> {
+        private List<Words> words;
+
+        public WordsAdapter(List<Words> words) {
+            this.words = words;
+        }
+
+        public void replaceData(List<Words> words) {
+            setList(words);
+            notifyDataSetChanged();
+        }
+
+        private void setList(List<Words> words) {
+            this.words = checkNotNull(words);
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+            private TextView kanjiText;
+            private TextView characterText;
+            private TextView meaningText;
+            private ViewHolder(View v) {
+                super(v);
+                v.setOnClickListener(this);
+                kanjiText = v.findViewById(R.id.kanji_text);
+                characterText = v.findViewById(R.id.character_text);
+                meaningText = v.findViewById(R.id.meaning_text);
+            }
+
+            @Override
+            public void onClick(View view) {
+                presenter.openWordDetails(words.get(this.getAdapterPosition()));
+            }
+        }
+        @Override
+        public WordsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                          int viewType) {
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_words, parent, false);
+            WordsAdapter.ViewHolder vh = new WordsAdapter.ViewHolder(v);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(final WordsAdapter.ViewHolder holder, final int position) {
+            holder.kanjiText.setText(words.get(position).getKanji());
+            holder.characterText.setText(words.get(position).getCharacter());
+            holder.meaningText.setText(words.get(position).getMeaning());
+        }
+
+        @Override
+        public int getItemCount() {
+            return words.size();
+        }
     }
 }
