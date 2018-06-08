@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     private MaterialSearchBar searchBar;
     private WordSuggestionsAdapter wordSuggestionsAdapter;
 
+    private SwipeRefreshLayout swipeRefreshLayout = null;
     private WordsPresenter wordsPresenter;
 
     private WordsContract.Presenter presenter;
@@ -72,6 +74,13 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         wordsPresenter = new WordsPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
 
         searchBar = (MaterialSearchBar) root.findViewById(R.id.searchBar);
+        swipeRefreshLayout = root.findViewById(R.id.swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.loadWords(false);
+            }
+        });
         wordSuggestionsAdapter = new WordSuggestionsAdapter(inflater);
         WordTable wordTable = new WordTable();
         Handler mHandler = new Handler(Looper.getMainLooper());
@@ -115,8 +124,20 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
+    public void setLoadingIndicator(final boolean active) {
+        if (getView() == null) {
+            return;
+        }
+        final SwipeRefreshLayout refreshLayout =
+                (SwipeRefreshLayout) getView().findViewById(R.id.swipe_layout);
 
+        // Make sure setRefreshing() is called after the layout is done with everything else.
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(active);
+            }
+        });
     }
 
     @Override

@@ -10,6 +10,8 @@ import java.util.List;
 import cloud.techstar.jisho.database.Words;
 import cloud.techstar.jisho.database.WordsDataSource;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.LoadWordsCallback {
 
     @NonNull
@@ -68,8 +70,12 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
         wordRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
-               Logger.e("Presenter words count : "+words.size());
+                Logger.e("Presenter words count : "+words.size());
                 wordsView.showWords(words);
+
+                if (showLoadingUI) {
+                    wordsView.setLoadingIndicator(false);
+                }
             }
 
             @Override
@@ -77,11 +83,13 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                 wordsView.showLoadingWordsError();
             }
         });
+
     }
 
 
     @Override
     public void openWordDetails(@NonNull Words requestedWord) {
-
+        checkNotNull(requestedWord, "requestedWord cannot be null!");
+        wordsView.showWordDetail(requestedWord.getId());
     }
 }
