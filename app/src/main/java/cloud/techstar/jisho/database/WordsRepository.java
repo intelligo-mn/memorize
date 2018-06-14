@@ -161,12 +161,33 @@ public class WordsRepository implements WordsDataSource {
 
     @Override
     public void favWord(@NonNull Words word) {
+        checkNotNull(word);
+        wordsRemoteDataSource.favWord(word);
+        wordsLocalDataSource.favWord(word);
 
+        Words favoritedWord = new Words(
+                word.getId(),
+                word.getCharacter(),
+                word.getMeaning(),
+                word.getMeaningMon(),
+                word.getKanji(),
+                word.getPartOfSpeech(),
+                word.getLevel(),
+                word.isMemorize(),
+                word.isFavorite() ? true : false,
+                word.getCreated());
+
+        // Do in memory cache update to keep the app UI up to date
+        if (cachedWords == null) {
+            cachedWords = new LinkedHashMap<>();
+        }
+        cachedWords.put(word.getId(), favoritedWord);
     }
 
     @Override
     public void favWord(@NonNull String wordId) {
-
+        checkNotNull(wordId);
+        favWord(getWordsWithId(wordId));
     }
 
     @Override

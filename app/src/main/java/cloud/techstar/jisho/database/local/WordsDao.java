@@ -48,13 +48,22 @@ public interface WordsDao {
     int updateWord(Words word);
 
     /**
-     * Update the complete status of a word
+     * Update the favorite status of a word
      *
      * @param wordId    id of the word
      * @param favorited status to be updated
      */
     @Query("UPDATE words SET favorited = :favorited WHERE id = :wordId")
     void updateFavorited(String wordId, boolean favorited);
+
+    /**
+     * Update the memorize status of a word
+     *
+     * @param wordId    id of the word
+     * @param memorized status to be updated
+     */
+    @Query("UPDATE words SET memorized = :memorized WHERE id = :wordId")
+    void updateMemorized(String wordId, boolean memorized);
 
     /**
      * Delete a word by id.

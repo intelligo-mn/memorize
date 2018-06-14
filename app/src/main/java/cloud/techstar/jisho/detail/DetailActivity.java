@@ -52,8 +52,6 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
 
         presenter.init();
 
-//        if (word.getIsFavorite().equals("true"))
-//            favBtn.setImageResource(R.drawable.ic_favorite_full);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,21 +59,13 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
                 finish();
             }
         });
-//
-//        favBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (word.getIsFavorite().equals("false")) {
-//                    word.setIsFavorite("true");
-//                    wordTable.update(word);
-//                    favBtn.setImageResource(R.drawable.ic_favorite_full);
-//                } else {
-//                    word.setIsFavorite("false");
-//                    wordTable.update(word);
-//                    favBtn.setImageResource(R.drawable.ic_favorite);
-//                }
-//            }
-//        });
+
+        favBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.favoriteWord();
+            }
+        });
     }
 
     @Override
@@ -107,5 +97,16 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         partOfSpeech.setText(word.getPartOfSpeech());
         level.setText(word.getLevel());
         kanji.setText(word.getKanji());
+        if (word.isFavorite())
+            favBtn.setImageResource(R.drawable.ic_favorite_full);
     }
+
+    @Override
+    public void showFavorite(boolean isFav) {
+        if (isFav)
+            favBtn.setImageResource(R.drawable.ic_favorite_full);
+        else
+            favBtn.setImageResource(R.drawable.ic_favorite);
+    }
+
 }

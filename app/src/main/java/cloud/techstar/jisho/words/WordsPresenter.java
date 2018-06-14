@@ -20,8 +20,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     @NonNull
     private final WordsContract.View wordsView;
 
-    private boolean mFirstLoad = true;
-
     public WordsPresenter(@NonNull WordsDataSource wordRepository, @NonNull WordsContract.View wordsView) {
         this.wordRepository = wordRepository;
         this.wordsView = wordsView;
@@ -51,8 +49,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
     @Override
     public void loadWords(boolean forceUpdate) {
-        loadWords(forceUpdate || mFirstLoad, true);
-        mFirstLoad = false;
+        loadWords(forceUpdate, true);
     }
 
     /**
@@ -85,7 +82,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
         });
 
     }
-
 
     @Override
     public void openWordDetails(@NonNull Words requestedWord) {

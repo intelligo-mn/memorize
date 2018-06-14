@@ -1,5 +1,6 @@
 package cloud.techstar.jisho.detail;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.common.base.Strings;
@@ -8,11 +9,15 @@ import cloud.techstar.jisho.database.Words;
 import cloud.techstar.jisho.database.WordsDataSource;
 import cloud.techstar.jisho.database.WordsRepository;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class DetailPresenter implements DetailContract.Presenter{
 
     private final WordsRepository wordsRepository;
 
     private final DetailContract.View detailView;
+
+    Words mWord;
 
     @Nullable
     private String wordId;
@@ -43,6 +48,7 @@ public class DetailPresenter implements DetailContract.Presenter{
                 if (null == word) {
                     detailView.showMissingWord();
                 } else {
+                    mWord = word;
                     detailView.setData(word);
                 }
 
@@ -54,5 +60,22 @@ public class DetailPresenter implements DetailContract.Presenter{
                 detailView.showMissingWord();
             }
         });
+    }
+
+    @Override
+    public void favoriteWord() {
+        checkNotNull(mWord, "favoriteWord cannot be null!");
+        wordsRepository.favWord(mWord);
+
+        if (!mWord.isFavorite()) {
+            detailView.showFavorite(true);
+        } else {
+            detailView.showFavorite(false);
+        }
+    }
+
+    @Override
+    public void memorizeWord() {
+
     }
 }
