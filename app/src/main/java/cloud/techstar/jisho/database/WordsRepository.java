@@ -191,6 +191,11 @@ public class WordsRepository implements WordsDataSource {
     }
 
     @Override
+    public void unFavWord(@NonNull Words word) {
+
+    }
+
+    @Override
     public void clearFavWords() {
 
     }

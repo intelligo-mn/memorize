@@ -103,12 +103,24 @@ public class WordsLocalDataSource implements WordsDataSource {
     }
 
     @Override
-    public void favWord(@NonNull Words word) {
+    public void favWord(@NonNull final Words word) {
+        Runnable completeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                wordsDao.updateFavorited(word.getId(), true);
+            }
+        };
 
+        appExecutors.diskIO().execute(completeRunnable);
     }
 
     @Override
     public void favWord(@NonNull String wordId) {
+
+    }
+
+    @Override
+    public void unFavWord(@NonNull Words word) {
 
     }
 

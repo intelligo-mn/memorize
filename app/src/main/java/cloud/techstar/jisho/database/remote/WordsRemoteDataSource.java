@@ -150,6 +150,11 @@ public class WordsRemoteDataSource implements WordsDataSource {
     }
 
     @Override
+    public void unFavWord(@NonNull Words word) {
+
+    }
+
+    @Override
     public void clearFavWords() {
 
     }
