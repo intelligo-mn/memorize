@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".detail.DetailActivity">
+        </activity>
+
         <service android:name=".widget.UpdateWidgetService" />
 
         <receiver
@@ -34,8 +38,6 @@
                 android:resource="@xml/word_widget_info" />
         </receiver>
 
-        <activity android:name=".detail.DetailActivity">
-        </activity>
     </application>
 
 </manifest>

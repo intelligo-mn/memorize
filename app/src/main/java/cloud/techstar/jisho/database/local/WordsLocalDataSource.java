@@ -2,6 +2,8 @@ package cloud.techstar.jisho.database.local;
 
 import android.support.annotation.NonNull;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.List;
 
 import cloud.techstar.jisho.database.Words;
@@ -107,6 +109,7 @@ public class WordsLocalDataSource implements WordsDataSource {
             @Override
             public void run() {
                 wordsDao.updateFavorited(word.getId(), true);
+                Logger.e("Words favorited");
             }
         };
 
