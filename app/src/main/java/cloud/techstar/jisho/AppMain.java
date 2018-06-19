@@ -6,9 +6,6 @@ import android.content.Context;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 
-import cloud.techstar.jisho.database.DatabaseHelper;
-import cloud.techstar.jisho.database.DatabaseManager;
-
 public class AppMain extends Application {
 
     @SuppressLint("StaticFieldLeak")
@@ -19,8 +16,6 @@ public class AppMain extends Application {
     {
         super.onCreate();
         context = this.getApplicationContext();
-        DatabaseHelper dbHelper = new DatabaseHelper();
-        DatabaseManager.initializeInstance(dbHelper);
         com.orhanobut.logger.Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
