@@ -1,11 +1,8 @@
 package cloud.techstar.jisho.words;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,8 +23,6 @@ import java.util.List;
 import cloud.techstar.jisho.AppMain;
 import cloud.techstar.jisho.Injection;
 import cloud.techstar.jisho.R;
-import cloud.techstar.jisho.database.WordTable;
-import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.database.Words;
 import cloud.techstar.jisho.detail.DetailActivity;
 
@@ -73,8 +68,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_words, container, false);
-
-        wordsPresenter = new WordsPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
 
         searchBar = (MaterialSearchBar) root.findViewById(R.id.searchBar);
         swipeRefreshLayout = root.findViewById(R.id.swipe_layout);

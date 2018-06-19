@@ -65,7 +65,7 @@ public class DetailPresenter implements DetailContract.Presenter{
     @Override
     public void favoriteWord() {
         checkNotNull(mWord, "favoriteWord cannot be null!");
-        wordsRepository.favWord(mWord);
+        wordsRepository.favWord(mWord.getId());
 
         if (!mWord.isFavorite()) {
             detailView.showFavorite(true);

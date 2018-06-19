@@ -42,9 +42,9 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         private ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
-            title = (TextView) v.findViewById(R.id.title);
-            subtitle = (TextView) v.findViewById(R.id.subtitle);
-            imageView = (ImageView) v.findViewById(R.id.image);
+            title = v.findViewById(R.id.title);
+            subtitle = v.findViewById(R.id.subtitle);
+            imageView = v.findViewById(R.id.image);
 
         }
 

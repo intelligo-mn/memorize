@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import cloud.techstar.jisho.database.Word;
 import cloud.techstar.jisho.database.Words;
 import cloud.techstar.jisho.database.WordsDataSource;
 import cloud.techstar.jisho.utils.AppExecutors;

@@ -13,9 +13,9 @@ import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 import java.util.ArrayList;
 
 import cloud.techstar.jisho.R;
-import cloud.techstar.jisho.database.Word;
+import cloud.techstar.jisho.database.Words;
 
-public class WordSuggestionsAdapter extends SuggestionsAdapter<Word, WordSuggestionsAdapter.SuggestionHolder> {
+public class WordSuggestionsAdapter extends SuggestionsAdapter<Words, WordSuggestionsAdapter.SuggestionHolder> {
 
     public WordSuggestionsAdapter(LayoutInflater inflater) {
         super(inflater);
@@ -33,7 +33,7 @@ public class WordSuggestionsAdapter extends SuggestionsAdapter<Word, WordSuggest
     }
 
     @Override
-    public void onBindSuggestionHolder(Word suggestion, SuggestionHolder holder, int position) {
+    public void onBindSuggestionHolder(Words suggestion, SuggestionHolder holder, int position) {
         holder.title.setText(suggestion.getCharacter());
         holder.subtitle.setText("орчуулга нь " + suggestion.getMeaning());
     }
@@ -50,7 +50,7 @@ public class WordSuggestionsAdapter extends SuggestionsAdapter<Word, WordSuggest
                     suggestions = suggestions_clone;
                 else {
                     suggestions = new ArrayList<>();
-                    for (Word words: suggestions_clone)
+                    for (Words words: suggestions_clone)
                         if(words.getCharacter().toLowerCase().contains(term.toLowerCase()))
                             suggestions.add(words);
                 }
@@ -60,7 +60,7 @@ public class WordSuggestionsAdapter extends SuggestionsAdapter<Word, WordSuggest
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                suggestions = (ArrayList<Word>) results.values;
+                suggestions = (ArrayList<Words>) results.values;
                 notifyDataSetChanged();
             }
         };
@@ -73,8 +73,8 @@ public class WordSuggestionsAdapter extends SuggestionsAdapter<Word, WordSuggest
 
         public SuggestionHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.suggest_char);
-            subtitle = (TextView) itemView.findViewById(R.id.suggest_meaning);
+            title = itemView.findViewById(R.id.suggest_char);
+            subtitle = itemView.findViewById(R.id.suggest_meaning);
         }
     }
 }
