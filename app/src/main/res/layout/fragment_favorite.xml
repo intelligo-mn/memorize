@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".favorite.FavoriteFragment">
+    tools:context="cloud.techstar.memorize.favorite.FavoriteFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fav_recycler_view"

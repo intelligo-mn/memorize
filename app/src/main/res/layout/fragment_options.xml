@@ -5,7 +5,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cloud.techstar.jisho.options.OptionsFragment">
+    tools:context="cloud.techstar.memorize.options.OptionsFragment">
 
     <android.widget.LinearLayout
         android:layout_width="match_parent"
