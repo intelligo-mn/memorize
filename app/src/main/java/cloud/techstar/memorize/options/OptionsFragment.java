@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.jisho.R;
+import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.manage.ManageActivity;
 
 public class OptionsFragment extends Fragment implements OptionsContract.View{
@@ -31,6 +34,10 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
             R.drawable.ic_menu,
             R.drawable.ic_public
     };
+
+    private SwipeRefreshLayout swipeRefreshLayout = null;
+    private OptionsContract.Presenter presenter;
+
     public static OptionsFragment newInstance() {
         OptionsFragment fragment = new OptionsFragment();
         return fragment;
@@ -39,6 +46,11 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        new OptionsPresenter(Injection.provideWordsRepository(AppMain.getContext()),
+                this);
+
+        presenter.init();
     }
 
     @Override
@@ -46,7 +58,7 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_options, container, false);
 
-
+        swipeRefreshLayout = rootView.findViewById(R.id.swipe_layout);
         titleId = getResources().getStringArray(R.array.title);
         subtitleId = getResources().getStringArray(R.array.subtitle);
         final RecyclerView mRecyclerView = rootView.findViewById(R.id.options_rv);
@@ -62,7 +74,44 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
 
     @Override
     public void setPresenter(OptionsContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
+    @Override
+    public void setLoadingIndicator(final boolean active) {
+        if (getView() == null) {
+            return;
+        }
+        final SwipeRefreshLayout refreshLayout =
+                (SwipeRefreshLayout) getView().findViewById(R.id.options_swiper);
+
+        // Make sure setRefreshing() is called after the layout is done with everything else.
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(active);
+            }
+        });
+    }
+
+    @Override
+    public void manageWordShow() {
+        startActivity(new Intent(AppMain.getContext(), ManageActivity.class));
+    }
+
+    @Override
+    public void memorizeShow() {
+
+    }
+
+    @Override
+    public void historyShow() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(AppMain.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHolder> {
@@ -104,7 +153,9 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
             public void onClick(View view) {
                 int position = this.getAdapterPosition();
                 if (position == 0) {
-                    startActivity(new Intent(AppMain.getContext(), ManageActivity.class));
+                    manageWordShow();
+                } else if (position == 4) {
+                    presenter.downloadWordsRemote();
                 }
             }
         }

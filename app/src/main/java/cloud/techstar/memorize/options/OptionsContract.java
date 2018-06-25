@@ -7,9 +7,21 @@ public interface OptionsContract {
 
     interface View extends BaseView<Presenter> {
 
+        void setLoadingIndicator(boolean active);
+
+        void manageWordShow();
+
+        void memorizeShow();
+
+        void historyShow();
+
+        void showMessage(String message);
+
     }
 
     interface Presenter extends BasePresenter {
+        void changeLanguage();
 
+        void downloadWordsRemote();
     }
 }
