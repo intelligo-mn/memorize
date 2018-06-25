@@ -16,7 +16,7 @@ public class DetailPresenter implements DetailContract.Presenter{
 
     private final DetailContract.View detailView;
 
-    Words mWord;
+    private Words mWord;
 
     @Nullable
     private String wordId;

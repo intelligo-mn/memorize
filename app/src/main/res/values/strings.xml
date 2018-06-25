@@ -11,7 +11,10 @@
     <string name="tags">Шошго</string>
     <string name="search_more">Дэлгэрэнгүй хайх</string>
     <string name="kanji">Ханз</string>
+    <string name="part_of_speech">Part of speech</string>
+    <string name="level">Level</string>
 
+    Part of speech
     <string name="menu_new_word">Шинэ үг</string>
     <string name="menu_memorize">Цээжилсэн үг</string>
     <string name="menu_history">Түүх</string>

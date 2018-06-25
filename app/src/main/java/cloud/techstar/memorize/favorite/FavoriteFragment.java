@@ -132,7 +132,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         public FavoriteAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                              int viewType) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.fav_recycler_item, parent, false);
+                    .inflate(R.layout.item_favorite, parent, false);
             FavoriteAdapter.ViewHolder vh = new FavoriteAdapter.ViewHolder(v);
             return vh;
         }

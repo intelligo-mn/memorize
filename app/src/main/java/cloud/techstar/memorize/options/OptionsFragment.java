@@ -1,6 +1,7 @@
 package cloud.techstar.memorize.options;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.jisho.R;
+import cloud.techstar.memorize.manage.ManageActivity;
 
 public class OptionsFragment extends Fragment implements OptionsContract.View{
 
@@ -100,10 +102,10 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
 
             @Override
             public void onClick(View view) {
-//            Intent intent = new Intent(context, DetailActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//            context.startActivity(intent);
+                int position = this.getAdapterPosition();
+                if (position == 1) {
+                    startActivity(new Intent(AppMain.getContext(), ManageActivity.class));
+                }
             }
         }
 

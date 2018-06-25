@@ -20,9 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="cloud.techstar.memorize.detail.DetailActivity">
-        </activity>
+        <activity android:name="cloud.techstar.memorize.detail.DetailActivity"></activity>
 
         <service android:name="cloud.techstar.memorize.widget.UpdateWidgetService" />
 
@@ -38,6 +36,7 @@
                 android:resource="@xml/word_widget_info" />
         </receiver>
 
+        <activity android:name="cloud.techstar.memorize.manage.ManageActivity"></activity>
     </application>
 
 </manifest>
