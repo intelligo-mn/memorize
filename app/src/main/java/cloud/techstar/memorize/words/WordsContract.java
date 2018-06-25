@@ -22,6 +22,8 @@ public interface WordsContract {
 
         void showNoWords();
 
+        void setSuggest(List<Words> words);
+
         boolean isActive();
     }
 

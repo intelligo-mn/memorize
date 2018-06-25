@@ -68,7 +68,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
             public void onWordsLoaded(List<Words> words) {
                 Logger.e("Presenter words count : "+words.size());
                 wordsView.showWords(words);
-
+                wordsView.setSuggest(words);
                 if (showLoadingUI) {
                     wordsView.setLoadingIndicator(false);
                 }
