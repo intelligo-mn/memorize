@@ -77,7 +77,7 @@ public class WordsRepository implements WordsDataSource {
         }
     }
 
-    private void getWordsFromRemoteDataSource(final LoadWordsCallback callback) {
+    public void getWordsFromRemoteDataSource(final LoadWordsCallback callback) {
         checkNotNull(callback);
         wordsRemoteDataSource.getWords(new LoadWordsCallback() {
             @Override
