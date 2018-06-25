@@ -53,8 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp">
 
                 <android.support.v7.widget.AppCompatEditText
@@ -63,15 +63,15 @@
                     android:layout_height="wrap_content"
                     android:focusable="auto"
                     android:hint="Япон үг"
-                    android:inputType="textPassword" />
+                    android:inputType="textAutoComplete" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp">
 
                 <android.support.v7.widget.AppCompatEditText
@@ -80,15 +80,15 @@
                     android:layout_height="wrap_content"
                     android:focusable="auto"
                     android:hint="Англи орчуулга"
-                    android:inputType="textPassword" />
+                    android:inputType="textAutoComplete" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp">
 
                 <android.support.v7.widget.AppCompatEditText
@@ -97,15 +97,15 @@
                     android:layout_height="wrap_content"
                     android:focusable="auto"
                     android:hint="Монгол орчуулга"
-                    android:inputType="textPassword" />
+                    android:inputType="textAutoComplete" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp">
 
                 <android.support.v7.widget.AppCompatEditText
@@ -114,35 +114,35 @@
                     android:layout_height="wrap_content"
                     android:focusable="auto"
                     android:hint="Ханз"
-                    android:inputType="textPassword" />
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
             <Spinner
                 android:id="@+id/add_partofspeech"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp"
-                android:prompt="@string/part_of_speech"
-                android:spinnerMode="dropdown" />
+                android:layout_margin="10dp"
+                android:padding="12dp"
+                android:spinnerMode="dropdown"
+                android:background="@color/white"
+                android:prompt="@string/part_of_speech" />
 
             <Spinner
                 android:id="@+id/add_level"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp"
+                android:layout_margin="10dp"
+                android:padding="12dp"
                 android:prompt="@string/level"
+                android:background="@color/white"
                 android:spinnerMode="dropdown" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/login"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/colorPrimary"
                 android:padding="12dp"
                 android:text="Нэмэх"

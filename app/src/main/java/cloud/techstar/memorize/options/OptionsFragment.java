@@ -103,7 +103,7 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
             @Override
             public void onClick(View view) {
                 int position = this.getAdapterPosition();
-                if (position == 1) {
+                if (position == 0) {
                     startActivity(new Intent(AppMain.getContext(), ManageActivity.class));
                 }
             }
