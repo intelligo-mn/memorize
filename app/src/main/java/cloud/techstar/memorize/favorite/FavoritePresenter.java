@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cloud.techstar.memorize.database.Words;
@@ -52,8 +53,16 @@ public class FavoritePresenter implements FavoriteContract.Presenter, WordsDataS
         wordRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
+                List<Words> favWords = new ArrayList<Words>();
+
                 Logger.e("Presenter words count : "+words.size());
-                favoriteView.showWords(words);
+
+                for (Words word : words) {
+                    if (word.isFavorite())
+                        favWords.add(word);
+                }
+
+                favoriteView.showWords(favWords);
 
                 if (showLoadingUI) {
                     favoriteView.setLoadingIndicator(false);

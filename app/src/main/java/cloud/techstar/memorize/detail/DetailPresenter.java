@@ -68,8 +68,6 @@ public class DetailPresenter implements DetailContract.Presenter{
 
         if (!mWord.isFavorite()) {
             detailView.showFavorite(true);
-        } else {
-            detailView.showFavorite(false);
         }
     }
 

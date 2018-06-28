@@ -158,7 +158,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
     @Override
     public void setSuggest(List<Words> words) {
-        wordSuggestionsAdapter.setSuggestions(words);
+//        wordSuggestionsAdapter.setSuggestions(words);
     }
 
     @Override
