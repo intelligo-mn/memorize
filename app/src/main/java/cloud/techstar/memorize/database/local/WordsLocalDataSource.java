@@ -94,13 +94,21 @@ public class WordsLocalDataSource implements WordsDataSource {
     }
 
     @Override
-    public void memorizeWord(@NonNull Words word) {
+    public void memorizeWord(@NonNull final Words word) {
+        Runnable completeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                wordsDao.updateMemorized(word.getId(), true);
+                Logger.e("Words favorited");
+            }
+        };
 
+        appExecutors.diskIO().execute(completeRunnable);
     }
 
     @Override
     public void memorizeWord(@NonNull String wordId) {
-
+        // Not required because the {@link WordsRepository}
     }
 
     @Override
@@ -118,31 +126,53 @@ public class WordsLocalDataSource implements WordsDataSource {
 
     @Override
     public void favWord(@NonNull String wordId) {
-
+        // Not required because the {@link WordsRepository}
     }
 
     @Override
-    public void unFavWord(@NonNull Words word) {
+    public void activeWord(@NonNull final Words word) {
+        Runnable completeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                wordsDao.updateMemorized(word.getId(), false);
+                wordsDao.updateFavorited(word.getId(), false);
+                Logger.e("Words favorited");
+            }
+        };
 
+        appExecutors.diskIO().execute(completeRunnable);
     }
 
     @Override
-    public void clearFavWords() {
-
+    public void activeWord(@NonNull String wordId) {
+        // Not required because the {@link WordsRepository}
     }
 
     @Override
     public void refreshWords() {
-
+        // Not required because the {@link WordsRepository}
     }
 
     @Override
-    public void deleteWord(@NonNull String wordId) {
+    public void deleteWord(@NonNull final String wordId) {
+        Runnable deleteRunnable = new Runnable() {
+            @Override
+            public void run() {
+                wordsDao.deleteWordById(wordId);
+            }
+        };
 
+        appExecutors.diskIO().execute(deleteRunnable);
     }
 
     @Override
     public void deleteAllWords() {
-
+        Runnable deleteAllRunnabe = new Runnable() {
+            @Override
+            public void run() {
+                wordsDao.deleteWords();
+            }
+        };
+        appExecutors.diskIO().execute(deleteAllRunnabe);
     }
 }

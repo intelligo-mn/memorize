@@ -34,9 +34,9 @@ public interface WordsDataSource {
 
     void favWord(@NonNull String wordId);
 
-    void unFavWord(@NonNull Words word);
+    void activeWord(@NonNull Words word);
 
-    void clearFavWords();
+    void activeWord(@NonNull String wordId);
 
     void refreshWords();
 

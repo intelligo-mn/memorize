@@ -69,9 +69,20 @@ public final class Words {
         this.created = created;
     }
 
+    /**
+     * Use this constructor to create an new word
+     */
     @Ignore
     public Words(@NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created) {
         this(UUID.randomUUID().toString(), character, meaning, meaningMon, kanji, partOfSpeech, level, isMemorize, isFavorite, created);
+    }
+
+    /**
+     * Use this constructor to create an active word
+     */
+    @Ignore
+    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created) {
+        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created);
     }
 
     @NonNull

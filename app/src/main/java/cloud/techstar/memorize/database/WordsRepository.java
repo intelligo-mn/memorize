@@ -3,6 +3,7 @@ package cloud.techstar.memorize.database;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,12 +151,32 @@ public class WordsRepository implements WordsDataSource {
 
     @Override
     public void memorizeWord(@NonNull Words word) {
+        checkNotNull(word);
+        wordsRemoteDataSource.memorizeWord(word);
+        wordsLocalDataSource.memorizeWord(word);
 
+        Words memorizedWord = new Words(
+                word.getId(),
+                word.getCharacter(),
+                word.getMeaning(),
+                word.getMeaningMon(),
+                word.getKanji(),
+                word.getPartOfSpeech(),
+                word.getLevel(),
+                true,
+                word.isFavorite(),
+                word.getCreated());
+        if (cachedWords == null) {
+            cachedWords = new LinkedHashMap<>();
+        }
+
+        cachedWords.put(word.getId(), memorizedWord);
     }
 
     @Override
     public void memorizeWord(@NonNull String wordId) {
-
+        checkNotNull(wordId);
+        memorizeWord(getWordsWithId(wordId));
     }
 
     @Override
@@ -173,7 +194,7 @@ public class WordsRepository implements WordsDataSource {
                 word.getPartOfSpeech(),
                 word.getLevel(),
                 word.isMemorize(),
-                word.isFavorite() ? true : false,
+                true,
                 word.getCreated());
 
         // Do in memory cache update to keep the app UI up to date
@@ -190,13 +211,32 @@ public class WordsRepository implements WordsDataSource {
     }
 
     @Override
-    public void unFavWord(@NonNull Words word) {
+    public void activeWord(@NonNull Words word) {
+        checkNotNull(word);
+        wordsRemoteDataSource.activeWord(word);
+        wordsLocalDataSource.activeWord(word);
 
+        Words actWord = new Words(
+                word.getId(),
+                word.getCharacter(),
+                word.getMeaning(),
+                word.getMeaningMon(),
+                word.getKanji(),
+                word.getPartOfSpeech(),
+                word.getLevel(),
+                word.getCreated());
+
+        // Do in memory cache update to keep the app UI up to date
+        if (cachedWords == null) {
+            cachedWords = new LinkedHashMap<>();
+        }
+        cachedWords.put(word.getId(), actWord);
     }
 
     @Override
-    public void clearFavWords() {
-
+    public void activeWord(@NonNull String wordId) {
+        checkNotNull(wordId);
+        activeWord(getWordsWithId(wordId));
     }
 
     @Override
@@ -235,6 +275,7 @@ public class WordsRepository implements WordsDataSource {
     }
 
     private void refreshLocalDataSource(List<Words> words){
+        checkNotNull(words);
         wordsLocalDataSource.deleteAllWords();
 
         for (Words word : words) {
@@ -243,6 +284,7 @@ public class WordsRepository implements WordsDataSource {
     }
 
     private Words getWordsWithId(@NonNull String id){
+        checkNotNull(id);
         if (cachedWords == null || cachedWords.isEmpty()){
             return null;
         } else {

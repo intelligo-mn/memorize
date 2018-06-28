@@ -131,7 +131,9 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
     @Override
     public void memorizeWord(@NonNull Words word) {
-
+        Words memorizedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(),
+                true, word.isFavorite(), word.getCreated());
+        WORDS_SERVICE_DATA.put(word.getId(), memorizedWord);
     }
 
     @Override
@@ -141,7 +143,9 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
     @Override
     public void favWord(@NonNull Words word) {
-
+        Words favoritedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(),
+                word.isMemorize(), true, word.getCreated());
+        WORDS_SERVICE_DATA.put(word.getId(), favoritedWord);
     }
 
     @Override
@@ -150,12 +154,13 @@ public class WordsRemoteDataSource implements WordsDataSource {
     }
 
     @Override
-    public void unFavWord(@NonNull Words word) {
-
+    public void activeWord(@NonNull Words word) {
+        Words activeWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(), word.getCreated());
+        WORDS_SERVICE_DATA.put(word.getId(), activeWord);
     }
 
     @Override
-    public void clearFavWords() {
+    public void activeWord(@NonNull String wordId) {
 
     }
 
@@ -166,11 +171,11 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
     @Override
     public void deleteWord(@NonNull String wordId) {
-
+        WORDS_SERVICE_DATA.remove(wordId);
     }
 
     @Override
     public void deleteAllWords() {
-
+        WORDS_SERVICE_DATA.clear();
     }
 }
