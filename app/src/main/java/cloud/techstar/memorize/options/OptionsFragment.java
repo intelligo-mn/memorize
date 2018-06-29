@@ -59,12 +59,7 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
         View rootView = inflater.inflate(R.layout.fragment_options, container, false);
 
         swipeRefreshLayout = rootView.findViewById(R.id.swipe_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
 
-            }
-        });
         titleId = getResources().getStringArray(R.array.title);
         subtitleId = getResources().getStringArray(R.array.subtitle);
         final RecyclerView mRecyclerView = rootView.findViewById(R.id.options_rv);

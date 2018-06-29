@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cloud.techstar.memorize.database.Words;
@@ -66,6 +67,18 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
         wordRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
+
+                List<Words> mainWords = new ArrayList<Words>();
+
+                Logger.e("Presenter words count : "+words.size());
+
+                for (Words word : words) {
+                    if (!word.isMemorize())
+                        mainWords.add(word);
+                }
+
+                wordsView.showWords(mainWords);
+
                 Logger.e("Presenter words count : "+words.size());
                 wordsView.showWords(words);
                 wordsView.setSuggest(words);

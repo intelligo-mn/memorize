@@ -19,7 +19,7 @@ import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.utils.ConnectionDetector;
-import cloud.techstar.memorize.utils.JishoConstant;
+import cloud.techstar.memorize.utils.MemorizeConstant;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -55,7 +55,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url(JishoConstant.WEB_URL)
+                .url(MemorizeConstant.GET_WORDS)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {

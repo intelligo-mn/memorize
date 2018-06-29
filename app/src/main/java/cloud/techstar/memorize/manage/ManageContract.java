@@ -24,5 +24,7 @@ public interface ManageContract {
         void result(int requestCode, int resultCode);
 
         void saveWord(Words words);
+
+        void sendServer();
     }
 }

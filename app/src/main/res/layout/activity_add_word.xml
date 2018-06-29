@@ -138,7 +138,7 @@
                 android:spinnerMode="dropdown" />
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/login"
+                android:id="@+id/add_btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

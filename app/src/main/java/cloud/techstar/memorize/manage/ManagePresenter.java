@@ -27,6 +27,11 @@ public class ManagePresenter implements ManageContract.Presenter{
     }
 
     @Override
+    public void sendServer() {
+
+    }
+
+    @Override
     public void init() {
 
     }
