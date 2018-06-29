@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import cloud.techstar.jisho.R;
+import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.words.WordsContract;

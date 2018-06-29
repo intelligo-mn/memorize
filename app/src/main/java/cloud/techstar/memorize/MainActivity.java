@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import cloud.techstar.jisho.R;
+import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.favorite.FavoriteFragment;
 import cloud.techstar.memorize.options.OptionsFragment;
 import cloud.techstar.memorize.words.WordsFragment;

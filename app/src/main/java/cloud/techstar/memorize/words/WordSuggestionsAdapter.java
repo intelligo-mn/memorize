@@ -12,7 +12,7 @@ import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 
 import java.util.ArrayList;
 
-import cloud.techstar.jisho.R;
+import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
 
 public class WordSuggestionsAdapter extends SuggestionsAdapter<Words, WordSuggestionsAdapter.SuggestionHolder> {

@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import cloud.techstar.jisho.R;
+import cloud.techstar.memorize.R;
 
 public class WordWidget extends AppWidgetProvider {
 

@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import cloud.techstar.memorize.Injection;
-import cloud.techstar.jisho.R;
+import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
 
 public class DetailActivity extends AppCompatActivity implements DetailContract.View{

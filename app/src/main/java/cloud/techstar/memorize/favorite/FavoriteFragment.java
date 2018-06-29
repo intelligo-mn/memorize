@@ -16,7 +16,7 @@ import java.util.List;
 
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
-import cloud.techstar.jisho.R;
+import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.detail.DetailActivity;
 

@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cloud.techstar.memorize.AppMain;
-import cloud.techstar.jisho.R;
+import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.manage.ManageActivity;
 
