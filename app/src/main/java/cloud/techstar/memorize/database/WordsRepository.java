@@ -165,7 +165,8 @@ public class WordsRepository implements WordsDataSource {
                 word.getLevel(),
                 true,
                 word.isFavorite(),
-                word.getCreated());
+                word.getCreated(),
+                word.isLocal());
         if (cachedWords == null) {
             cachedWords = new LinkedHashMap<>();
         }
@@ -195,7 +196,8 @@ public class WordsRepository implements WordsDataSource {
                 word.getLevel(),
                 word.isMemorize(),
                 true,
-                word.getCreated());
+                word.getCreated(),
+                word.isLocal());
 
         // Do in memory cache update to keep the app UI up to date
         if (cachedWords == null) {
@@ -224,7 +226,8 @@ public class WordsRepository implements WordsDataSource {
                 word.getKanji(),
                 word.getPartOfSpeech(),
                 word.getLevel(),
-                word.getCreated());
+                word.getCreated(),
+                word.isLocal());
 
         // Do in memory cache update to keep the app UI up to date
         if (cachedWords == null) {

@@ -51,8 +51,6 @@ public class ManagePresenter implements ManageContract.Presenter{
     @Override
     public void saveWord(Words words) {
 
-        final String randomId = UUID.randomUUID().toString().substring(0, 8).replaceAll("-", "");
-
         OkHttpClient client = new OkHttpClient();
 
         RequestBody formBody = new FormBody.Builder()

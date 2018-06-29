@@ -91,7 +91,8 @@ public class WordsRemoteDataSource implements WordsDataSource {
                                             memorize.getJSONObject(i).getString("level"),
                                             memorize.getJSONObject(i).getBoolean("isMemorize"),
                                             memorize.getJSONObject(i).getBoolean("isFavorite"),
-                                            memorize.getJSONObject(i).getString("created"));
+                                            memorize.getJSONObject(i).getString("created"),
+                                            false);
 
                                     WORDS_SERVICE_DATA.put(words.getId(), words);
                                 }
@@ -132,7 +133,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
     @Override
     public void memorizeWord(@NonNull Words word) {
         Words memorizedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(),
-                true, word.isFavorite(), word.getCreated());
+                true, word.isFavorite(), word.getCreated(), word.isLocal());
         WORDS_SERVICE_DATA.put(word.getId(), memorizedWord);
     }
 
@@ -144,7 +145,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
     @Override
     public void favWord(@NonNull Words word) {
         Words favoritedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(),
-                word.isMemorize(), true, word.getCreated());
+                word.isMemorize(), true, word.getCreated(), word.isLocal());
         WORDS_SERVICE_DATA.put(word.getId(), favoritedWord);
     }
 
@@ -155,7 +156,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
     @Override
     public void activeWord(@NonNull Words word) {
-        Words activeWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(), word.getCreated());
+        Words activeWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(), word.getCreated(), word.isLocal());
         WORDS_SERVICE_DATA.put(word.getId(), activeWord);
     }
 

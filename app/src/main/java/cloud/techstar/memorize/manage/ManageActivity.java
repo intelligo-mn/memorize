@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -69,9 +71,15 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
                                 kanji.getText().toString(),
                                 partOfSpeech.getItemAtPosition(partOfSpeech.getSelectedItemPosition()).toString(),
                                 level.getItemAtPosition(level.getSelectedItemPosition()).toString(),
-                                false,false, ""));
+                                getNowTime()));
             }
         });
+    }
+
+    public String getNowTime(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(calendar.getTime());
     }
 
     @Override
