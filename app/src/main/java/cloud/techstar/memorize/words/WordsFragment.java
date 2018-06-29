@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
@@ -114,6 +115,11 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     @Override
     public void setPresenter(WordsContract.Presenter presenter) {
         this.presenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(AppMain.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

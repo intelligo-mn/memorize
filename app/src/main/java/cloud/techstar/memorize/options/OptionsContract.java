@@ -14,9 +14,6 @@ public interface OptionsContract {
         void memorizeShow();
 
         void historyShow();
-
-        void showMessage(String message);
-
     }
 
     interface Presenter extends BasePresenter {

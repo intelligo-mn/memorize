@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,11 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
     @Override
     public void setPresenter(FavoriteContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(AppMain.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

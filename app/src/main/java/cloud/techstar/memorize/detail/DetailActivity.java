@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
@@ -72,6 +74,11 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     @Override
     public void setPresenter(DetailContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(AppMain.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

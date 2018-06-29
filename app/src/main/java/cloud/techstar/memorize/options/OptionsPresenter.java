@@ -35,12 +35,12 @@ public class OptionsPresenter implements OptionsContract.Presenter{
             @Override
             public void onWordsLoaded(List<Words> words) {
                 optionsView.setLoadingIndicator(false);
-                optionsView.showMessage("Download "+words.size()+" word.");
+                optionsView.showToast("Download "+words.size()+" word.");
             }
 
             @Override
             public void onDataNotAvailable() {
-
+                optionsView.showToast("Data not available.");
             }
         });
     }

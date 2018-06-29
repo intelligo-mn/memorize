@@ -79,6 +79,11 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
     }
 
     @Override
+    public void showToast(String message) {
+        Toast.makeText(AppMain.getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void setLoadingIndicator(final boolean active) {
         if (getView() == null) {
             return;
@@ -108,11 +113,6 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
     @Override
     public void historyShow() {
 
-    }
-
-    @Override
-    public void showMessage(String message) {
-        Toast.makeText(AppMain.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHolder> {
