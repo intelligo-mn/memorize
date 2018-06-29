@@ -59,7 +59,7 @@ public class ManagePresenter implements ManageContract.Presenter{
                 .add("character", words.getCharacter())
                 .add("meanings", words.getMeaning())
                 .add("meaningsMongolia", checkNotNull(words.getMeaningMon()))
-//                .add("partOfSpeech", checkNotNull(words.getPartOfSpeech()))
+                .add("partOfSpeech", checkNotNull(words.getPartOfSpeech()))
                 .add("kanji", checkNotNull(words.getKanji()))
                 .add("level", checkNotNull(words.getLevel()))
                 .build();

@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.UUID;
 
 @Entity(tableName = "words")
@@ -56,7 +58,11 @@ public final class Words {
     @ColumnInfo(name = "created")
     private final String created;
 
-    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created) {
+    @Nullable
+    @ColumnInfo(name = "local")
+    private final boolean isLocal;
+
+    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created, boolean isLocal) {
         this.id = id;
         this.character = character;
         this.meaning = meaning;
@@ -67,22 +73,23 @@ public final class Words {
         this.isMemorize = isMemorize;
         this.isFavorite = isFavorite;
         this.created = created;
+        this.isLocal = isLocal;
     }
 
     /**
      * Use this constructor to create an new word
      */
     @Ignore
-    public Words(@NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created) {
-        this(UUID.randomUUID().toString(), character, meaning, meaningMon, kanji, partOfSpeech, level, isMemorize, isFavorite, created);
+    public Words(@NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created) {
+        this(UUID.randomUUID().toString(), character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, true);
     }
 
     /**
      * Use this constructor to create an active word
      */
     @Ignore
-    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created) {
-        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created);
+    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created, boolean isLocal) {
+        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, isLocal);
     }
 
     @NonNull
@@ -131,6 +138,11 @@ public final class Words {
     }
 
     @Nullable
+    public boolean isLocal() {
+        return isLocal;
+    }
+
+    @Nullable
     public String getCreated() {
         return created;
     }
@@ -169,6 +181,12 @@ public final class Words {
                 ", meaning='" + meaning + '\'' +
                 ", meaningMon='" + meaningMon + '\'' +
                 '}';
+    }
+
+    public String getNowTime(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(calendar.getTime());
     }
 
     @Override
