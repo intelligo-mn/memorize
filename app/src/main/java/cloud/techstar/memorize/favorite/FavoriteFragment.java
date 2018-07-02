@@ -1,5 +1,7 @@
 package cloud.techstar.memorize.favorite;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +30,11 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
     private FavoritePresenter favoritePresenter;
     private FavoriteContract.Presenter presenter;
     private FavoriteAdapter mAdapter;
+
+    private boolean mIsBackVisible = false;
+    private View mCardFrontLayout;
+    private View mCardBackLayout;
+
     public static FavoriteFragment newInstance() {
         FavoriteFragment fragment = new FavoriteFragment();
         return fragment;
@@ -39,6 +46,9 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         mAdapter = new FavoriteAdapter(new ArrayList<Words>(0));
 
         favoritePresenter = new FavoritePresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
+
+
+
     }
 
     @Override
@@ -59,6 +69,18 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         return root;
+    }
+
+    public void flipCard() {
+        if (!mIsBackVisible) {
+            mCardFrontLayout.setVisibility(View.VISIBLE);
+            mCardBackLayout.setVisibility(View.INVISIBLE);
+            mIsBackVisible = true;
+        } else {
+            mCardFrontLayout.setVisibility(View.INVISIBLE);
+            mCardBackLayout.setVisibility(View.VISIBLE);
+            mIsBackVisible = false;
+        }
     }
 
     @Override
@@ -130,7 +152,9 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
 
             @Override
             public void onClick(View view) {
-                presenter.openWordDetails(words.get(this.getAdapterPosition()));
+//                presenter.openWordDetails(words.get(this.getAdapterPosition()));
+
+                flipCard();
             }
         }
 
@@ -138,7 +162,10 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         public FavoriteAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                              int viewType) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_favorite, parent, false);
+                    .inflate(R.layout.item_flash_card, parent, false);
+            mCardBackLayout = v.findViewById(R.id.card_back);
+            mCardFrontLayout = v.findViewById(R.id.card_front);
+
             FavoriteAdapter.ViewHolder vh = new FavoriteAdapter.ViewHolder(v);
             return vh;
         }
