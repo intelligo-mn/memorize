@@ -22,10 +22,10 @@
         </activity>
         <activity android:name="cloud.techstar.memorize.detail.DetailActivity"></activity>
 
-        <service android:name="cloud.techstar.memorize.widget.UpdateWidgetService" />
+        <service android:name="cloud.techstar.memorize.widget.WidgetService" />
 
         <receiver
-            android:name="cloud.techstar.memorize.widget.WordWidget"
+            android:name="cloud.techstar.memorize.widget.WidgetView"
             android:label="word widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

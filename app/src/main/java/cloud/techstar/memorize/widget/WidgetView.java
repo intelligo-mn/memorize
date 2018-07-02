@@ -9,7 +9,7 @@ import android.widget.RemoteViews;
 
 import cloud.techstar.memorize.R;
 
-public class WordWidget extends AppWidgetProvider {
+public class WidgetView extends AppWidgetProvider{
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
@@ -17,7 +17,7 @@ public class WordWidget extends AppWidgetProvider {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.word_widget);
-        Intent intent = new Intent(context.getApplicationContext(), UpdateWidgetService.class);
+        Intent intent = new Intent(context.getApplicationContext(), WidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
 
         PendingIntent pendingIntent = PendingIntent.getService(
@@ -32,4 +32,5 @@ public class WordWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
     }
+
 }
