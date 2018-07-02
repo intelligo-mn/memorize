@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
     private FavoritePresenter favoritePresenter;
     private FavoriteContract.Presenter presenter;
     private FavoriteAdapter mAdapter;
+    private Animation animation;
 
     public static FavoriteFragment newInstance() {
         FavoriteFragment fragment = new FavoriteFragment();
@@ -60,6 +63,9 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new GridLayoutManager(AppMain.getContext(), 2));
         mRecyclerView.setAdapter(mAdapter);
+
+        animation = AnimationUtils.loadAnimation(AppMain.getContext(), R.anim.card_in);
+
         return root;
     }
 
@@ -138,16 +144,20 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
 
                 mCardFrontLayout.setVisibility(View.VISIBLE);
                 mCardBackLayout.setVisibility(View.INVISIBLE);
+
+
             }
 
             @Override
             public void onClick(View view) {
 //                presenter.openWordDetails(words.get(this.getAdapterPosition()));
                 if (!mIsBackVisible) {
+                    mCardFrontLayout.startAnimation(animation);
                     mCardFrontLayout.setVisibility(View.INVISIBLE);
                     mCardBackLayout.setVisibility(View.VISIBLE);
                     mIsBackVisible = true;
                 } else {
+                    mCardBackLayout.startAnimation(animation);
                     mCardFrontLayout.setVisibility(View.VISIBLE);
                     mCardBackLayout.setVisibility(View.INVISIBLE);
                     mIsBackVisible = false;
