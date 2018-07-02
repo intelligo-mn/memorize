@@ -103,6 +103,14 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
     }
 
     @Override
+    public void clearFields() {
+        character.setText("");
+        meaning.setText("");
+        meaningMn.setText("");
+        kanji.setText("");
+    }
+
+    @Override
     public void setPresenter(ManageContract.Presenter presenter) {
         this.presenter = presenter;
     }

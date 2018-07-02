@@ -12,9 +12,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.UUID;
 
+import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.database.WordsRepository;
+import cloud.techstar.memorize.utils.ConnectionDetector;
 import cloud.techstar.memorize.utils.MemorizeConstant;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -50,7 +52,15 @@ public class ManagePresenter implements ManageContract.Presenter{
 
     @Override
     public void saveWord(Words words) {
+        wordsRepository.saveWord(words);
+        if (ConnectionDetector.isNetworkAvailable(AppMain.getContext()))
+            sendServer(words);
 
+        manageView.clearFields();
+    }
+
+    @Override
+    public void sendServer(Words words) {
         OkHttpClient client = new OkHttpClient();
 
         RequestBody formBody = new FormBody.Builder()
@@ -88,9 +98,9 @@ public class ManagePresenter implements ManageContract.Presenter{
 
                             JSONObject ob = new JSONObject(res);
                             if (ob.getString("message").equals("1")) {
-                                manageView.showToast("Complete save remote");
+                                manageView.showToast("Сэрвэрт амжилттай илгээлээ");
                             } else {
-                                manageView.showToast("Error");
+                                manageView.showToast("Сэрвэрт хадгалах үед алдаа гарлаа");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -100,12 +110,6 @@ public class ManagePresenter implements ManageContract.Presenter{
                 });
             }
         });
-
-    }
-
-    @Override
-    public void sendServer() {
-
     }
 
     @Override

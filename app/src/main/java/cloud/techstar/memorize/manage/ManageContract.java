@@ -17,6 +17,8 @@ public interface ManageContract {
 
         void showLoadingWordsError();
 
+        void clearFields();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -25,6 +27,6 @@ public interface ManageContract {
 
         void saveWord(Words words);
 
-        void sendServer();
+        void sendServer(Words words);
     }
 }
