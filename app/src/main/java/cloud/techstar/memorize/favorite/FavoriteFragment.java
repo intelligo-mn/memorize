@@ -64,7 +64,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         mRecyclerView.setLayoutManager(new GridLayoutManager(AppMain.getContext(), 2));
         mRecyclerView.setAdapter(mAdapter);
 
-        animation = AnimationUtils.loadAnimation(AppMain.getContext(), R.anim.card_in);
+//        animation = AnimationUtils.loadAnimation(AppMain.getContext(), R.anim.card_in);
 
         return root;
     }
@@ -152,12 +152,12 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
             public void onClick(View view) {
 //                presenter.openWordDetails(words.get(this.getAdapterPosition()));
                 if (!mIsBackVisible) {
-                    mCardFrontLayout.startAnimation(animation);
+//                    mCardFrontLayout.startAnimation(animation);
                     mCardFrontLayout.setVisibility(View.INVISIBLE);
                     mCardBackLayout.setVisibility(View.VISIBLE);
                     mIsBackVisible = true;
                 } else {
-                    mCardBackLayout.startAnimation(animation);
+//                    mCardBackLayout.startAnimation(animation);
                     mCardFrontLayout.setVisibility(View.VISIBLE);
                     mCardBackLayout.setVisibility(View.INVISIBLE);
                     mIsBackVisible = false;
