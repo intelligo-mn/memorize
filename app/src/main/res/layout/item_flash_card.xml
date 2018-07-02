@@ -2,22 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:onClick="flipCard">
-
+    android:layout_height="wrap_content">
 
     <FrameLayout
         android:id="@+id/card_back"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <include layout="@layout/card_back" />
-
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/card_front"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center">
         <include layout="@layout/card_front" />
 

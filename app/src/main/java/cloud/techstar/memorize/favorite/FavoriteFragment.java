@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,10 +32,6 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
     private FavoriteContract.Presenter presenter;
     private FavoriteAdapter mAdapter;
 
-    private boolean mIsBackVisible = false;
-    private View mCardFrontLayout;
-    private View mCardBackLayout;
-
     public static FavoriteFragment newInstance() {
         FavoriteFragment fragment = new FavoriteFragment();
         return fragment;
@@ -44,11 +41,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new FavoriteAdapter(new ArrayList<Words>(0));
-
         favoritePresenter = new FavoritePresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
-
-
-
     }
 
     @Override
@@ -64,23 +57,10 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
 
         final RecyclerView mRecyclerView = root.findViewById(R.id.fav_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(AppMain.getContext());
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(AppMain.getContext(), 2));
         mRecyclerView.setAdapter(mAdapter);
         return root;
-    }
-
-    public void flipCard() {
-        if (!mIsBackVisible) {
-            mCardFrontLayout.setVisibility(View.VISIBLE);
-            mCardBackLayout.setVisibility(View.INVISIBLE);
-            mIsBackVisible = true;
-        } else {
-            mCardFrontLayout.setVisibility(View.INVISIBLE);
-            mCardBackLayout.setVisibility(View.VISIBLE);
-            mIsBackVisible = false;
-        }
     }
 
     @Override
@@ -139,22 +119,39 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
 
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            private View mCardFrontLayout;
+            private View mCardBackLayout;
             private TextView characterText;
             private TextView meaningText;
             private TextView meaningMnText;
+
+            private boolean mIsBackVisible = false;
+
             private ViewHolder(View v) {
                 super(v);
                 v.setOnClickListener(this);
+                mCardBackLayout = v.findViewById(R.id.card_back);
+                mCardFrontLayout = v.findViewById(R.id.card_front);
                 characterText = v.findViewById(R.id.fav_character_text);
                 meaningText = v.findViewById(R.id.fav_meaning_text);
                 meaningMnText = v.findViewById(R.id.fav_meaning_mn_text);
+
+                mCardFrontLayout.setVisibility(View.VISIBLE);
+                mCardBackLayout.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onClick(View view) {
 //                presenter.openWordDetails(words.get(this.getAdapterPosition()));
-
-                flipCard();
+                if (!mIsBackVisible) {
+                    mCardFrontLayout.setVisibility(View.INVISIBLE);
+                    mCardBackLayout.setVisibility(View.VISIBLE);
+                    mIsBackVisible = true;
+                } else {
+                    mCardFrontLayout.setVisibility(View.VISIBLE);
+                    mCardBackLayout.setVisibility(View.INVISIBLE);
+                    mIsBackVisible = false;
+                }
             }
         }
 
@@ -163,8 +160,6 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
                                                              int viewType) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_flash_card, parent, false);
-            mCardBackLayout = v.findViewById(R.id.card_back);
-            mCardFrontLayout = v.findViewById(R.id.card_front);
 
             FavoriteAdapter.ViewHolder vh = new FavoriteAdapter.ViewHolder(v);
             return vh;
