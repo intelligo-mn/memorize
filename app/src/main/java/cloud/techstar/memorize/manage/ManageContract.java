@@ -19,6 +19,8 @@ public interface ManageContract {
 
         void clearFields();
 
+        boolean validateFields();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -27,6 +29,6 @@ public interface ManageContract {
 
         void saveWord(Words words);
 
-        void sendServer(Words words);
+        void sendServer();
     }
 }

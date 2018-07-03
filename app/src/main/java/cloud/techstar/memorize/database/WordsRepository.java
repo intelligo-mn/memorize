@@ -139,6 +139,11 @@ public class WordsRepository implements WordsDataSource {
     }
 
     @Override
+    public void sendServer(Words word) {
+
+    }
+
+    @Override
     public void saveWord(@NonNull Words word) {
 
         wordsRemoteDataSource.saveWord(word);
@@ -166,7 +171,7 @@ public class WordsRepository implements WordsDataSource {
                 true,
                 word.isFavorite(),
                 word.getCreated(),
-                word.isLocal());
+                true);
         if (cachedWords == null) {
             cachedWords = new LinkedHashMap<>();
         }
@@ -197,7 +202,7 @@ public class WordsRepository implements WordsDataSource {
                 word.isMemorize(),
                 true,
                 word.getCreated(),
-                word.isLocal());
+                true);
 
         // Do in memory cache update to keep the app UI up to date
         if (cachedWords == null) {
@@ -226,8 +231,7 @@ public class WordsRepository implements WordsDataSource {
                 word.getKanji(),
                 word.getPartOfSpeech(),
                 word.getLevel(),
-                word.getCreated(),
-                word.isLocal());
+                word.getCreated());
 
         // Do in memory cache update to keep the app UI up to date
         if (cachedWords == null) {

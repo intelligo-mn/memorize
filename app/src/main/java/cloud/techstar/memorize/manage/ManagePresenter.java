@@ -30,7 +30,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ManagePresenter implements ManageContract.Presenter{
 
-    private final Handler handler;
+    private Handler handler;
 
     private WordsRepository wordsRepository;
 
@@ -45,6 +45,10 @@ public class ManagePresenter implements ManageContract.Presenter{
         manageView.setPresenter(this);
     }
 
+    public ManagePresenter(WordsRepository wordsRepository) {
+        this.wordsRepository = wordsRepository;
+    }
+
     @Override
     public void result(int requestCode, int resultCode) {
 
@@ -54,62 +58,14 @@ public class ManagePresenter implements ManageContract.Presenter{
     public void saveWord(Words words) {
         wordsRepository.saveWord(words);
         if (ConnectionDetector.isNetworkAvailable(AppMain.getContext()))
-            sendServer(words);
-
+            sendServer();
+        wordsRepository.sendServer(words);
         manageView.clearFields();
     }
 
     @Override
-    public void sendServer(Words words) {
-        OkHttpClient client = new OkHttpClient();
+    public void sendServer() {
 
-        RequestBody formBody = new FormBody.Builder()
-                .add("character", words.getCharacter())
-                .add("meanings", words.getMeaning())
-                .add("meaningsMongolia", checkNotNull(words.getMeaningMon()))
-                .add("partOfSpeech", checkNotNull(words.getPartOfSpeech()))
-                .add("kanji", checkNotNull(words.getKanji()))
-                .add("level", checkNotNull(words.getLevel()))
-                .build();
-
-        Request request = new Request.Builder()
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .url(MemorizeConstant.CREATE_WORD)
-                .post(formBody)
-                .build();
-
-        Logger.e(request.toString()+request.headers().toString()+request.body());
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, IOException e) {
-                Logger.e(e.getMessage());
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-                final String res = response.body().string();
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        try {
-
-                            JSONObject ob = new JSONObject(res);
-                            if (ob.getString("message").equals("1")) {
-                                manageView.showToast("Сэрвэрт амжилттай илгээлээ");
-                            } else {
-                                manageView.showToast("Сэрвэрт хадгалах үед алдаа гарлаа");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-            }
-        });
     }
 
     @Override

@@ -83,6 +83,11 @@ public class WordsLocalDataSource implements WordsDataSource {
     }
 
     @Override
+    public void sendServer(Words word) {
+
+    }
+
+    @Override
     public void saveWord(@NonNull final Words word) {
         Runnable saveRunnable = new Runnable() {
             @Override
@@ -98,7 +103,7 @@ public class WordsLocalDataSource implements WordsDataSource {
         Runnable completeRunnable = new Runnable() {
             @Override
             public void run() {
-                wordsDao.updateMemorized(word.getId(), true);
+                wordsDao.updateMemorized(word.getId(), true, true);
                 Logger.e("Words favorited");
             }
         };
@@ -116,7 +121,7 @@ public class WordsLocalDataSource implements WordsDataSource {
         Runnable completeRunnable = new Runnable() {
             @Override
             public void run() {
-                wordsDao.updateFavorited(word.getId(), true);
+                wordsDao.updateFavorited(word.getId(), true, true);
                 Logger.e("Words favorited");
             }
         };
@@ -134,8 +139,8 @@ public class WordsLocalDataSource implements WordsDataSource {
         Runnable completeRunnable = new Runnable() {
             @Override
             public void run() {
-                wordsDao.updateMemorized(word.getId(), false);
-                wordsDao.updateFavorited(word.getId(), false);
+                wordsDao.updateMemorized(word.getId(), false, true);
+                wordsDao.updateFavorited(word.getId(), false, true);
                 Logger.e("Words favorited");
             }
         };

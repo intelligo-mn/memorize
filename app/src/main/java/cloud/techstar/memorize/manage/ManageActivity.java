@@ -64,6 +64,8 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!validateFields())
+                    return;
                 presenter.saveWord(
                         new Words(character.getText().toString(),
                                 meaning.getText().toString(),
@@ -108,6 +110,38 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
         meaning.setText("");
         meaningMn.setText("");
         kanji.setText("");
+    }
+
+    @Override
+    public boolean validateFields() {
+        boolean valid = true;
+
+
+        if (character.getText().toString().isEmpty()) {
+            character.setError("Япон үг оруулна уу");
+            valid = false;
+        } else {
+            character.setError(null);
+        }
+
+        if (meaning.getText().toString().isEmpty()) {
+            meaning.setError("Орчуулга оруулна уу");
+            valid = false;
+        } else {
+            meaning.setError(null);
+        }
+
+        if (meaningMn.getText().toString().isEmpty()) {
+            meaningMn.setError("Монгол орчуулга оруулна уу");
+            valid = false;
+        } else {
+            meaningMn.setError(null);
+        }
+
+        if (kanji.getText().toString().isEmpty()) {
+            kanji.setText(character.getText());
+        }
+        return valid;
     }
 
     @Override

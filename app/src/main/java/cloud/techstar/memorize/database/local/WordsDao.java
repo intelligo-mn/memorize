@@ -25,11 +25,11 @@ public interface WordsDao {
     @Update
     int updateWord(Words word);
 
-    @Query("UPDATE words SET favorited = :favorited WHERE id = :wordId")
-    void updateFavorited(String wordId, boolean favorited);
+    @Query("UPDATE words SET favorited = :favorited, local = :isLocal WHERE id = :wordId")
+    void updateFavorited(String wordId, boolean favorited, boolean isLocal);
 
-    @Query("UPDATE words SET memorized = :memorized WHERE id = :wordId")
-    void updateMemorized(String wordId, boolean memorized);
+    @Query("UPDATE words SET memorized = :memorized, local = :isLocal WHERE id = :wordId")
+    void updateMemorized(String wordId, boolean memorized, boolean isLocal);
 
     @Query("DELETE FROM words")
     void deleteWords();

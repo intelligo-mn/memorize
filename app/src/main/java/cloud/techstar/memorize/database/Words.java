@@ -88,8 +88,8 @@ public final class Words {
      * Use this constructor to create an active word
      */
     @Ignore
-    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created, boolean isLocal) {
-        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, isLocal);
+    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created) {
+        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, true);
     }
 
     @NonNull
