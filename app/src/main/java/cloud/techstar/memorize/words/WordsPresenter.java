@@ -5,6 +5,9 @@ import android.support.annotation.NonNull;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import cloud.techstar.memorize.database.Words;
@@ -85,17 +88,20 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                 mainWords.add(word);
                             }
                             break;
-                        case FAVORITE_WORDS:
-                            if (word.isFavorite()) {
-                                mainWords.add(word);
-                            }
-                            break;
                         default:
                             mainWords.add(word);
                             break;
                     }
                 }
 
+                if (currentFilterType == WordFilterType.RECENTLY){
+                    Collections.sort(mainWords, new Comparator<Words>() {
+                        @Override
+                        public int compare(Words o1, Words o2) {
+                            return o2.getCreated().compareTo(o1.getCreated());
+                        }
+                    });
+                }
                 Logger.e("Presenter words count : "+words.size());
                 wordsView.showWords(mainWords);
                 wordsView.setSuggest(words);

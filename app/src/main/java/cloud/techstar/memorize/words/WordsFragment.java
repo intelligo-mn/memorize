@@ -33,6 +33,7 @@ import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.detail.DetailActivity;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WordsFragment extends Fragment implements WordsContract.View{
@@ -45,6 +46,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     private Spinner viewSpinner, sortSpinner;
 
     private WordsContract.Presenter presenter;
+//    private Word
 
     WordsAdapter mAdapter;
 
@@ -114,7 +116,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         sortSpinner = root.findViewById(R.id.sort);
         viewSpinner = root.findViewById(R.id.view);
 
-        List<String> sorts = new LinkedList<>(Arrays.asList("All", "Favorite","Recently","Least", "Active"));
+        List<String> sorts = new LinkedList<>(Arrays.asList("All", "Recently", "Active"));
 
         List<String> views = new LinkedList<>(Arrays.asList("List", "Grid", "Card"));
 
@@ -139,15 +141,9 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                         presenter.setFilterType(WordFilterType.ALL_WORDS);
                         break;
                     case 1 :
-                        presenter.setFilterType(WordFilterType.FAVORITE_WORDS);
-                        break;
-                    case 2 :
                         presenter.setFilterType(WordFilterType.RECENTLY);
                         break;
-                    case 3 :
-                        presenter.setFilterType(WordFilterType.LEAST_RECENTLY);
-                        break;
-                    case 4 :
+                    case 2 :
                         presenter.setFilterType(WordFilterType.ACTIVE_WORDS);
                         break;
                     default:
@@ -155,6 +151,32 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                         break;
                 }
                 presenter.loadWords(false);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        viewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        presenter.setViewType(WordViewType.LIST);
+                        break;
+                    case 1:
+                        presenter.setViewType(WordViewType.GRID);
+                        break;
+                    case 2:
+                        presenter.setViewType(WordViewType.CARD);
+                        break;
+                    default:
+                        presenter.setViewType(WordViewType.LIST);
+                        break;
+                }
+
             }
 
             @Override
