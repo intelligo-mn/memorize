@@ -24,6 +24,50 @@
             android:layout_margin="8dp"
             app:mt_navIconEnabled="true"
             app:mt_placeholder="Хайх" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:textSize="18sp"
+                android:textColor="@color/greyple"
+                android:text="Шүүлт" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true">
+
+                <Spinner
+                    android:id="@+id/sort"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_sort"
+                    android:prompt="@string/part_of_speech"
+                    android:spinnerMode="dropdown" />
+
+                <Spinner
+                    android:id="@+id/view"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_view_list"
+                    android:prompt="@string/part_of_speech"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+        </RelativeLayout>
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_layout"
             android:layout_width="match_parent"

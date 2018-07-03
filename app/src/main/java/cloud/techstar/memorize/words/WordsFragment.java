@@ -13,12 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import cloud.techstar.memorize.AppMain;
@@ -36,6 +40,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
     private SwipeRefreshLayout swipeRefreshLayout = null;
     private WordsPresenter wordsPresenter;
+    private Spinner viewSpinner, sortSpinner;
 
     private WordsContract.Presenter presenter;
 
@@ -80,6 +85,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         });
         wordSuggestionsAdapter = new WordSuggestionsAdapter(inflater);
         searchBar.setMaxSuggestionCount(2);
+        searchBar.setSpeechMode(true);
         searchBar.setHint("Хайх үгээ оруул..");
         searchBar.setCustomSuggestionAdapter(wordSuggestionsAdapter);
 
@@ -102,6 +108,24 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
         });
         // Inflate the layout for this fragment
+
+        sortSpinner = root.findViewById(R.id.sort);
+        viewSpinner = root.findViewById(R.id.view);
+
+        List<String> sorts = new LinkedList<>(Arrays.asList("All", "Favorite","Recently","Least"));
+
+        List<String> views = new LinkedList<>(Arrays.asList("List", "Grid", "Card"));
+
+        ArrayAdapter<String> sortAdapter = new ArrayAdapter<String>(AppMain.getContext(),
+                R.layout.spinner_item, sorts);
+        sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter<String> viewAdapter = new ArrayAdapter<String>(AppMain.getContext(),
+                R.layout.spinner_item, views);
+        viewAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        sortSpinner.setAdapter(sortAdapter);
+        viewSpinner.setAdapter(viewAdapter);
 
         final RecyclerView mRecyclerView = root.findViewById(R.id.word_recycler_view);
         mRecyclerView.setHasFixedSize(true);
