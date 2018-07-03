@@ -20,6 +20,8 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     @NonNull
     private final WordsContract.View wordsView;
 
+    private WordFilterType currentFilterType = WordFilterType.ALL_WORDS;
+
     public WordsPresenter(@NonNull WordsDataSource wordRepository, @NonNull WordsContract.View wordsView) {
         this.wordRepository = wordRepository;
         this.wordsView = wordsView;
@@ -73,14 +75,29 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                 Logger.e("Presenter words count : "+words.size());
 
                 for (Words word : words) {
-                    if (!word.isMemorize())
-                        mainWords.add(word);
+
+                    switch (getFilterType()) {
+                        case ALL_WORDS:
+                            mainWords.add(word);
+                            break;
+                        case ACTIVE_WORDS:
+                            if (!word.isFavorite() && !word.isMemorize()) {
+                                mainWords.add(word);
+                            }
+                            break;
+                        case FAVORITE_WORDS:
+                            if (word.isFavorite()) {
+                                mainWords.add(word);
+                            }
+                            break;
+                        default:
+                            mainWords.add(word);
+                            break;
+                    }
                 }
 
-                wordsView.showWords(mainWords);
-
                 Logger.e("Presenter words count : "+words.size());
-                wordsView.showWords(words);
+                wordsView.showWords(mainWords);
                 wordsView.setSuggest(words);
                 if (showLoadingUI) {
                     wordsView.setLoadingIndicator(false);
@@ -99,5 +116,25 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     public void openWordDetails(@NonNull Words requestedWord) {
         checkNotNull(requestedWord, "requestedWord cannot be null!");
         wordsView.showWordDetail(requestedWord.getId());
+    }
+
+    @Override
+    public void setFilterType(WordFilterType filterType) {
+        currentFilterType = filterType;
+    }
+
+    @Override
+    public WordFilterType getFilterType() {
+        return currentFilterType;
+    }
+
+    @Override
+    public void setViewType(WordViewType viewType) {
+
+    }
+
+    @Override
+    public WordViewType getViewType() {
+        return null;
     }
 }

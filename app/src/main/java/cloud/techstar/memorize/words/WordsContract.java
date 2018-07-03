@@ -35,5 +35,12 @@ public interface WordsContract {
 
         void openWordDetails(@NonNull Words requestedWord);
 
+        void setFilterType(WordFilterType filterType);
+
+        WordFilterType getFilterType();
+
+        void setViewType(WordViewType viewType);
+
+        WordViewType getViewType();
     }
 }

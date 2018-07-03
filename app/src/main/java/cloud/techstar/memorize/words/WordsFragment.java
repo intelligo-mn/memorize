@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
@@ -112,7 +114,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         sortSpinner = root.findViewById(R.id.sort);
         viewSpinner = root.findViewById(R.id.view);
 
-        List<String> sorts = new LinkedList<>(Arrays.asList("All", "Favorite","Recently","Least"));
+        List<String> sorts = new LinkedList<>(Arrays.asList("All", "Favorite","Recently","Least", "Active"));
 
         List<String> views = new LinkedList<>(Arrays.asList("List", "Grid", "Card"));
 
@@ -126,6 +128,40 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
         sortSpinner.setAdapter(sortAdapter);
         viewSpinner.setAdapter(viewAdapter);
+
+        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                com.orhanobut.logger.Logger.e("Selected position :"+position);
+                switch (position){
+                    case 0 :
+                        presenter.setFilterType(WordFilterType.ALL_WORDS);
+                        break;
+                    case 1 :
+                        presenter.setFilterType(WordFilterType.FAVORITE_WORDS);
+                        break;
+                    case 2 :
+                        presenter.setFilterType(WordFilterType.RECENTLY);
+                        break;
+                    case 3 :
+                        presenter.setFilterType(WordFilterType.LEAST_RECENTLY);
+                        break;
+                    case 4 :
+                        presenter.setFilterType(WordFilterType.ACTIVE_WORDS);
+                        break;
+                    default:
+                        presenter.setFilterType(WordFilterType.ALL_WORDS);
+                        break;
+                }
+                presenter.loadWords(false);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         final RecyclerView mRecyclerView = root.findViewById(R.id.word_recycler_view);
         mRecyclerView.setHasFixedSize(true);
