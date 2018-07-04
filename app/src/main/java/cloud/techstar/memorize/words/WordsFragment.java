@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
@@ -48,8 +48,9 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     private WordsContract.Presenter presenter;
 //    private Word
 
-    WordsAdapter mAdapter;
-
+    private WordsAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
     public WordsFragment() {
     }
 
@@ -61,7 +62,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new WordsAdapter(new ArrayList<Words>(0));
+        mAdapter = new WordsAdapter(new ArrayList<Words>(0), R.layout.item_word_list);
 
         wordsPresenter = new WordsPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
 
@@ -111,7 +112,13 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             }
 
         });
-        // Inflate the layout for this fragment
+
+        mRecyclerView = root.findViewById(R.id.word_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(AppMain.getContext());
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
 
         sortSpinner = root.findViewById(R.id.sort);
         viewSpinner = root.findViewById(R.id.view);
@@ -164,10 +171,16 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        presenter.setViewType(WordViewType.LIST);
+                        mAdapter = new WordsAdapter(new ArrayList<Words>(0), R.layout.item_word_list);
+                        mLayoutManager = new LinearLayoutManager(AppMain.getContext());
+                        mRecyclerView.setLayoutManager(mLayoutManager);
+                        mRecyclerView.setAdapter(mAdapter);
                         break;
                     case 1:
-                        presenter.setViewType(WordViewType.GRID);
+                        mAdapter = new WordsAdapter(new ArrayList<Words>(0), R.layout.item_word_grid);
+                        mLayoutManager = new GridLayoutManager(AppMain.getContext(), 2);
+                        mRecyclerView.setLayoutManager(mLayoutManager);
+                        mRecyclerView.setAdapter(mAdapter);
                         break;
                     case 2:
                         presenter.setViewType(WordViewType.CARD);
@@ -176,7 +189,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                         presenter.setViewType(WordViewType.LIST);
                         break;
                 }
-
+                presenter.loadWords(false);
             }
 
             @Override
@@ -185,12 +198,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             }
         });
 
-        final RecyclerView mRecyclerView = root.findViewById(R.id.word_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(AppMain.getContext());
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
         return root;
     }
 
@@ -257,9 +264,11 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
     private class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> {
         private List<Words> words;
+        private final int resource;
 
-        public WordsAdapter(List<Words> words) {
+        public WordsAdapter(List<Words> words, int resource) {
             this.words = words;
+            this.resource = resource;
         }
 
         public void replaceData(List<Words> words) {
@@ -275,13 +284,11 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
             private TextView kanjiText;
             private TextView characterText;
-            private TextView meaningText;
             private ViewHolder(View v) {
                 super(v);
                 v.setOnClickListener(this);
                 kanjiText = v.findViewById(R.id.kanji_text);
                 characterText = v.findViewById(R.id.character_text);
-                meaningText = v.findViewById(R.id.meaning_text);
             }
 
             @Override
@@ -293,7 +300,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         public WordsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                           int viewType) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_words, parent, false);
+                    .inflate(resource, parent, false);
             WordsAdapter.ViewHolder vh = new WordsAdapter.ViewHolder(v);
             return vh;
         }
@@ -302,7 +309,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         public void onBindViewHolder(final WordsAdapter.ViewHolder holder, final int position) {
             holder.kanjiText.setText(words.get(position).getKanji());
             holder.characterText.setText(words.get(position).getCharacter());
-            holder.meaningText.setText(words.get(position).getMeaning());
         }
 
         @Override

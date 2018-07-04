@@ -21,6 +21,7 @@ public class ManageReceiver extends BroadcastReceiver {
 
         if (ConnectionDetector.isNetworkAvailable(context)){
 
+
         }
     }
 }
