@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
             android:gravity="center"
-            android:text="Үг нэмэх"
+            android:text="@string/create_words"
             android:textSize="19sp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="auto"
-                    android:hint="Япон үг"
+                    android:hint="@string/japan_word"
                     android:inputType="textAutoComplete" />
             </android.support.design.widget.TextInputLayout>
 
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="auto"
-                    android:hint="Англи орчуулга"
+                    android:hint="@string/english_meaning"
                     android:inputType="textAutoComplete" />
             </android.support.design.widget.TextInputLayout>
 
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="auto"
-                    android:hint="Монгол орчуулга"
+                    android:hint="@string/mongolian_meaning"
                     android:inputType="textAutoComplete" />
             </android.support.design.widget.TextInputLayout>
 
@@ -113,7 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="auto"
-                    android:hint="Ханз"
+                    android:hint="@string/kanji"
                     android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
@@ -146,7 +146,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@color/colorPrimary"
                 android:padding="12dp"
-                android:text="Нэмэх"
+                android:text="@string/add"
                 android:textColor="@color/white" />
         </LinearLayout>
 

@@ -38,7 +38,7 @@
                 android:layout_marginLeft="15dp"
                 android:textSize="18sp"
                 android:textColor="@color/greyple"
-                android:text="Шүүлт" />
+                android:text="@string/filter" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

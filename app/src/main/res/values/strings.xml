@@ -29,5 +29,10 @@
     <string name="menu_desc_download">Сэрвэрээс үгийн сан татах</string>
     <string name="menu_desc_about">Програмын тухай</string>
     <string name="menu_desc_license">License Information</string>
+    <string name="filter">Шүүлт</string>
+    <string name="memorize_words">Цээжлэх үгс</string>
+    <string name="create_words">Үг нэмэх</string>
+    <string name="japan_word">Япон үг</string>
+    <string name="add">Нэмэх</string>
 
 </resources>
