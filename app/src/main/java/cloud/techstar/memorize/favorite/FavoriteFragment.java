@@ -197,8 +197,8 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
                     cardLeftIn.start();
                     mIsBackVisible = true;
                 } else {
-                    mCardFrontLayout.setVisibility(View.VISIBLE);
                     mCardBackLayout.setVisibility(View.INVISIBLE);
+                    mCardFrontLayout.setVisibility(View.VISIBLE);
                     cardLeftIn.setTarget(mCardFrontLayout);
                     cardLeftIn.start();
                     mIsBackVisible = false;
