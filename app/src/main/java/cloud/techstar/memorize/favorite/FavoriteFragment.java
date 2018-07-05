@@ -61,7 +61,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         final RecyclerView mRecyclerView = root.findViewById(R.id.fav_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setLayoutManager(new GridLayoutManager(AppMain.getContext(), 2));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(AppMain.getContext(), 1));
         mRecyclerView.setAdapter(mAdapter);
 
 //        animation = AnimationUtils.loadAnimation(AppMain.getContext(), R.anim.card_in);
@@ -128,6 +128,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
             private View mCardFrontLayout;
             private View mCardBackLayout;
             private TextView characterText;
+            private TextView kanjiText;
             private TextView meaningText;
             private TextView meaningMnText;
 
@@ -139,6 +140,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
                 mCardBackLayout = v.findViewById(R.id.card_back);
                 mCardFrontLayout = v.findViewById(R.id.card_front);
                 characterText = v.findViewById(R.id.fav_character_text);
+                kanjiText = v.findViewById(R.id.fav_kanji_text);
                 meaningText = v.findViewById(R.id.fav_meaning_text);
                 meaningMnText = v.findViewById(R.id.fav_meaning_mn_text);
 
@@ -178,6 +180,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         @Override
         public void onBindViewHolder(FavoriteAdapter.ViewHolder holder, int position) {
             holder.characterText.setText(words.get(position).getCharacter());
+            holder.kanjiText.setText(words.get(position).getKanji());
             holder.meaningText.setText(words.get(position).getMeaning());
             holder.meaningMnText.setText(words.get(position).getMeaningMon());
         }

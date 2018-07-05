@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
+
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.Injection;
