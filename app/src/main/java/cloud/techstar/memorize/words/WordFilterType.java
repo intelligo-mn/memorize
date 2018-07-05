@@ -8,5 +8,7 @@ public enum WordFilterType {
 
     LEAST_RECENTLY,
 
-    ACTIVE_WORDS
+    ACTIVE_WORDS,
+
+    MEMORIZED_WORDS
 }

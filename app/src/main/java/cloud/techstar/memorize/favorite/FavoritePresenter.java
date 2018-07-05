@@ -58,7 +58,7 @@ public class FavoritePresenter implements FavoriteContract.Presenter, WordsDataS
                 Logger.e("Presenter words count : "+words.size());
 
                 for (Words word : words) {
-                    if (word.isFavorite())
+                    if (word.isFavorite() && !word.isMemorize())
                         favWords.add(word);
                 }
 
@@ -81,6 +81,11 @@ public class FavoritePresenter implements FavoriteContract.Presenter, WordsDataS
     public void openWordDetails(@NonNull Words requestedWord) {
         checkNotNull(requestedWord, "requestedWord cannot be null!");
         favoriteView.showWordDetail(requestedWord.getId());
+    }
+
+    @Override
+    public void memorizeWord(String wordId) {
+        wordRepository.memorizeWord(wordId);
     }
 
     @Override

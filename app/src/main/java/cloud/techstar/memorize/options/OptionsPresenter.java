@@ -1,10 +1,16 @@
 package cloud.techstar.memorize.options;
 
+import com.orhanobut.logger.Logger;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.database.WordsRepository;
+import cloud.techstar.memorize.words.WordFilterType;
 
 public class OptionsPresenter implements OptionsContract.Presenter{
 
@@ -20,7 +26,26 @@ public class OptionsPresenter implements OptionsContract.Presenter{
 
     @Override
     public void init() {
+        wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
+            @Override
+            public void onWordsLoaded(List<Words> words) {
 
+                List<Words> mainWords = new ArrayList<Words>();
+
+                for (Words word : words) {
+                    if (word.isMemorize()) {
+                        mainWords.add(word);
+                    }
+                }
+                optionsView.showToast("Memorized word "+mainWords.size());
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+
+            }
+        });
     }
 
     @Override

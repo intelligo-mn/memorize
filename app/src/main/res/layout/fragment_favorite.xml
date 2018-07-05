@@ -28,7 +28,7 @@
             android:textStyle="bold" />
     </RelativeLayout>
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/options_swiper"
+        android:id="@+id/fav_swiper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?android:actionBarSize">

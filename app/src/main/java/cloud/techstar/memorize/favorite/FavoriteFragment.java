@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,8 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
     private FavoriteContract.Presenter presenter;
     private FavoriteAdapter mAdapter;
     private Animation animation;
+    private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public static FavoriteFragment newInstance() {
         FavoriteFragment fragment = new FavoriteFragment();
@@ -44,6 +49,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new FavoriteAdapter(new ArrayList<Words>(0));
+        mAdapter.notifyDataSetChanged();
         favoritePresenter = new FavoritePresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
     }
 
@@ -58,12 +64,19 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_favorite, container, false);
 
-        final RecyclerView mRecyclerView = root.findViewById(R.id.fav_recycler_view);
+        mRecyclerView = root.findViewById(R.id.fav_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new GridLayoutManager(AppMain.getContext(), 1));
         mRecyclerView.setAdapter(mAdapter);
 
+        swipeRefreshLayout = (SwipeRefreshLayout)root.findViewById(R.id.fav_swiper);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.loadWords(false);
+            }
+        });
 //        animation = AnimationUtils.loadAnimation(AppMain.getContext(), R.anim.card_in);
 
         return root;
@@ -80,8 +93,20 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
+    public void setLoadingIndicator(final boolean active) {
+        if (getView() == null) {
+            return;
+        }
+        final SwipeRefreshLayout refreshLayout =
+                (SwipeRefreshLayout) getView().findViewById(R.id.fav_swiper);
 
+        // Make sure setRefreshing() is called after the layout is done with everything else.
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(active);
+            }
+        });
     }
 
     @Override
@@ -105,6 +130,16 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
     @Override
     public void showNoWords() {
 
+    }
+
+    @Override
+    public void showMemorize(boolean isFav) {
+
+    }
+
+    public void refreshRecycler(){
+        mAdapter = new FavoriteAdapter(new ArrayList<Words>(0));
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
@@ -131,6 +166,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
             private TextView kanjiText;
             private TextView meaningText;
             private TextView meaningMnText;
+            private ImageButton btnMemory;
 
             private boolean mIsBackVisible = false;
 
@@ -143,25 +179,28 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
                 kanjiText = v.findViewById(R.id.fav_kanji_text);
                 meaningText = v.findViewById(R.id.fav_meaning_text);
                 meaningMnText = v.findViewById(R.id.fav_meaning_mn_text);
-
+                btnMemory = v.findViewById(R.id.btnMemory);
                 mCardFrontLayout.setVisibility(View.VISIBLE);
                 mCardBackLayout.setVisibility(View.INVISIBLE);
-
-
             }
 
             @Override
             public void onClick(View view) {
-//                presenter.openWordDetails(words.get(this.getAdapterPosition()));
+
+                AnimatorSet cardLeftIn = (AnimatorSet) AnimatorInflater.loadAnimator(AppMain.getContext(),
+                        R.animator.flip_left_in);
+
                 if (!mIsBackVisible) {
-//                    mCardFrontLayout.startAnimation(animation);
                     mCardFrontLayout.setVisibility(View.INVISIBLE);
                     mCardBackLayout.setVisibility(View.VISIBLE);
+                    cardLeftIn.setTarget(mCardBackLayout);
+                    cardLeftIn.start();
                     mIsBackVisible = true;
                 } else {
-//                    mCardBackLayout.startAnimation(animation);
                     mCardFrontLayout.setVisibility(View.VISIBLE);
                     mCardBackLayout.setVisibility(View.INVISIBLE);
+                    cardLeftIn.setTarget(mCardFrontLayout);
+                    cardLeftIn.start();
                     mIsBackVisible = false;
                 }
             }
@@ -173,16 +212,24 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_flash_card, parent, false);
 
-            FavoriteAdapter.ViewHolder vh = new FavoriteAdapter.ViewHolder(v);
-            return vh;
+            return new FavoriteAdapter.ViewHolder(v);
         }
 
         @Override
-        public void onBindViewHolder(FavoriteAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(final FavoriteAdapter.ViewHolder holder, final int position) {
             holder.characterText.setText(words.get(position).getCharacter());
             holder.kanjiText.setText(words.get(position).getKanji());
             holder.meaningText.setText(words.get(position).getMeaning());
             holder.meaningMnText.setText(words.get(position).getMeaningMon());
+
+            holder.btnMemory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.memorizeWord(words.get(position).getId());
+                    refreshRecycler();
+                    presenter.loadWords(false);
+                }
+            });
         }
 
         @Override

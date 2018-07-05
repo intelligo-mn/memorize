@@ -21,6 +21,8 @@ public interface FavoriteContract {
 
         void showNoWords();
 
+        void showMemorize(boolean isFav);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -31,5 +33,6 @@ public interface FavoriteContract {
 
         void openWordDetails(@NonNull Words requestedWord);
 
+        void memorizeWord(String wordId);
     }
 }

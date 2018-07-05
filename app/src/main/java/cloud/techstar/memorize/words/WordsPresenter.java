@@ -23,7 +23,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     @NonNull
     private final WordsContract.View wordsView;
 
-    private WordFilterType currentFilterType = WordFilterType.ALL_WORDS;
+    private WordFilterType currentFilterType = WordFilterType.ACTIVE_WORDS;
 
     public WordsPresenter(@NonNull WordsDataSource wordRepository, @NonNull WordsContract.View wordsView) {
         this.wordRepository = wordRepository;
@@ -89,7 +89,9 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                             }
                             break;
                         default:
-                            mainWords.add(word);
+                            if (!word.isFavorite() && !word.isMemorize()) {
+                                mainWords.add(word);
+                            }
                             break;
                     }
                 }
