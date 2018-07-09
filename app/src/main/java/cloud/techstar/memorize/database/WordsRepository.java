@@ -171,7 +171,7 @@ public class WordsRepository implements WordsDataSource {
                 true,
                 word.isFavorite(),
                 word.getCreated(),
-                true);
+                2);
         if (cachedWords == null) {
             cachedWords = new LinkedHashMap<>();
         }
@@ -202,7 +202,7 @@ public class WordsRepository implements WordsDataSource {
                 word.isMemorize(),
                 true,
                 word.getCreated(),
-                true);
+                2);
 
         // Do in memory cache update to keep the app UI up to date
         if (cachedWords == null) {

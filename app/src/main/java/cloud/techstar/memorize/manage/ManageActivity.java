@@ -2,6 +2,8 @@ package cloud.techstar.memorize.manage;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +14,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -22,6 +31,16 @@ import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.utils.ConnectionDetector;
+import cloud.techstar.memorize.utils.MemorizeConstant;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ManageActivity extends AppCompatActivity implements ManageContract.View{
 
@@ -76,6 +95,107 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
                                 getNowTime()));
             }
         });
+
+        ManagePresenter managePresenter = new ManagePresenter(Injection.provideWordsRepository(AppMain.getContext()));
+
+        JSONArray newData = managePresenter.getNewLocalData();
+        JSONArray updateData = managePresenter.getUpdatedLocalData();
+        if (ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
+
+            Logger.json(newData.toString());
+            Logger.json(updateData.toString());
+            final Handler handler = new Handler(Looper.getMainLooper());
+            OkHttpClient client = new OkHttpClient();
+
+            if (newData.length()>0){
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("new", newData.toString())
+                        .build();
+
+                Request request = new Request.Builder()
+                        .header("Content-Type", "application/x-www-form-urlencoded")
+                        .url(MemorizeConstant.CREATE_MULTIPLE)
+                        .post(requestBody)
+                        .build();
+
+                Logger.e(request.toString()+request.headers().toString()+request.body());
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, IOException e) {
+                        Logger.e(e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
+                        final String res = response.body().string();
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                try {
+
+                                    JSONObject ob = new JSONObject(res);
+                                    if (ob.getString("message").equals("1")) {
+                                        Logger.d("Complete");
+                                    } else {
+                                        Logger.d("Error");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                    }
+                });
+            } else if (updateData.length() > 0){
+
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("updated", updateData.toString())
+                        .build();
+
+                Request request = new Request.Builder()
+                        .header("Content-Type", "application/x-www-form-urlencoded")
+                        .url(MemorizeConstant.EDIT_MULTIPLE)
+                        .post(requestBody)
+                        .build();
+
+                Logger.e(request.toString()+request.headers().toString()+request.body());
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, IOException e) {
+                        Logger.e(e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
+                        final String res = response.body().string();
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                try {
+
+                                    JSONObject ob = new JSONObject(res);
+                                    if (ob.getString("message").equals("1")) {
+                                        Logger.d("Complete");
+                                    } else {
+                                        Logger.d("Error");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                    }
+                });
+            }
+        }
     }
 
     public String getNowTime(){

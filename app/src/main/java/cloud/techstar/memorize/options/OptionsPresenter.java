@@ -36,6 +36,11 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                     if (word.isMemorize()) {
                         mainWords.add(word);
                     }
+
+                    if (word.getIsLocal() == 1)
+                        Logger.e("New words : "+word.toString());
+                    else if (word.getIsLocal() == 2)
+                        Logger.e("Updated words : "+word.toString());
                 }
                 optionsView.showToast("Memorized word "+mainWords.size());
             }

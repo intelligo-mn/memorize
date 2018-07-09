@@ -60,9 +60,9 @@ public final class Words {
 
     @Nullable
     @ColumnInfo(name = "local")
-    private final boolean isLocal;
+    private final int isLocal;
 
-    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created, boolean isLocal) {
+    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created, int isLocal) {
         this.id = id;
         this.character = character;
         this.meaning = meaning;
@@ -81,7 +81,7 @@ public final class Words {
      */
     @Ignore
     public Words(@NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created) {
-        this(UUID.randomUUID().toString(), character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, true);
+        this(UUID.randomUUID().toString(), character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 1);
     }
 
     /**
@@ -89,7 +89,7 @@ public final class Words {
      */
     @Ignore
     public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created) {
-        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, true);
+        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 2);
     }
 
     @NonNull
@@ -138,7 +138,7 @@ public final class Words {
     }
 
     @Nullable
-    public boolean isLocal() {
+    public int getIsLocal() {
         return isLocal;
     }
 

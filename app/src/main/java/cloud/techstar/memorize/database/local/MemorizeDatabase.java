@@ -20,7 +20,7 @@ public abstract class MemorizeDatabase extends RoomDatabase {
         synchronized (sLock) {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                        MemorizeDatabase.class, "jishoroom.db")
+                        MemorizeDatabase.class, "jisho.db")
                         .build();
             }
             return INSTANCE;

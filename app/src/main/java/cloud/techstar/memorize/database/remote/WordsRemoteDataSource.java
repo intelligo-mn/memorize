@@ -96,7 +96,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
                                             memorize.getJSONObject(i).getBoolean("isMemorize"),
                                             memorize.getJSONObject(i).getBoolean("isFavorite"),
                                             memorize.getJSONObject(i).getString("created"),
-                                            false);
+                                            0);
 
                                     WORDS_SERVICE_DATA.put(words.getId(), words);
                                 }
@@ -192,7 +192,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
     @Override
     public void memorizeWord(@NonNull Words word) {
         Words memorizedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(),
-                true, word.isFavorite(), word.getCreated(), true);
+                true, word.isFavorite(), word.getCreated(), 2);
         WORDS_SERVICE_DATA.put(word.getId(), memorizedWord);
     }
 
@@ -204,7 +204,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
     @Override
     public void favWord(@NonNull Words word) {
         Words favoritedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(),
-                word.isMemorize(), true, word.getCreated(), true);
+                word.isMemorize(), true, word.getCreated(), 2);
         WORDS_SERVICE_DATA.put(word.getId(), favoritedWord);
     }
 
