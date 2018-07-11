@@ -128,7 +128,6 @@ public class ManagePresenter implements ManageContract.Presenter{
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }
             }

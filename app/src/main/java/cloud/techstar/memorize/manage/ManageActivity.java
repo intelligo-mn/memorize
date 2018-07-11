@@ -137,10 +137,10 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
                                 try {
 
                                     JSONObject ob = new JSONObject(res);
-                                    if (ob.getString("message").equals("1")) {
-                                        Logger.d("Complete");
+                                    if (ob.getString("status").equals("success")) {
+                                        showToast(ob.getString("message"));
                                     } else {
-                                        Logger.d("Error");
+                                        showToast(ob.getString("message"));
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -181,10 +181,10 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
                                 try {
 
                                     JSONObject ob = new JSONObject(res);
-                                    if (ob.getString("message").equals("1")) {
-                                        Logger.d("Complete");
+                                    if (ob.getString("status").equals("success")) {
+                                        showToast(ob.getString("message"));
                                     } else {
-                                        Logger.d("Error");
+                                        showToast(ob.getString("message"));
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
