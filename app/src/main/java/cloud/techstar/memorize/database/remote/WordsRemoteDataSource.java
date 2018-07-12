@@ -130,61 +130,6 @@ public class WordsRemoteDataSource implements WordsDataSource {
     }
 
     @Override
-    public void sendServer(Words words) {
-        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext()))
-            return;
-        final Handler handler = new Handler(Looper.getMainLooper());
-        OkHttpClient client = new OkHttpClient();
-        RequestBody formBody = new FormBody.Builder()
-                .add("character", words.getCharacter())
-                .add("meanings", words.getMeaning())
-                .add("meaningsMongolia", checkNotNull(words.getMeaningMon()))
-                .add("partOfSpeech", checkNotNull(words.getPartOfSpeech()))
-                .add("kanji", checkNotNull(words.getKanji()))
-                .add("level", checkNotNull(words.getLevel()))
-                .build();
-
-        Request request = new Request.Builder()
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .url(MemorizeConstant.CREATE_WORD)
-                .post(formBody)
-                .build();
-
-        Logger.e(request.toString()+request.headers().toString()+request.body());
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, IOException e) {
-                Logger.e(e.getMessage());
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-                final String res = response.body().string();
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        try {
-
-                            JSONObject ob = new JSONObject(res);
-                            if (ob.getString("message").equals("1")) {
-                                Logger.d("Complete");
-                            } else {
-                                Logger.d("Error");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
     public void saveWord(@NonNull Words word) {
         WORDS_SERVICE_DATA.put(word.getId(), word);
     }

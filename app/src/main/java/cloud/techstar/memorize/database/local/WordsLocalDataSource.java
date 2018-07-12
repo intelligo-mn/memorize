@@ -83,11 +83,6 @@ public class WordsLocalDataSource implements WordsDataSource {
     }
 
     @Override
-    public void sendServer(Words word) {
-
-    }
-
-    @Override
     public void saveWord(@NonNull final Words word) {
         Runnable saveRunnable = new Runnable() {
             @Override

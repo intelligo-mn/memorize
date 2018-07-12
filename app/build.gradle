@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.orhanobut:logger:2.1.1'
     implementation 'com.github.mancj:MaterialSearchBar:0.7.6'
 
+    implementation 'com.github.techstar-cloud:progressbar:1.0.2'
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation "com.google.guava:guava:25.0-android"

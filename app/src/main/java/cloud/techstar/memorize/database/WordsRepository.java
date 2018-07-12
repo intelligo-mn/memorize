@@ -139,11 +139,6 @@ public class WordsRepository implements WordsDataSource {
     }
 
     @Override
-    public void sendServer(Words word) {
-
-    }
-
-    @Override
     public void saveWord(@NonNull Words word) {
 
         wordsRemoteDataSource.saveWord(word);
