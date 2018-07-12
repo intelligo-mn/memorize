@@ -152,12 +152,12 @@
 
     </android.support.v7.widget.CardView>
     <cloud.techstar.progressbar.TSProgressBar
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:thickness="10dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:thickness="3dp"
         app:inner_padding="@dimen/default_inner_padding"
         app:inner_color="@color/colorAccent"
-        app:outer_color="@color/colorPrimaryDark"
+        app:outer_color="@color/colorAccent"
         android:id="@+id/add_progress"
         android:visibility="invisible"
         android:layout_centerInParent="true"/>

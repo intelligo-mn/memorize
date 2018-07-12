@@ -21,6 +21,7 @@ import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.manage.ManageActivity;
+import cloud.techstar.progressbar.TSProgressBar;
 
 public class OptionsFragment extends Fragment implements OptionsContract.View{
 
@@ -33,12 +34,13 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
             R.drawable.ic_history,
             R.drawable.ic_language,
             R.drawable.ic_cloud_download,
+            R.drawable.ic_cloud_upload,
             R.drawable.ic_menu,
             R.drawable.ic_public
     };
 
-    private SwipeRefreshLayout swipeRefreshLayout = null;
     private OptionsContract.Presenter presenter;
+    private TSProgressBar prgLoading;
 
     public static OptionsFragment newInstance() {
         OptionsFragment fragment = new OptionsFragment();
@@ -60,8 +62,7 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_options, container, false);
 
-        swipeRefreshLayout = rootView.findViewById(R.id.swipe_layout);
-
+        prgLoading = (TSProgressBar)rootView.findViewById(R.id.options_progress);
         titleId = getResources().getStringArray(R.array.title);
         subtitleId = getResources().getStringArray(R.array.subtitle);
         final RecyclerView mRecyclerView = rootView.findViewById(R.id.options_rv);
@@ -87,19 +88,10 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
 
     @Override
     public void setLoadingIndicator(final boolean active) {
-        if (getView() == null) {
-            return;
-        }
-        final SwipeRefreshLayout refreshLayout =
-                (SwipeRefreshLayout) getView().findViewById(R.id.options_swiper);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.setRefreshing(active);
-            }
-        });
+        if (active)
+            prgLoading.setVisibility(View.VISIBLE);
+        else
+            prgLoading.setVisibility(View.GONE);
     }
 
     @Override
@@ -159,6 +151,8 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
                     manageWordShow();
                 } else if (position == 4) {
                     presenter.downloadWordsRemote();
+                } else if (position == 5) {
+                    presenter.sendWordsRemote();
                 }
             }
         }

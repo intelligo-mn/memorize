@@ -7,6 +7,7 @@
         <item>@string/menu_history</item>
         <item>@string/menu_language</item>
         <item>@string/menu_download</item>
+        <item>@string/menu_upload</item>
         <item>@string/menu_about</item>
         <item>@string/menu_license</item>
     </string-array>
@@ -17,6 +18,7 @@
         <item>@string/menu_desc_history</item>
         <item>@string/menu_desc_language</item>
         <item>@string/menu_desc_download</item>
+        <item>@string/menu_desc_upload</item>
         <item>@string/menu_desc_about</item>
         <item>@string/menu_desc_license</item>
     </string-array>

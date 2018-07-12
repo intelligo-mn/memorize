@@ -33,8 +33,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ManagePresenter implements ManageContract.Presenter{
 
-    private Handler handler;
-
     private WordsRepository wordsRepository;
 
     private ManageContract.View manageView;
@@ -43,13 +41,7 @@ public class ManagePresenter implements ManageContract.Presenter{
         this.wordsRepository = wordsRepository;
         this.manageView = manageView;
 
-        handler = new Handler();
-
         manageView.setPresenter(this);
-    }
-
-    public ManagePresenter(WordsRepository wordsRepository) {
-        this.wordsRepository = wordsRepository;
     }
 
     @Override
@@ -128,76 +120,6 @@ public class ManagePresenter implements ManageContract.Presenter{
                 });
             }
         });
-    }
-
-    public JSONArray getNewLocalData(){
-
-        final JSONArray newWordsArray = new JSONArray();
-
-        wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
-            @Override
-            public void onWordsLoaded(List<Words> words) {
-                for (Words word : words){
-                    if (word.getIsLocal() == 1){
-                        JSONObject newWords = new JSONObject();
-                        try {
-                            newWords.put("character", word.getCharacter());
-                            newWords.put("meanings", word.getMeaning());
-                            newWords.put("meaningsMongolia", checkNotNull(word.getMeaningMon()));
-                            newWords.put("partOfSpeech", checkNotNull(word.getPartOfSpeech()));
-                            newWords.put("kanji", checkNotNull(word.getKanji()));
-                            newWords.put("level", checkNotNull(word.getLevel()));
-                            newWordsArray.put(newWords);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-
-            }
-        });
-        return newWordsArray;
-    }
-
-    public JSONArray getUpdatedLocalData(){
-
-        final JSONArray newWordsArray = new JSONArray();
-
-        wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
-            @Override
-            public void onWordsLoaded(List<Words> words) {
-                for (Words word : words){
-                    if (word.getIsLocal() == 2){
-                        JSONObject newWords = new JSONObject();
-                        try {
-                            newWords.put("id", word.getId());
-                            newWords.put("character", word.getCharacter());
-                            newWords.put("meanings", word.getMeaning());
-                            newWords.put("meaningsMongolia", checkNotNull(word.getMeaningMon()));
-                            newWords.put("partOfSpeech", checkNotNull(word.getPartOfSpeech()));
-                            newWords.put("kanji", checkNotNull(word.getKanji()));
-                            newWords.put("level", checkNotNull(word.getLevel()));
-                            newWords.put("isFavorite", word.isFavorite());
-                            newWords.put("isMemorize", word.isMemorize());
-                            newWordsArray.put(newWords);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-
-            }
-        });
-        return newWordsArray;
     }
 
     @Override
