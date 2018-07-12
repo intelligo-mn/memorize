@@ -74,4 +74,9 @@ public class OptionsPresenter implements OptionsContract.Presenter{
             }
         });
     }
+
+    @Override
+    public void sendWordsRemote() {
+
+    }
 }

@@ -29,6 +29,6 @@ public interface ManageContract {
 
         void saveWord(Words words);
 
-        void sendServer();
+        void sendServer(Words words);
     }
 }

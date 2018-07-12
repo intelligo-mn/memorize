@@ -1,6 +1,7 @@
 package cloud.techstar.memorize.manage;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
@@ -60,14 +61,73 @@ public class ManagePresenter implements ManageContract.Presenter{
     public void saveWord(Words words) {
         wordsRepository.saveWord(words);
         if (ConnectionDetector.isNetworkAvailable(AppMain.getContext()))
-            sendServer();
-        wordsRepository.sendServer(words);
-        manageView.clearFields();
+            sendServer(words);
+        else
+            manageView.clearFields();
     }
 
     @Override
-    public void sendServer() {
+    public void sendServer(Words words) {
+        manageView.setLoadingIndicator(true);
+        final Handler handler = new Handler(Looper.getMainLooper());
+        OkHttpClient client = new OkHttpClient();
+        RequestBody formBody = new FormBody.Builder()
+                .add("character", words.getCharacter())
+                .add("meanings", words.getMeaning())
+                .add("meaningsMongolia", checkNotNull(words.getMeaningMon()))
+                .add("partOfSpeech", checkNotNull(words.getPartOfSpeech()))
+                .add("kanji", checkNotNull(words.getKanji()))
+                .add("level", checkNotNull(words.getLevel()))
+                .build();
 
+        Request request = new Request.Builder()
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .url(MemorizeConstant.CREATE_WORD)
+                .post(formBody)
+                .build();
+
+        Logger.e(request.toString()+request.headers().toString()+request.body());
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, IOException e) {
+                Logger.e(e.getMessage());
+                manageView.setLoadingIndicator(false);
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
+                final String res = response.body().string();
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                            JSONObject ob = new JSONObject(res);
+                            if (ob.getString("status").equals("success")) {
+                                manageView.showToast(ob.getString("message"));
+                            } else if (ob.getString("status").equals("failed")){
+                                manageView.showToast(ob.getString("message"));
+                            } else if (ob.getString("status").equals("duplicated")){
+                                manageView.showToast(ob.getString("message"));
+                            } else {
+                                manageView.showToast("Алдаа гарлаа");
+                            }
+
+                            manageView.setLoadingIndicator(false);
+                            manageView.clearFields();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            manageView.showToast("Сэрвэрт холбогдоход алдаа гарлаа");
+                            manageView.setLoadingIndicator(false);
+                        }
+
+                    }
+                });
+            }
+        });
     }
 
     public JSONArray getNewLocalData(){

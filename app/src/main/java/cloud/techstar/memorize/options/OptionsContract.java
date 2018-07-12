@@ -20,5 +20,7 @@ public interface OptionsContract {
         void changeLanguage();
 
         void downloadWordsRemote();
+
+        void sendWordsRemote();
     }
 }

@@ -33,6 +33,7 @@ import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.utils.ConnectionDetector;
 import cloud.techstar.memorize.utils.MemorizeConstant;
+import cloud.techstar.progressbar.TSProgressBar;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -50,11 +51,14 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
     private Handler handler;
     private Button addBtn;
     private String partOfValue, levelValue = null;
+    private TSProgressBar prgLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_word);
 
+        prgLoading = (TSProgressBar)findViewById(R.id.add_progress);
         character = (EditText)findViewById(R.id.add_character);
         meaning  = (EditText)findViewById(R.id.add_meaning);
         meaningMn = (EditText)findViewById(R.id.add_meaning_mn);
@@ -189,7 +193,6 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
                             }
                         });
                     }
@@ -206,7 +209,10 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
 
     @Override
     public void setLoadingIndicator(boolean active) {
-
+        if (active)
+            prgLoading.setVisibility(View.VISIBLE);
+        else
+            prgLoading.setVisibility(View.GONE);
     }
 
     @Override
