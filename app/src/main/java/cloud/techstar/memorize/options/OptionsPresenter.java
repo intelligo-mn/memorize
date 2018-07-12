@@ -38,6 +38,8 @@ public class OptionsPresenter implements OptionsContract.Presenter{
     private final WordsRepository wordsRepository;
 
     private final OptionsContract.View optionsView;
+    private JSONArray newWordsArray;
+    private JSONArray updatedWordsArray;
 
     public OptionsPresenter(WordsRepository wordsRepository, OptionsContract.View optionsView) {
         this.wordsRepository = wordsRepository;
@@ -47,6 +49,11 @@ public class OptionsPresenter implements OptionsContract.Presenter{
 
     @Override
     public void init() {
+
+
+        newWordsArray = new JSONArray();
+        updatedWordsArray = new JSONArray();
+
         wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
@@ -58,60 +65,6 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                         mainWords.add(word);
                     }
 
-                    if (word.getIsLocal() == 1)
-                        Logger.e("New words : "+word.toString());
-                    else if (word.getIsLocal() == 2)
-                        Logger.e("Updated words : "+word.toString());
-                }
-                optionsView.showToast("Memorized word "+mainWords.size());
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-
-
-            }
-        });
-    }
-
-    @Override
-    public void changeLanguage() {
-
-    }
-
-    @Override
-    public void downloadWordsRemote() {
-        optionsView.setLoadingIndicator(true);
-        wordsRepository.getWordsFromRemoteDataSource(new WordsDataSource.LoadWordsCallback() {
-            @Override
-            public void onWordsLoaded(List<Words> words) {
-                optionsView.setLoadingIndicator(false);
-                optionsView.showToast("Download "+words.size()+" word.");
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                optionsView.showToast("Data not available.");
-            }
-        });
-    }
-
-    @Override
-    public void sendWordsRemote() {
-
-        optionsView.setLoadingIndicator(true);
-
-        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
-            optionsView.showToast("No internet connection !!!");
-            return;
-        }
-        final JSONArray newWordsArray = new JSONArray();
-        final JSONArray updatedWordsArray = new JSONArray();
-
-        wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
-            @Override
-            public void onWordsLoaded(List<Words> words) {
-                for (Words word : words){
                     if (word.getIsLocal() == 1){
                         JSONObject newWords = new JSONObject();
                         try {
@@ -143,18 +96,54 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                         }
                     }
                 }
+                optionsView.showToast("Memorized word "+mainWords.size());
             }
 
             @Override
             public void onDataNotAvailable() {
 
+
             }
         });
+    }
+
+    @Override
+    public void changeLanguage() {
+
+    }
+
+    @Override
+    public void downloadWordsRemote() {
+        optionsView.setLoadingIndicator(true);
+        wordsRepository.getWordsFromRemoteDataSource(new WordsDataSource.LoadWordsCallback() {
+            @Override
+            public void onWordsLoaded(List<Words> words) {
+                optionsView.setLoadingIndicator(false);
+                optionsView.showToast("Download "+words.size()+" word.");
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                optionsView.setLoadingIndicator(false);
+                optionsView.showToast("Data not available.");
+            }
+        });
+    }
+
+    @Override
+    public void sendWordsRemote() {
+
+        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
+            optionsView.showToast("No internet connection !!!");
+            return;
+        }
+
+        optionsView.setLoadingIndicator(true);
 
         final Handler handler = new Handler(Looper.getMainLooper());
         OkHttpClient client = new OkHttpClient();
 
-        if (newWordsArray.length()>0){
+        if (newWordsArray.length() > 0) {
             RequestBody requestBody = new FormBody.Builder()
                     .add("new", newWordsArray.toString())
                     .build();
@@ -189,6 +178,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                                 } else {
                                     optionsView.showToast(ob.getString("message"));
                                 }
+                                optionsView.setLoadingIndicator(false);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -233,6 +223,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                                 } else {
                                     optionsView.showToast(ob.getString("message"));
                                 }
+                                optionsView.setLoadingIndicator(false);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -240,8 +231,9 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                     });
                 }
             });
+        } else {
+            optionsView.setLoadingIndicator(false);
+            optionsView.showToast("Өөрчлөлт байхгүй байна");
         }
-
-        optionsView.setLoadingIndicator(false);
     }
 }
