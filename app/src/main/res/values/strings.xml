@@ -24,7 +24,7 @@
 
     <string name="menu_new_word">Шинэ үг</string>
     <string name="menu_memorize">Цээжилсэн үг</string>
-    <string name="menu_history">Түүх</string>
+    <string name="menu_statistic">Статистик</string>
     <string name="menu_language">Хэл солих</string>
     <string name="menu_download">Үгийн сан татах</string>
     <string name="menu_upload">Локал өөрчлөлт сэрвэрт илгээх</string>
@@ -33,7 +33,7 @@
 
     <string name="menu_desc_new">Шинэ үг нэмэх</string>
     <string name="menu_desc_memorize">Цээжилсэн үгийн жагсаалтыг харах</string>
-    <string name="menu_desc_history">Хайлтын түүх харах</string>
+    <string name="menu_desc_stat">Статистик үзүүлэлтүүд</string>
     <string name="menu_desc_language">Хэл солих</string>
     <string name="menu_desc_download">Сэрвэрээс үгийн сан татах</string>
     <string name="menu_desc_upload">Локал өөрчлөлт сэрвэрт илгээх</string>

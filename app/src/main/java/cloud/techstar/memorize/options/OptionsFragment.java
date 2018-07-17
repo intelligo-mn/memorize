@@ -21,6 +21,7 @@ import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.manage.ManageActivity;
+import cloud.techstar.memorize.statistic.StatisticActivity;
 import cloud.techstar.progressbar.TSProgressBar;
 
 public class OptionsFragment extends Fragment implements OptionsContract.View{
@@ -31,7 +32,7 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
     Integer[] imageId = {
             R.drawable.ic_add_list,
             R.drawable.ic_memory,
-            R.drawable.ic_history,
+            R.drawable.ic_timeline,
             R.drawable.ic_language,
             R.drawable.ic_cloud_download,
             R.drawable.ic_cloud_upload,
@@ -149,6 +150,8 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
                 int position = this.getAdapterPosition();
                 if (position == 0) {
                     manageWordShow();
+                } else if (position == 2) {
+                    startActivity(new Intent(AppMain.getContext(), StatisticActivity.class));
                 } else if (position == 4) {
                     presenter.downloadWordsRemote();
                 } else if (position == 5) {
