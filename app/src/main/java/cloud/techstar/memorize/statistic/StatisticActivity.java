@@ -21,18 +21,29 @@ import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
 
+import cloud.techstar.memorize.AppMain;
+import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
+import cloud.techstar.memorize.options.OptionsContract;
+import cloud.techstar.memorize.options.OptionsPresenter;
 
-public class StatisticActivity extends AppCompatActivity {
+public class StatisticActivity extends AppCompatActivity implements StatisticContract.View{
     private PieChart mChart;
     protected String[] mParties = new String[] {
             "Цээжилсэн", "Цээжилж байгаа", "Цээжлээгүй"
     };
 
+    private StatisticContract.Presenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
+
+        new StatisticPresenter(Injection.provideWordsRepository(AppMain.getContext()),
+                this);
+
+        presenter.init();
 
         mChart = findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
@@ -128,5 +139,20 @@ public class StatisticActivity extends AppCompatActivity {
         mChart.highlightValues(null);
 
         mChart.invalidate();
+    }
+
+    @Override
+    public void setLoadingIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void setPresenter(StatisticContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void showToast(String message) {
+
     }
 }
