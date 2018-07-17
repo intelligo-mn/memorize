@@ -7,24 +7,25 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="cloud.techstar.memorize.AppMain"
+        android:name=".AppMain"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="cloud.techstar.memorize.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="cloud.techstar.memorize.detail.DetailActivity"></activity>
+        <activity android:name=".detail.DetailActivity" />
 
-        <service android:name="cloud.techstar.memorize.widget.WidgetService" />
+        <service android:name=".widget.WidgetService" />
 
         <receiver
-            android:name="cloud.techstar.memorize.widget.WidgetView"
+            android:name=".widget.WidgetView"
             android:label="word widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -42,9 +43,9 @@
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
         </receiver>
-        <activity android:name="cloud.techstar.memorize.manage.ManageActivity">
 
-        </activity>
+        <activity android:name=".manage.ManageActivity"></activity>
+        <activity android:name=".statistic.StatisticActivity"></activity>
     </application>
 
 </manifest>
