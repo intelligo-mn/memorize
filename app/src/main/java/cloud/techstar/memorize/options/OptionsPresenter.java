@@ -50,7 +50,6 @@ public class OptionsPresenter implements OptionsContract.Presenter{
     @Override
     public void init() {
 
-
         newWordsArray = new JSONArray();
         updatedWordsArray = new JSONArray();
 

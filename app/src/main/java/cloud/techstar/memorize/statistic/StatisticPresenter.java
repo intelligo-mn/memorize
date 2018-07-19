@@ -27,11 +27,7 @@ public class StatisticPresenter implements StatisticContract.Presenter{
         wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
-                for (Words word : words) {
-                    if (word.isMemorize()) {
-
-                    }
-                }
+                statisticView.setStatData(words);
             }
 
             @Override
@@ -43,6 +39,6 @@ public class StatisticPresenter implements StatisticContract.Presenter{
 
     @Override
     public void init() {
-
+        setStats();
     }
 }

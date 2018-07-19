@@ -20,18 +20,17 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
+import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.options.OptionsContract;
 import cloud.techstar.memorize.options.OptionsPresenter;
 
 public class StatisticActivity extends AppCompatActivity implements StatisticContract.View{
     private PieChart mChart;
-    protected String[] mParties = new String[] {
-            "Цээжилсэн", "Цээжилж байгаа", "Цээжлээгүй"
-    };
 
     private StatisticContract.Presenter presenter;
 
@@ -42,8 +41,6 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
 
         new StatisticPresenter(Injection.provideWordsRepository(AppMain.getContext()),
                 this);
-
-        presenter.init();
 
         mChart = findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
@@ -67,8 +64,6 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
         mChart.setRotationEnabled(true);
         mChart.setHighlightPerTapEnabled(true);
 
-        setData(3, 100);
-
         Legend l = mChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
@@ -81,21 +76,45 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
         // entry label styling
         mChart.setEntryLabelColor(Color.WHITE);
         mChart.setEntryLabelTextSize(12f);
+
+
+        presenter.init();
     }
 
-    private void setData(int count, float range) {
+    @Override
+    public void setLoadingIndicator(boolean active) {
 
-        float mult = range;
+    }
+
+    @Override
+    public void setStatData(List<Words> words) {
 
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        for (int i = 0; i < mParties.length ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * mult) + mult / 5),
-                    mParties[i % mParties.length],
-                    getResources().getDrawable(R.drawable.ic_timeline)));
+        List<Words> memorizedWords = new ArrayList<Words>();
+        List<Words> favWords = new ArrayList<Words>();
+        List<Words> activeWords = new ArrayList<Words>();
+
+        for (Words word : words) {
+
+            if (word.isMemorize()) {
+                memorizedWords.add(word);
+            } else if (word.isFavorite() && !word.isMemorize()) {
+                favWords.add(word);
+            } else {
+                activeWords.add(word);
+            }
         }
+
+        entries.add(new PieEntry((float) memorizedWords.size(),
+                "Цээжилсэн үг "+memorizedWords.size(),
+                getResources().getDrawable(R.drawable.ic_timeline)));
+        entries.add(new PieEntry((float) favWords.size(),
+                "Цээжилж байгаа "+favWords.size(),
+                getResources().getDrawable(R.drawable.ic_timeline)));
+        entries.add(new PieEntry((float) activeWords.size(),
+                "Цээжлээгүй "+activeWords.size(),
+                getResources().getDrawable(R.drawable.ic_timeline)));
 
         PieDataSet dataSet = new PieDataSet(entries, "Memorize results");
 
@@ -133,6 +152,7 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
+        mChart.setCenterText(generateCenterSpannableText(words.size()));
         mChart.setData(data);
 
         // undo all highlights
@@ -141,9 +161,12 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
         mChart.invalidate();
     }
 
-    @Override
-    public void setLoadingIndicator(boolean active) {
+    private SpannableString generateCenterSpannableText(int size) {
 
+        SpannableString s = new SpannableString("Нийт үг :"+size);
+        s.setSpan(new RelativeSizeSpan(1.7f), 0, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()),0, s.length(), 0);
+        return s;
     }
 
     @Override
