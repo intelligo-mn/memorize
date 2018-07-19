@@ -113,23 +113,9 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
-
+        colors.add(getResources().getColor(R.color.chartGreen));
+        colors.add(getResources().getColor(R.color.chartBlue));
+        colors.add(getResources().getColor(R.color.chartPink));
         dataSet.setColors(colors);
         //dataSet.setSelectionShift(0f);
 

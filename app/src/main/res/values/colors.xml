@@ -12,4 +12,11 @@
     <color name="intelligoBlurple">#7289da</color>
     <color name="intelligoWhite">#FAFAFA</color>
     <color name="intelligoGreyple">#99AAB5</color>
+
+
+    <color name="chartGreen">#0e9688</color>
+    <color name="chartBlue">#00bcd4</color>
+    <color name="chartPink">#e91e62</color>
+
+
 </resources>
