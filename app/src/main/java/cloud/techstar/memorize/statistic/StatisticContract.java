@@ -11,7 +11,7 @@ public interface StatisticContract {
 
         void setLoadingIndicator(boolean active);
 
-        void setStatData(List<Words> words);
+        void setStatData(int total, int memorized, int favorited, int active);
     }
 
     interface Presenter extends BasePresenter {

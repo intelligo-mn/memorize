@@ -27,7 +27,23 @@ public class StatisticPresenter implements StatisticContract.Presenter{
         wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
-                statisticView.setStatData(words);
+
+                int mem = 0;
+                int fav = 0;
+                int active = 0;
+                int total = words.size();
+                for (Words word : words) {
+
+                    if (word.isMemorize()) {
+                        mem++;
+                    } else if (word.isFavorite() && !word.isMemorize()) {
+                        fav++;
+                    } else {
+                       active++;
+                    }
+                }
+
+                statisticView.setStatData(total, mem, fav, active);
             }
 
             @Override

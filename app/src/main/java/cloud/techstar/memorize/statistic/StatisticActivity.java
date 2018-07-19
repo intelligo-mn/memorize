@@ -87,33 +87,18 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
     }
 
     @Override
-    public void setStatData(List<Words> words) {
+    public void setStatData(int total, int memorized, int favorited, int active) {
 
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
-        List<Words> memorizedWords = new ArrayList<Words>();
-        List<Words> favWords = new ArrayList<Words>();
-        List<Words> activeWords = new ArrayList<Words>();
-
-        for (Words word : words) {
-
-            if (word.isMemorize()) {
-                memorizedWords.add(word);
-            } else if (word.isFavorite() && !word.isMemorize()) {
-                favWords.add(word);
-            } else {
-                activeWords.add(word);
-            }
-        }
-
-        entries.add(new PieEntry((float) memorizedWords.size(),
-                "Цээжилсэн үг "+memorizedWords.size(),
+        entries.add(new PieEntry((float) memorized,
+                "Цээжилсэн үг "+memorized,
                 getResources().getDrawable(R.drawable.ic_timeline)));
-        entries.add(new PieEntry((float) favWords.size(),
-                "Цээжилж байгаа "+favWords.size(),
+        entries.add(new PieEntry((float) favorited,
+                "Цээжилж байгаа "+favorited,
                 getResources().getDrawable(R.drawable.ic_timeline)));
-        entries.add(new PieEntry((float) activeWords.size(),
-                "Цээжлээгүй "+activeWords.size(),
+        entries.add(new PieEntry((float) active,
+                "Цээжлээгүй "+active,
                 getResources().getDrawable(R.drawable.ic_timeline)));
 
         PieDataSet dataSet = new PieDataSet(entries, "Memorize results");
@@ -152,7 +137,7 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
-        mChart.setCenterText(generateCenterSpannableText(words.size()));
+        mChart.setCenterText(generateCenterSpannableText(total));
         mChart.setData(data);
 
         // undo all highlights
