@@ -46,8 +46,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".manage.ManageActivity"></activity>
-        <activity android:name=".statistic.StatisticActivity"></activity>
+        <activity android:name=".manage.ManageActivity" />
+        <activity android:name=".statistic.StatisticActivity" />
+        <activity android:name=".quiz.QuizActivity"></activity>
     </application>
 
 </manifest>
