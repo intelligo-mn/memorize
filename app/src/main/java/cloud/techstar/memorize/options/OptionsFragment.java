@@ -21,6 +21,7 @@ import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.manage.ManageActivity;
+import cloud.techstar.memorize.quiz.QuizActivity;
 import cloud.techstar.memorize.statistic.StatisticActivity;
 import cloud.techstar.progressbar.TSProgressBar;
 
@@ -152,6 +153,8 @@ public class OptionsFragment extends Fragment implements OptionsContract.View{
                     manageWordShow();
                 } else if (position == 2) {
                     startActivity(new Intent(AppMain.getContext(), StatisticActivity.class));
+                } else if (position == 3) {
+                    startActivity(new Intent(AppMain.getContext(), QuizActivity.class));
                 } else if (position == 4) {
                     presenter.downloadWordsRemote();
                 } else if (position == 5) {

@@ -1,29 +1,109 @@
 package cloud.techstar.memorize.quiz;
 
-import android.database.Observable;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jakewharton.rxbinding2.view.RxView;
+
+import cloud.techstar.memorize.AppMain;
+import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Question;
-import cloud.techstar.memorize.options.OptionsContract;
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
-public class QuizActivity extends AppCompatActivity implements QuizContract.View{
+public class QuizActivity extends AppCompatActivity implements QuizContract.View, View.OnClickListener{
+
+    private QuizContract.Presenter presenter;
+
+    protected TextView question;
+
+    protected CardView cardAnswer1;
+    protected CardView cardAnswer2;
+    protected CardView cardAnswer3;
+    protected CardView cardAnswer4;
+
+    protected TextView answer1;
+    protected TextView answer2;
+    protected TextView answer3;
+    protected TextView answer4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        question = findViewById(R.id.question);
+        cardAnswer1 = findViewById(R.id.card_answer_1);
+        cardAnswer2 = findViewById(R.id.card_answer_2);
+        cardAnswer3 = findViewById(R.id.card_answer_3);
+        cardAnswer4 = findViewById(R.id.card_answer_4);
+        cardAnswer1.setOnClickListener(this);
+        cardAnswer2.setOnClickListener(this);
+        cardAnswer3.setOnClickListener(this);
+        cardAnswer4.setOnClickListener(this);
+        answer1 = findViewById(R.id.answer_1);
+        answer2 = findViewById(R.id.answer_2);
+        answer3 = findViewById(R.id.answer_3);
+        answer4 = findViewById(R.id.answer_4);
+        new QuizPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
+        presenter.init();
+        question.setTextSize(50);
+    }
+    CardView getCorrectCardView(int indexRightAnswer) {
+        String rightAnswerTag = String.valueOf(indexRightAnswer);
+
+        if (cardAnswer1.getTag().equals(rightAnswerTag)) {
+            return cardAnswer1;
+
+        } else if (cardAnswer2.getTag().equals(rightAnswerTag)) {
+            return cardAnswer2;
+
+        } else if (cardAnswer3.getTag().equals(rightAnswerTag)) {
+            return cardAnswer3;
+
+        } else if (cardAnswer4.getTag().equals(rightAnswerTag)) {
+            return cardAnswer4;
+        }
+
+        return null;
     }
 
+    TextView getCorrectTextView(int indexRightAnswer) {
+        String rightAnswerTag = String.valueOf(indexRightAnswer);
+
+        if (cardAnswer1.getTag().equals(rightAnswerTag)) {
+            return answer1;
+
+        } else if (cardAnswer2.getTag().equals(rightAnswerTag)) {
+            return answer2;
+
+        } else if (cardAnswer3.getTag().equals(rightAnswerTag)) {
+            return answer3;
+
+        } else if (cardAnswer4.getTag().equals(rightAnswerTag)) {
+            return answer4;
+        }
+
+        return null;
+    }
     @Override
     public void showSuccess(Integer choice) {
-
+        getCorrectCardView(choice).setBackgroundColor(ContextCompat.getColor(this, R.color.chartGreen));
+        getCorrectTextView(choice).setTextColor(ContextCompat.getColor(this, R.color.white));
     }
 
     @Override
     public void showWrongAnswer(Integer choice, Integer rightAnswer) {
-
+        getCorrectCardView(choice).setBackgroundColor(ContextCompat.getColor(this, R.color.chartBlue));
+        getCorrectTextView(choice).setTextColor(ContextCompat.getColor(this, R.color.white));
+        getCorrectCardView(rightAnswer).setBackgroundColor(ContextCompat.getColor(this, R.color.chartGreen));
+        getCorrectTextView(rightAnswer).setTextColor(ContextCompat.getColor(this, R.color.white));
     }
 
     @Override
@@ -33,12 +113,18 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
 
     @Override
     public void enableClicks() {
-
+        cardAnswer1.setClickable(true);
+        cardAnswer2.setClickable(true);
+        cardAnswer3.setClickable(true);
+        cardAnswer4.setClickable(true);
     }
 
     @Override
     public void disableClicks() {
-
+        cardAnswer1.setClickable(false);
+        cardAnswer2.setClickable(false);
+        cardAnswer3.setClickable(false);
+        cardAnswer4.setClickable(false);
     }
 
     @Override
@@ -48,21 +134,58 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
 
     @Override
     public void updateQuestion(Question currentQuestion) {
+        enableClicks();
 
+        cardAnswer1.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        cardAnswer2.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        cardAnswer3.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        cardAnswer4.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+
+        answer1.setTextColor(ContextCompat.getColor(this, R.color.intelligoBlack));
+        answer2.setTextColor(ContextCompat.getColor(this, R.color.intelligoBlack));
+        answer3.setTextColor(ContextCompat.getColor(this, R.color.intelligoBlack));
+        answer4.setTextColor(ContextCompat.getColor(this, R.color.intelligoBlack));
+
+        question.setText(currentQuestion.getQuestion());
+        answer1.setText(currentQuestion.getPossiblesAnswers().get(0));
+        answer2.setText(currentQuestion.getPossiblesAnswers().get(1));
+        answer3.setText(currentQuestion.getPossiblesAnswers().get(2));
+        answer4.setText(currentQuestion.getPossiblesAnswers().get(3));
+
+        int duration = 500;
     }
 
     @Override
     public Observable<Integer> onAnswer() {
-        return null;
+        return Observable.merge(
+                onOneAnswer(cardAnswer1),
+                onOneAnswer(cardAnswer2),
+                onOneAnswer(cardAnswer3),
+                onOneAnswer(cardAnswer4));
+    }
+
+    private Observable<Integer> onOneAnswer(final View view) {
+        return RxView.clicks(view)
+                .map(new Function<Object, Integer>() {
+                    @Override
+                    public Integer apply(@NonNull Object object) throws Exception {
+                        return Integer.parseInt((String) view.getTag());
+                    }
+                });
     }
 
     @Override
-    public void setPresenter(OptionsContract.Presenter presenter) {
-
+    public void setPresenter(QuizContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
     public void showToast(String message) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(AppMain.getContext(), Integer.parseInt((String) v.getTag()), Toast.LENGTH_LONG).show();
     }
 }
