@@ -22,6 +22,8 @@ public class QuizPresenter implements QuizContract.Presenter {
 
     public Integer currentIndexQuestion = 0;
 
+    List<Question> quizWords;
+
     public QuizPresenter(WordsRepository wordsRepository, QuizContract.View quizView) {
         this.wordsRepository = wordsRepository;
         this.quizView = quizView;
@@ -36,7 +38,7 @@ public class QuizPresenter implements QuizContract.Presenter {
 
     @Override
     public Question getCurrentQuestion() {
-        return getQuizWords().get(currentIndexQuestion);
+        return quizWords.get(currentIndexQuestion);
     }
 
     @Override
@@ -47,6 +49,7 @@ public class QuizPresenter implements QuizContract.Presenter {
     @SuppressLint("CheckResult")
     @Override
     public void init() {
+        quizWords = getQuizWords();
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
