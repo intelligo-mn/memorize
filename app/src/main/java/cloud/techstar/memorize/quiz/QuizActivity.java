@@ -18,7 +18,7 @@ import cloud.techstar.memorize.database.Question;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class QuizActivity extends AppCompatActivity implements QuizContract.View, View.OnClickListener{
+public class QuizActivity extends AppCompatActivity implements QuizContract.View{
 
     private QuizContract.Presenter presenter;
 
@@ -43,10 +43,6 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
         cardAnswer2 = findViewById(R.id.card_answer_2);
         cardAnswer3 = findViewById(R.id.card_answer_3);
         cardAnswer4 = findViewById(R.id.card_answer_4);
-        cardAnswer1.setOnClickListener(this);
-        cardAnswer2.setOnClickListener(this);
-        cardAnswer3.setOnClickListener(this);
-        cardAnswer4.setOnClickListener(this);
         answer1 = findViewById(R.id.answer_1);
         answer2 = findViewById(R.id.answer_2);
         answer3 = findViewById(R.id.answer_3);
@@ -182,10 +178,5 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
     @Override
     public void showToast(String message) {
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(AppMain.getContext(), Integer.parseInt((String) v.getTag()), Toast.LENGTH_LONG).show();
     }
 }

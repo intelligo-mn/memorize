@@ -12,15 +12,14 @@
     <string name="search_more">Дэлгэрэнгүй хайх</string>
     <string name="kanji">Ханз</string>
     <string name="part_of_speech">Part of speech</string>
+    <string name="quiz">Өөрийгөө шалгах</string>
     <string name="level">Level</string>
-
 
     <string name="filter">Шүүлт</string>
     <string name="memorize_words">Цээжлэх үгс</string>
     <string name="create_words">Үг нэмэх</string>
     <string name="japan_word">Япон үг</string>
     <string name="add">Нэмэх</string>
-
 
     <string name="menu_new_word">Шинэ үг</string>
     <string name="menu_memorize">Цээжилсэн үг</string>

@@ -70,7 +70,7 @@ public class QuizPresenter implements QuizContract.Presenter {
                             public void run() {
                                 nextQuestion();
                             }
-                        }, 1000);
+                        }, 500);
 
                     } else {
                         quizView.showWrongAnswer(indexAnswer, getCurrentQuestion().getRightAnswerIndex());
@@ -81,22 +81,22 @@ public class QuizPresenter implements QuizContract.Presenter {
                             public void run() {
                                 nextQuestion();
                             }
-                        }, 2000);
+                        }, 1000);
                     }
                 }
             });
     }
 
 
-    public List<Question> getQuizWords(){
+    private List<Question> getQuizWords(){
         final List<Question> questions = new ArrayList<Question>();
         wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
                 Collections.shuffle(words);
-                for(int i  = 0; i < words.size(); i++) {
+                for(int i  = 0; i < 20; i++) {
 
-                    Words currentWords = words.get(i);
+                    Words currentWord = words.get(i);
                     List<String> possiblesAnswers = new ArrayList<>();
 
                     // Answers
@@ -104,7 +104,7 @@ public class QuizPresenter implements QuizContract.Presenter {
                         int randomIndex = new Random().nextInt(words.size());
                         // We look for 3 wrong and different answers
                         while(possiblesAnswers.contains(words.get(randomIndex).getMeaning())
-                                ||  words.get(randomIndex).getMeaning().equals(currentWords.getMeaning())) {
+                                ||  words.get(randomIndex).getMeaning().equals(currentWord.getMeaning())) {
                             randomIndex = new Random().nextInt(words.size());
                         }
 
@@ -113,11 +113,11 @@ public class QuizPresenter implements QuizContract.Presenter {
                     }
 
                     int rightIndexAnswer = new Random().nextInt(4);
-                    String rightAnswer = currentWords.getMeaning();
+                    String rightAnswer = currentWord.getMeaning();
 
                     possiblesAnswers.add(rightIndexAnswer, rightAnswer);
 
-                    Question question = new Question(currentWords.getCharacter(), possiblesAnswers, rightIndexAnswer);
+                    Question question = new Question(currentWord.getCharacter(), possiblesAnswers, rightIndexAnswer);
                     questions.add(question);
                 }
             }
