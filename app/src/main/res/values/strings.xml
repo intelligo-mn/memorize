@@ -38,4 +38,7 @@
     <string name="menu_desc_upload">Локал өөрчлөлт сэрвэрт илгээх</string>
     <string name="menu_desc_about">Програмын тухай</string>
     <string name="menu_desc_license">License Information</string>
+    <string name="logout">Гарах</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="client_id">1049383145361-53a05go6vbfd17grbscq5a8jufu2vvvt.apps.googleusercontent.com</string>
 </resources>

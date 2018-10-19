@@ -97,7 +97,7 @@ public class QuizPresenter implements QuizContract.Presenter {
             @Override
             public void onWordsLoaded(List<Words> words) {
                 Collections.shuffle(words);
-                for(int i  = 0; i < 20; i++) {
+                for(int i  = 0; i < words.size(); i++) {
 
                     Words currentWord = words.get(i);
                     List<String> possiblesAnswers = new ArrayList<>();
@@ -106,21 +106,21 @@ public class QuizPresenter implements QuizContract.Presenter {
                     for(int j  = 0; j < 3; j++) {
                         int randomIndex = new Random().nextInt(words.size());
                         // We look for 3 wrong and different answers
-                        while(possiblesAnswers.contains(words.get(randomIndex).getMeaning())
-                                ||  words.get(randomIndex).getMeaning().equals(currentWord.getMeaning())) {
+                        while(possiblesAnswers.contains(words.get(randomIndex).getMeaningMon())
+                                ||  words.get(randomIndex).getMeaningMon().equals(currentWord.getMeaningMon())) {
                             randomIndex = new Random().nextInt(words.size());
                         }
 
-                        possiblesAnswers.add(words.get(randomIndex).getMeaning());
+                        possiblesAnswers.add(words.get(randomIndex).getMeaningMon());
 
                     }
 
                     int rightIndexAnswer = new Random().nextInt(4);
-                    String rightAnswer = currentWord.getMeaning();
+                    String rightAnswer = currentWord.getMeaningMon();
 
                     possiblesAnswers.add(rightIndexAnswer, rightAnswer);
 
-                    Question question = new Question(currentWord.getCharacter(), possiblesAnswers, rightIndexAnswer);
+                    Question question = new Question(currentWord.getKanji(), possiblesAnswers, rightIndexAnswer);
                     questions.add(question);
                 }
             }

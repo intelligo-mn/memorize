@@ -47,6 +47,7 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
         answer2 = findViewById(R.id.answer_2);
         answer3 = findViewById(R.id.answer_3);
         answer4 = findViewById(R.id.answer_4);
+
         new QuizPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
         presenter.init();
         question.setTextSize(50);
