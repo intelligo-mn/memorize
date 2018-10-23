@@ -24,6 +24,9 @@ public class QuizPresenter implements QuizContract.Presenter {
 
     List<Question> quizWords;
 
+    int countWrongAnswer = 0;
+    int countRightAnswer = 0;
+
     public QuizPresenter(WordsRepository wordsRepository, QuizContract.View quizView) {
         this.wordsRepository = wordsRepository;
         this.quizView = quizView;
@@ -33,6 +36,13 @@ public class QuizPresenter implements QuizContract.Presenter {
     @Override
     public void nextQuestion() {
         currentIndexQuestion += 1;
+        if (currentIndexQuestion == 25) {
+
+            quizView.tryAgain(countRightAnswer);
+            currentIndexQuestion = 0;
+            return;
+        }
+
         quizView.updateQuestion(getCurrentQuestion());
     }
 
@@ -65,8 +75,9 @@ public class QuizPresenter implements QuizContract.Presenter {
                     quizView.disableClicks();
                     Boolean isRight = isRightAnswer(indexAnswer);
                     if (isRight) {
+                        countRightAnswer++;
                         quizView.showSuccess(indexAnswer);
-
+                        quizView.setRightAndWrongAnswer(countRightAnswer, countWrongAnswer);
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -76,7 +87,9 @@ public class QuizPresenter implements QuizContract.Presenter {
                         }, 500);
 
                     } else {
+                        countWrongAnswer++;
                         quizView.showWrongAnswer(indexAnswer, getCurrentQuestion().getRightAnswerIndex());
+                        quizView.setRightAndWrongAnswer(countRightAnswer, countWrongAnswer);
                         // 2 instead 1 seconds so the user can analyse the right answer
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
@@ -90,14 +103,13 @@ public class QuizPresenter implements QuizContract.Presenter {
             });
     }
 
-
     private List<Question> getQuizWords(){
         final List<Question> questions = new ArrayList<Question>();
         wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
                 Collections.shuffle(words);
-                for(int i  = 0; i < words.size(); i++) {
+                for(int i  = 0; i < 25; i++) {
 
                     Words currentWord = words.get(i);
                     List<String> possiblesAnswers = new ArrayList<>();

@@ -11,15 +11,15 @@ public interface QuizContract {
 
         void showWrongAnswer(Integer choice, Integer rightAnswer);
 
-        void setNumberOfRightAnswer(Integer x);
+        void setRightAndWrongAnswer(int right, int wrong);
 
         void enableClicks();
 
         void disableClicks();
 
-        void setNumberOfWrongAnswer(Integer x);
-
         void updateQuestion(Question currentQuestion);
+
+        void tryAgain(int score);
 
         io.reactivex.Observable<Integer> onAnswer();
     }

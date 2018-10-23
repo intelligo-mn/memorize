@@ -12,7 +12,7 @@
     <string name="search_more">Дэлгэрэнгүй хайх</string>
     <string name="kanji">Ханз</string>
     <string name="part_of_speech">Part of speech</string>
-    <string name="quiz">Өөрийгөө шалгах</string>
+    <string name="quiz">Quiz</string>
     <string name="level">Level</string>
 
     <string name="filter">Шүүлт</string>
@@ -41,4 +41,5 @@
     <string name="logout">Гарах</string>
     <string name="disconnect">Disconnect</string>
     <string name="client_id">1049383145361-53a05go6vbfd17grbscq5a8jufu2vvvt.apps.googleusercontent.com</string>
+    <string name="try_again">Дахин оролдох</string>
 </resources>

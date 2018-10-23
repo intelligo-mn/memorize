@@ -1,11 +1,18 @@
 package cloud.techstar.memorize.quiz;
 
+import android.media.Image;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +29,7 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
 
     private QuizContract.Presenter presenter;
 
-    protected TextView question;
+    protected TextView question, quizTitle;
 
     protected CardView cardAnswer1;
     protected CardView cardAnswer2;
@@ -34,10 +41,17 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
     protected TextView answer3;
     protected TextView answer4;
 
+    protected ImageButton backBtn;
+    protected ProgressBar quizProgress;
+    private int progressBarValue = 0;
+    private Handler handler;
+    private Button tryButton;
+    private ScrollView quizScroll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        quizTitle = findViewById(R.id.quiz_title);
         question = findViewById(R.id.question);
         cardAnswer1 = findViewById(R.id.card_answer_1);
         cardAnswer2 = findViewById(R.id.card_answer_2);
@@ -47,11 +61,25 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
         answer2 = findViewById(R.id.answer_2);
         answer3 = findViewById(R.id.answer_3);
         answer4 = findViewById(R.id.answer_4);
-
+        backBtn = (ImageButton)findViewById(R.id.quiz_back);
+        quizProgress = findViewById(R.id.quiz_progress);
+        quizScroll = findViewById(R.id.quiz_scroll);
+        tryButton = findViewById(R.id.quiz_again);
+        tryButton.setVisibility(View.INVISIBLE);
+        handler = new Handler(Looper.getMainLooper());
         new QuizPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
         presenter.init();
         question.setTextSize(50);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
+
     CardView getCorrectCardView(int indexRightAnswer) {
         String rightAnswerTag = String.valueOf(indexRightAnswer);
 
@@ -104,8 +132,14 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
     }
 
     @Override
-    public void setNumberOfRightAnswer(Integer x) {
+    public void setRightAndWrongAnswer(int right, int wrong) {
 
+        int count = right + wrong;
+        right = right * 4;
+        wrong = wrong * 4;
+        quizProgress.setProgress(right);
+        quizProgress.setSecondaryProgress(right+wrong);
+        quizTitle.setText("Асуулт "+count+" / 25");
     }
 
     @Override
@@ -122,11 +156,6 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
         cardAnswer2.setClickable(false);
         cardAnswer3.setClickable(false);
         cardAnswer4.setClickable(false);
-    }
-
-    @Override
-    public void setNumberOfWrongAnswer(Integer x) {
-
     }
 
     @Override
@@ -150,6 +179,13 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
         answer4.setText(currentQuestion.getPossiblesAnswers().get(3));
 
         int duration = 500;
+    }
+
+    @Override
+    public void tryAgain(int score){
+        quizScroll.setVisibility(View.INVISIBLE);
+        tryButton.setVisibility(View.VISIBLE);
+        question.setText("Зөв хариулсан "+score+" / 25");
     }
 
     @Override

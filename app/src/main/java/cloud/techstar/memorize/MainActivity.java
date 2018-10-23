@@ -3,6 +3,7 @@ package cloud.techstar.memorize;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.favorite.FavoriteFragment;
 import cloud.techstar.memorize.options.OptionsFragment;
+import cloud.techstar.memorize.quiz.QuizActivity;
 import cloud.techstar.memorize.utils.BottomNavigationViewHelper;
 import cloud.techstar.memorize.words.WordsFragment;
 
@@ -38,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_favorite:
                     setFragment(FavoriteFragment.newInstance());
+                    return true;
+                case R.id.navigation_quiz:
+
+                    startActivity(new Intent(AppMain.getContext(), QuizActivity.class));
                     return true;
                 case R.id.navigation_options:
                     setFragment(OptionsFragment.newInstance());

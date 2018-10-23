@@ -15,12 +15,13 @@
         app:showAsAction="ifRoom|withText"  />
 
     <item
-        android:id="@+id/navigation_options"
-        android:icon="@drawable/ic_menu"
-        android:title="@string/menu"
+        android:id="@+id/navigation_quiz"
+        android:icon="@drawable/ic_quiz"
+        android:title="@string/quiz"
         app:showAsAction="ifRoom|withText"  />
+
     <item
-        android:id="@+id/navigation_account"
+        android:id="@+id/navigation_options"
         android:icon="@drawable/ic_menu"
         android:title="@string/menu"
         app:showAsAction="ifRoom|withText"  />

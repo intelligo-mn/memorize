@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
     private Spinner partOfSpeech, level;
     private Handler handler;
     private Button addBtn;
+    private ImageButton backBtn;
     private String partOfValue, levelValue = null;
     private TSProgressBar prgLoading;
 
@@ -66,6 +68,7 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
         partOfSpeech = (Spinner)findViewById(R.id.add_partofspeech);
         level = (Spinner) findViewById(R.id.add_level);
         addBtn = (Button) findViewById(R.id.add_btn);
+        backBtn = (ImageButton)findViewById(R.id.back);
 
         List<String> partOfSpeechs = new LinkedList<>(Arrays.asList("nouns","pronouns", "na-adjectives", "i-adjectives", "verbs", "particles", "adverbs", "conjunctions", "interjections"));
 
@@ -97,6 +100,13 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
                                 partOfSpeech.getItemAtPosition(partOfSpeech.getSelectedItemPosition()).toString(),
                                 level.getItemAtPosition(level.getSelectedItemPosition()).toString(),
                                 getNowTime()));
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
