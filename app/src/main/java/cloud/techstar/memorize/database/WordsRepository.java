@@ -163,7 +163,7 @@ public class WordsRepository implements WordsDataSource {
                 word.getKanji(),
                 word.getPartOfSpeech(),
                 word.getLevel(),
-                true,
+                false,
                 word.isFavorite(),
                 word.getCreated(),
                 2);
