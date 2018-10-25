@@ -4,8 +4,16 @@
     <color name="colorPrimaryDark">#23272A</color>
     <color name="colorAccent">#7289da</color>
     <color name="transparent">#00000000</color>
-    <color name="white">#FAFAFA</color>
-    <color name="greyple">#99AAB5</color>
+    <color name="primary50">#FFFF</color>
+    <color name="primary100">#fafafa</color>
+    <color name="primary200">#f5f5f5</color>
+    <color name="primary300">#f0f0f0</color>
+    <color name="primary400">#dedede</color>
+    <color name="primary500">#c2c2c2</color>
+    <color name="primary600">#979797</color>
+    <color name="primary700">#818181</color>
+    <color name="primary800">#606060</color>
+    <color name="primary900">#3c3c3c</color>
 
     <color name="intelligoBlack">#2C2F33</color>
     <color name="intelligoDark">#23272A</color>

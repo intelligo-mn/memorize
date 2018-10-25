@@ -81,7 +81,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
                             android:textSize="15sp"
-                            android:textColor="@color/greyple"
+                            android:textColor="@color/primary800"
                             android:text="@string/meaning" />
 
                         <TextView
@@ -109,7 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:textColor="@color/greyple"
+                            android:textColor="@color/primary800"
                             android:textSize="12sp"
                             android:text="@string/tags"/>
 
@@ -159,7 +159,7 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="5dp"
                         android:text="@string/kanji"
-                        android:textColor="@color/greyple"
+                        android:textColor="@color/primary800"
                         android:textSize="16sp" />
                     <android.support.v7.widget.CardView
                         android:orientation="vertical"
