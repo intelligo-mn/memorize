@@ -125,7 +125,7 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
 
     @Override
     public void showWrongAnswer(Integer choice, Integer rightAnswer) {
-        getCorrectCardView(choice).setBackgroundColor(ContextCompat.getColor(this, R.color.chartBlue));
+        getCorrectCardView(choice).setBackgroundColor(ContextCompat.getColor(this, R.color.chartPink));
         getCorrectTextView(choice).setTextColor(ContextCompat.getColor(this, R.color.white));
         getCorrectCardView(rightAnswer).setBackgroundColor(ContextCompat.getColor(this, R.color.chartGreen));
         getCorrectTextView(rightAnswer).setTextColor(ContextCompat.getColor(this, R.color.white));
