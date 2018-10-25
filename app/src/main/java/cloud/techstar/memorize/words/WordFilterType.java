@@ -2,13 +2,13 @@ package cloud.techstar.memorize.words;
 
 public enum WordFilterType {
 
-    ALL_WORDS,
+  ALL_WORDS,
 
-    RECENTLY,
+  RECENTLY,
 
-    LEAST_RECENTLY,
+  LEAST_RECENTLY,
 
-    ACTIVE_WORDS,
+  ACTIVE_WORDS,
 
-    MEMORIZED_WORDS
+  MEMORIZED_WORDS
 }

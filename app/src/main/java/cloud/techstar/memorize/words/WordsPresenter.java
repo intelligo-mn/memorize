@@ -82,6 +82,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                     switch (getFilterType()) {
                         case ALL_WORDS:
                             mainWords.add(word);
+                            wordRepository.memorizeWord(word.getId());
                             break;
                         case ACTIVE_WORDS:
                             if (!word.isFavorite() && !word.isMemorize()) {
@@ -105,6 +106,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                     });
                 }
                 Logger.e("Presenter words count : "+words.size());
+
                 wordsView.showWords(mainWords);
                 wordsView.setSuggest(words);
                 if (showLoadingUI) {
