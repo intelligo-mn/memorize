@@ -113,6 +113,12 @@ public class OptionsPresenter implements OptionsContract.Presenter{
 
     @Override
     public void downloadWordsRemote() {
+
+        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
+            optionsView.showToast("No internet connection !!!");
+            return;
+        }
+
         optionsView.setLoadingIndicator(true);
         wordsRepository.getWordsFromRemoteDataSource(new WordsDataSource.LoadWordsCallback() {
             @Override
@@ -180,6 +186,8 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                                 optionsView.setLoadingIndicator(false);
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                optionsView.setLoadingIndicator(false);
+                                optionsView.showToast("Алдаа гарлаа: "+e);
                             }
 
                         }
@@ -225,6 +233,8 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                                 optionsView.setLoadingIndicator(false);
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                optionsView.setLoadingIndicator(false);
+                                optionsView.showToast("Алдаа гарлаа: "+e);
                             }
                         }
                     });

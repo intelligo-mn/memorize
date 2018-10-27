@@ -78,6 +78,8 @@ public class QuizPresenter implements QuizContract.Presenter {
                         countRightAnswer++;
                         quizView.showSuccess(indexAnswer);
                         quizView.setRightAndWrongAnswer(countRightAnswer, countWrongAnswer);
+
+
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override

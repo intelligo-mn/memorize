@@ -52,8 +52,6 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
     @Override
     public void getWords(@NonNull final LoadWordsCallback callback) {
-        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext()))
-            return;
 
         final Handler mHandler = new Handler(Looper.getMainLooper());
         OkHttpClient client = new OkHttpClient();

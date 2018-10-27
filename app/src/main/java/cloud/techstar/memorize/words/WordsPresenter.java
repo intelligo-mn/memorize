@@ -82,7 +82,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                     switch (getFilterType()) {
                         case ALL_WORDS:
                             mainWords.add(word);
-                            wordRepository.memorizeWord(word.getId());
                             break;
                         case ACTIVE_WORDS:
                             if (!word.isFavorite() && !word.isMemorize()) {
