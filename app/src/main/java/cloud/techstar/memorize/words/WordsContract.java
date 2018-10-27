@@ -22,7 +22,7 @@ public interface WordsContract {
 
     void showNoWords();
 
-    void setSuggest(List<Words> words);
+    void startSearch(String s);
 
     boolean isActive();
   }

@@ -33,24 +33,25 @@ import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.detail.DetailActivity;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WordsFragment extends Fragment implements WordsContract.View{
 
     private MaterialSearchBar searchBar;
-    private WordSuggestionsAdapter wordSuggestionsAdapter;
 
     private SwipeRefreshLayout swipeRefreshLayout = null;
-    private WordsPresenter wordsPresenter;
+
     private Spinner viewSpinner, sortSpinner;
 
     private WordsContract.Presenter presenter;
-//    private Word
-
     private WordsAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
+    private List<String> suggestList = new ArrayList<>();
+    private List<Words> searchWords = new ArrayList<>();
+
     public WordsFragment() {
     }
 
@@ -64,9 +65,9 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         super.onCreate(savedInstanceState);
         mAdapter = new WordsAdapter(new ArrayList<Words>(0), R.layout.item_word_list);
 
-        wordsPresenter = new WordsPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
+        new WordsPresenter(Injection.provideWordsRepository(AppMain.getContext()), this);
 
-        wordsPresenter.init();
+        presenter.init();
     }
 
     @Override
@@ -88,11 +89,10 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                 presenter.loadWords(false);
             }
         });
-        wordSuggestionsAdapter = new WordSuggestionsAdapter(inflater);
+
         searchBar.setMaxSuggestionCount(2);
         searchBar.setSpeechMode(true);
         searchBar.setHint("Хайх үгээ оруул..");
-        searchBar.setCustomSuggestionAdapter(wordSuggestionsAdapter);
 
         searchBar.addTextChangeListener(new TextWatcher() {
             @Override
@@ -103,7 +103,12 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + searchBar.getText());
                 // send the entered text to our filter and let it manage everything
-                wordSuggestionsAdapter.getFilter().filter(searchBar.getText());
+                List<String> suggest = new ArrayList<>();
+                for (String search: suggestList){
+                    if (search.toLowerCase().contains(searchBar.getText().toLowerCase()))
+                        suggest.add(search);
+                }
+                searchBar.setLastSuggestions(suggest);
             }
 
             @Override
@@ -111,6 +116,36 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
             }
 
+        });
+
+        searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
+            @Override
+            public void onSearchStateChanged(boolean enabled) {
+                if (!enabled)
+                    mAdapter = new WordsAdapter(searchWords,  R.layout.item_word_list);
+                    mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onSearchConfirmed(CharSequence text) {
+                startSearch(text.toString());
+            }
+
+            @Override
+            public void onButtonClicked(int buttonCode) {
+                switch (buttonCode){
+                    case MaterialSearchBar.BUTTON_NAVIGATION:
+
+                        break;
+                    case MaterialSearchBar.BUTTON_SPEECH:
+
+                        break;
+
+                    case MaterialSearchBar.BUTTON_BACK:
+                        searchBar.disableSearch();
+
+                }
+            }
         });
 
         mRecyclerView = root.findViewById(R.id.word_recycler_view);
@@ -201,6 +236,16 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         return root;
     }
 
+    public void startSearch(String s) {
+        List<Words> result = new ArrayList<>();
+        for (Words word : searchWords) {
+            if (word.getCharacter().contains(s))
+                result.add(word);
+        }
+        mAdapter = new WordsAdapter(result,  R.layout.item_word_list);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
     @Override
     public void setPresenter(WordsContract.Presenter presenter) {
         this.presenter = checkNotNull(presenter);
@@ -231,6 +276,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     @Override
     public void showWords(List<Words> words) {
         mAdapter.replaceData(words);
+        searchWords = words;
     }
 
     @Override
@@ -249,11 +295,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     @Override
     public void showNoWords() {
 
-    }
-
-    @Override
-    public void setSuggest(List<Words> words) {
-//        wordSuggestionsAdapter.setSuggestions(words);
     }
 
     @Override
