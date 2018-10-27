@@ -37,10 +37,12 @@ public class ManagePresenter implements ManageContract.Presenter{
 
     private ManageContract.View manageView;
 
+    private Handler handler;
+
     public ManagePresenter(WordsRepository wordsRepository, ManageContract.View manageView){
         this.wordsRepository = wordsRepository;
         this.manageView = manageView;
-
+        handler = new Handler(Looper.getMainLooper());
         manageView.setPresenter(this);
     }
 
@@ -50,12 +52,23 @@ public class ManagePresenter implements ManageContract.Presenter{
     }
 
     @Override
-    public void saveWord(Words words) {
-        wordsRepository.saveWord(words);
-        if (ConnectionDetector.isNetworkAvailable(AppMain.getContext()))
+    public void saveWord(final Words words) {
+        if (ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
+            wordsRepository.saveWord(words);
             sendServer(words);
-        else
-            manageView.clearFields();
+        } else {
+            manageView.setLoadingIndicator(true);
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    wordsRepository.saveWord(words);
+                    manageView.setLoadingIndicator(false);
+                    manageView.clearFields();
+                    manageView.showToast("Амилттай нэмэгдлээ.");
+                }
+            });
+        }
     }
 
     @Override

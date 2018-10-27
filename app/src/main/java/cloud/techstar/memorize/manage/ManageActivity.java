@@ -152,7 +152,6 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
     public boolean validateFields() {
         boolean valid = true;
 
-
         if (character.getText().toString().isEmpty()) {
             character.setError("Япон үг оруулна уу");
             valid = false;

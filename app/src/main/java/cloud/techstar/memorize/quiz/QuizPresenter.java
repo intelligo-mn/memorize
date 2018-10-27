@@ -91,7 +91,9 @@ public class QuizPresenter implements QuizContract.Presenter {
                         countWrongAnswer++;
                         quizView.showWrongAnswer(indexAnswer, getCurrentQuestion().getRightAnswerIndex());
                         quizView.setRightAndWrongAnswer(countRightAnswer, countWrongAnswer);
-                        // 2 instead 1 seconds so the user can analyse the right answer
+
+                        wordsRepository.favWord(quizWords.get(indexAnswer).getQuestionId());
+
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
