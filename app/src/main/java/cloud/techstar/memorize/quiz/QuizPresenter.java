@@ -110,7 +110,13 @@ public class QuizPresenter implements QuizContract.Presenter {
         final List<Question> questions = new ArrayList<Question>();
         wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
-            public void onWordsLoaded(List<Words> words) {
+            public void onWordsLoaded(List<Words> wordList) {
+                List<Words> words = new ArrayList<>();
+                for (Words word: wordList){
+                    if (!word.isMemorize())
+                        words.add(word);
+
+                }
                 Collections.shuffle(words);
                 for(int i  = 0; i < 25; i++) {
 
