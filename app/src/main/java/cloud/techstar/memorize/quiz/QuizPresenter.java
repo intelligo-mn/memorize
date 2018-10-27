@@ -20,12 +20,12 @@ public class QuizPresenter implements QuizContract.Presenter {
 
     private final QuizContract.View quizView;
 
-    public Integer currentIndexQuestion = 0;
+    private Integer currentIndexQuestion = 0;
 
     List<Question> quizWords;
 
-    int countWrongAnswer = 0;
-    int countRightAnswer = 0;
+    private int countWrongAnswer = 0;
+    private int countRightAnswer = 0;
 
     public QuizPresenter(WordsRepository wordsRepository, QuizContract.View quizView) {
         this.wordsRepository = wordsRepository;
@@ -78,8 +78,7 @@ public class QuizPresenter implements QuizContract.Presenter {
                         countRightAnswer++;
                         quizView.showSuccess(indexAnswer);
                         quizView.setRightAndWrongAnswer(countRightAnswer, countWrongAnswer);
-
-
+                        wordsRepository.memorizeWord(quizWords.get(indexAnswer).getQuestionId());
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -134,7 +133,7 @@ public class QuizPresenter implements QuizContract.Presenter {
 
                     possiblesAnswers.add(rightIndexAnswer, rightAnswer);
 
-                    Question question = new Question(currentWord.getKanji(), possiblesAnswers, rightIndexAnswer);
+                    Question question = new Question(currentWord.getId(), currentWord.getKanji(), possiblesAnswers, rightIndexAnswer);
                     questions.add(question);
                 }
             }

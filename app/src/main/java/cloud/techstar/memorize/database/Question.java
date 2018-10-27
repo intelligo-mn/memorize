@@ -4,9 +4,25 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Question implements Serializable {
+    private String questionId;
     private String question;
     private List<String> possiblesAnswers;
     private int rightAnswerIndex;
+
+    public Question(String questionId, String question, List<String> possiblesAnswers, int rightAnswerIndex) {
+        this.questionId = questionId;
+        this.question = question;
+        this.possiblesAnswers = possiblesAnswers;
+        this.rightAnswerIndex = rightAnswerIndex;
+    }
+
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
 
     public String getQuestion() {
         return question;
@@ -29,12 +45,6 @@ public class Question implements Serializable {
     }
 
     public void setRightAnswerIndex(int rightAnswerIndex) {
-        this.rightAnswerIndex = rightAnswerIndex;
-    }
-
-    public Question(String question, List<String> possiblesAnswers, int rightAnswerIndex) {
-        this.question = question;
-        this.possiblesAnswers = possiblesAnswers;
         this.rightAnswerIndex = rightAnswerIndex;
     }
 }
