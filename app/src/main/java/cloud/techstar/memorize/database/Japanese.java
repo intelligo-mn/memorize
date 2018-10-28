@@ -1,6 +1,6 @@
 package cloud.techstar.memorize.database;
 
-class Japanese {
+public class Japanese {
     private String word;
     private String reading;
 

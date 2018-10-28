@@ -2,6 +2,7 @@ package cloud.techstar.memorize.words;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -38,6 +39,9 @@ import java.util.List;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
+import cloud.techstar.memorize.database.Data;
+import cloud.techstar.memorize.database.Japanese;
+import cloud.techstar.memorize.database.Sense;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.detail.DetailActivity;
 import cloud.techstar.memorize.utils.MemorizeConstant;
@@ -149,6 +153,13 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             public void onSearchConfirmed(CharSequence text) {
                 startSearch(text.toString());
 
+                final List<Data> searchedWords = new ArrayList<>();
+                final List<Japanese> japaneseList = new ArrayList<>();
+                final List<Sense> senseList = new ArrayList<>();
+                final List<String> tagList = new ArrayList<>();
+                final List<String> engMeanings = new ArrayList<>();
+                final List<String> partOfSpeechList = new ArrayList<>();
+
                 final Request jishoRequest = new Request.Builder()
                         .url("https://jisho.org/api/v1/search/words?keyword="+text.toString())
                         .build();
@@ -173,10 +184,51 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                                     JSONArray datas = ob.getJSONArray("data");
 
                                     for (int i = 0; i < datas.length(); i++) {
+
                                         JSONObject data = datas.getJSONObject(i);
+
+                                        JSONArray tag = data.getJSONArray("tags");
                                         JSONArray japanese = data.getJSONArray("japanese");
-                                        Logger.d(japanese.getJSONObject(0).getString("word"));
-                                        japanese.getJSONObject(0).getString("reading");
+                                        for (int t = 0; t< tag.length(); t++) {
+                                            tagList.add(tag.getString(t));
+                                        }
+
+                                        for (int j = 0; j< japanese.length(); j++){
+                                            Japanese ja = new Japanese();
+                                            ja.setWord(japanese.getJSONObject(j).getString("word"));
+                                            ja.setReading(japanese.getJSONObject(j).getString("reading"));
+                                            japaneseList.add(ja);
+
+                                        }
+
+                                        JSONArray senses = data.getJSONArray("senses");
+                                        for (int s = 0; s< senses.length(); s++){
+                                            Sense se = new Sense();
+
+                                            JSONObject sObject = senses.getJSONObject(s);
+                                            JSONArray english = sObject.getJSONArray("english_definitions");
+                                            JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
+
+                                            for (int e = 0; e< english.length(); e++) {
+                                                engMeanings.add(english.getString(e));
+                                            }
+                                            for (int p = 0; p< partOfSpeech.length(); p++) {
+                                                partOfSpeechList.add(partOfSpeech.getString(p));
+                                            }
+                                            se.setEnglish_definitions(engMeanings);
+                                            se.setParts_of_speech(partOfSpeechList);
+
+                                        }
+
+
+                                        Data searchData = new Data();
+                                        searchData.setIs_common(data.getBoolean("is_common"));
+                                        searchData.setTags(tagList);
+                                        searchData.setJapanese(japaneseList);
+                                        searchData.setSenses(senseList);
+
+                                        searchedWords.add(searchData);
+                                        Logger.d(searchedWords);
                                     }
 
                                 } catch (JSONException e) {
