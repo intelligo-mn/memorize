@@ -3,6 +3,8 @@ package cloud.techstar.memorize.words;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,7 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.orhanobut.logger.Logger;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -32,6 +40,12 @@ import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.detail.DetailActivity;
+import cloud.techstar.memorize.utils.MemorizeConstant;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.google.common.base.Preconditions.checkArgument;
@@ -117,11 +131,16 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             }
 
         });
+        final Handler jishoHandler = new Handler(Looper.getMainLooper());
+        final OkHttpClient jishoClient = new OkHttpClient();
+
+
 
         searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
                 if (!enabled)
+
                     mAdapter = new WordsAdapter(searchWords,  R.layout.item_word_list);
                     mRecyclerView.setAdapter(mAdapter);
             }
@@ -129,6 +148,44 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             @Override
             public void onSearchConfirmed(CharSequence text) {
                 startSearch(text.toString());
+
+                final Request jishoRequest = new Request.Builder()
+                        .url("https://jisho.org/api/v1/search/words?keyword="+text.toString())
+                        .build();
+
+                jishoClient.newCall(jishoRequest).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, final Response response) throws IOException {
+
+                        final String res = response.body().string();
+                        jishoHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    JSONObject ob = new JSONObject(res);
+                                    Logger.d(ob);
+
+                                    JSONArray datas = ob.getJSONArray("data");
+
+                                    for (int i = 0; i < datas.length(); i++) {
+                                        JSONObject data = datas.getJSONObject(i);
+                                        JSONArray japanese = data.getJSONArray("japanese");
+                                        Logger.d(japanese.getJSONObject(0).getString("word"));
+                                        japanese.getJSONObject(0).getString("reading");
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
             }
 
             @Override
