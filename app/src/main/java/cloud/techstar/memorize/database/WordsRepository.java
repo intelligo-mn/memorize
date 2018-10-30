@@ -2,6 +2,8 @@ package cloud.techstar.memorize.database;
 
 import android.support.annotation.NonNull;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -18,9 +20,9 @@ public class WordsRepository implements WordsDataSource {
 
     private final WordsDataSource wordsLocalDataSource;
 
-    Map<String, Words> cachedWords;
+    private Map<String, Words> cachedWords;
 
-    boolean mCacheIsDirty = false;
+    private boolean mCacheIsDirty = false;
 
     public WordsRepository(WordsDataSource wordsRemoteDataSource, WordsDataSource wordsLocalDataSource) {
         this.wordsRemoteDataSource = wordsRemoteDataSource;
@@ -141,12 +143,38 @@ public class WordsRepository implements WordsDataSource {
     @Override
     public void saveWord(@NonNull Words word) {
 
-        wordsRemoteDataSource.saveWord(word);
-        wordsLocalDataSource.saveWord(word);
+        checkWord(word.getCharacter(), new GetWordCallback() {
+            @Override
+            public void onWordLoaded(Words word) {
+                wordsRemoteDataSource.saveWord(word);
+                wordsLocalDataSource.saveWord(word);
 
-        if (cachedWords == null)
-            cachedWords = new LinkedHashMap<>();
-        cachedWords.put(word.getId(), word);
+                if (cachedWords == null)
+                    cachedWords = new LinkedHashMap<>();
+                cachedWords.put(word.getId(), word);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                Logger.e("Already created ");
+            }
+        });
+
+    }
+
+    @Override
+    public void checkWord(@NonNull String wordChar, @NonNull final GetWordCallback callback) {
+        wordsLocalDataSource.checkWord(wordChar, new GetWordCallback() {
+            @Override
+            public void onWordLoaded(Words word) {
+                callback.onWordLoaded(word);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
     }
 
     @Override

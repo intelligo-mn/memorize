@@ -34,6 +34,7 @@ import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.utils.ConnectionDetector;
 import cloud.techstar.memorize.utils.MemorizeConstant;
+import cloud.techstar.memorize.utils.MemorizeUtils;
 import cloud.techstar.progressbar.TSProgressBar;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -99,7 +100,7 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
 //                                kanji.getText().toString(),
 //                                partOfSpeech.getItemAtPosition(partOfSpeech.getSelectedItemPosition()).toString(),
 //                                level.getItemAtPosition(level.getSelectedItemPosition()).toString(),
-//                                getNowTime()));
+//                                MemorizeUtils.getNowTime()));
             }
         });
 

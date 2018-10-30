@@ -22,8 +22,6 @@ public interface WordsContract {
 
     void showNoWords();
 
-    void startSearch(String s);
-
     boolean isActive();
   }
 
@@ -38,6 +36,12 @@ public interface WordsContract {
     void setFilterType(WordFilterType filterType);
 
     WordFilterType getFilterType();
+
+    void saveWord(Words word);
+
+    void search(String keyWord);
+
+    void searchRemote(String keyWord);
 
     void setViewType(WordViewType viewType);
 

@@ -94,6 +94,29 @@ public class WordsLocalDataSource implements WordsDataSource {
     }
 
     @Override
+    public void checkWord(@NonNull final String wordChar, @NonNull final GetWordCallback callback) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                final Words word = wordsDao.getWordByChar(wordChar);
+
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (word != null) {
+                            callback.onWordLoaded(word);
+                        } else {
+                            callback.onDataNotAvailable();
+                        }
+                    }
+                });
+            }
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
     public void memorizeWord(@NonNull final Words word) {
         Runnable completeRunnable = new Runnable() {
             @Override

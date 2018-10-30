@@ -1,18 +1,33 @@
 package cloud.techstar.memorize.words;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 
+import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
+import static cloud.techstar.memorize.utils.MemorizeUtils.getNowTime;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.LoadWordsCallback {
@@ -25,10 +40,17 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
     private WordFilterType currentFilterType = WordFilterType.ACTIVE_WORDS;
 
+    private Handler jishoHandler;
+    private OkHttpClient jishoClient;
+    private List<Words> searchWords;
+
+
     public WordsPresenter(@NonNull WordsDataSource wordRepository, @NonNull WordsContract.View wordsView) {
         this.wordRepository = wordRepository;
         this.wordsView = wordsView;
-
+        jishoHandler = new Handler(Looper.getMainLooper());
+        jishoClient = new OkHttpClient();
+        searchWords = new ArrayList<>();
         wordsView.setPresenter(this);
     }
 
@@ -72,6 +94,8 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
         wordRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> words) {
+
+                searchWords = words;
 
                 List<Words> mainWords = new ArrayList<Words>();
 
@@ -124,7 +148,105 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     @Override
     public void openWordDetails(@NonNull Words requestedWord) {
         checkNotNull(requestedWord, "requestedWord cannot be null!");
+        wordRepository.saveWord(requestedWord);
         wordsView.showWordDetail(requestedWord.getId());
+    }
+
+    @Override
+    public void saveWord(Words word){
+        wordRepository.saveWord(word);
+    }
+
+    @Override
+    public void search(String keyWord) {
+        List<Words> result = new ArrayList<>();
+        for (Words word : searchWords) {
+            if (word.getCharacter().contains(keyWord))
+                result.add(word);
+        }
+
+        if (result.size() > 0){
+            wordsView.showWords(result);
+        } else {
+            searchRemote(keyWord);
+        }
+    }
+
+    @Override
+    public void searchRemote(String keyWord) {
+
+        final List<Words> apiWords = new ArrayList<>();
+
+        final List<String> meaningList = new ArrayList<>();
+        final List<String> meaningMonList = new ArrayList<>();
+        final List<String> partOfSpeechList = new ArrayList<>();
+        final List<String> levelList = new ArrayList<>();
+
+        final Request jishoRequest = new Request.Builder()
+                .url("https://jisho.org/api/v1/search/words?keyword="+keyWord)
+                .build();
+
+        jishoClient.newCall(jishoRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+
+                final String res = response.body().string();
+                jishoHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            JSONObject ob = new JSONObject(res);
+                            Logger.d(ob);
+
+                            JSONArray datas = ob.getJSONArray("data");
+
+                            for (int i = 0; i < datas.length(); i++) {
+
+                                JSONObject data = datas.getJSONObject(i);
+
+                                JSONArray tag = data.getJSONArray("tags");
+                                JSONArray japanese = data.getJSONArray("japanese");
+                                for (int t = 0; t< tag.length(); t++) {
+                                    levelList.add(tag.getString(t));
+                                }
+
+                                String kanji = japanese.getJSONObject(0).getString("word");
+                                String character = japanese.getJSONObject(0).getString("reading");
+
+                                JSONArray senses = data.getJSONArray("senses");
+                                for (int s = 0; s< senses.length(); s++){
+
+                                    JSONObject sObject = senses.getJSONObject(s);
+                                    JSONArray english = sObject.getJSONArray("english_definitions");
+                                    JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
+
+                                    for (int e = 0; e< english.length(); e++) {
+                                        meaningList.add(english.getString(e));
+                                    }
+                                    for (int p = 0; p< partOfSpeech.length(); p++) {
+                                        partOfSpeechList.add(partOfSpeech.getString(p));
+                                    }
+                                }
+
+                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, meaningMonList, kanji, partOfSpeechList, levelList, getNowTime());
+                                saveWord(word);
+                                apiWords.add(word);
+                            }
+
+                            wordsView.showWords(apiWords);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override

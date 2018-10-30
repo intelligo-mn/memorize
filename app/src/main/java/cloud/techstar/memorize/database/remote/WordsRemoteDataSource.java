@@ -49,6 +49,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
         return INSTANCE;
     }
 
+
     // Prevent direct instantiation.
     private WordsRemoteDataSource() {}
 
@@ -141,6 +142,11 @@ public class WordsRemoteDataSource implements WordsDataSource {
     @Override
     public void saveWord(@NonNull Words word) {
         WORDS_SERVICE_DATA.put(word.getId(), word);
+    }
+
+    @Override
+    public void checkWord(@NonNull String wordChar, @NonNull GetWordCallback callback) {
+
     }
 
     @Override

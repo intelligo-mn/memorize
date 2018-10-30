@@ -19,6 +19,9 @@ public interface WordsDao {
     @Query("SELECT * FROM words WHERE id = :wordId")
     Words getWordById(String wordId);
 
+    @Query("SELECT * FROM words WHERE character = :wordCharacter")
+    Words getWordByChar(String wordCharacter);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertWord(Words word);
 

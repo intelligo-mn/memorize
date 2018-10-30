@@ -30,17 +30,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
-import cloud.techstar.memorize.database.Entry;
-import cloud.techstar.memorize.database.Japanese;
-import cloud.techstar.memorize.database.Sense;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.detail.DetailActivity;
 import okhttp3.Call;
@@ -65,7 +65,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<String> suggestList = new ArrayList<>();
-    private List<Words> searchWords = new ArrayList<>();
 
     public WordsFragment() {
     }
@@ -132,114 +131,17 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             }
 
         });
-        final Handler jishoHandler = new Handler(Looper.getMainLooper());
-        final OkHttpClient jishoClient = new OkHttpClient();
-
-
 
         searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
-                if (!enabled)
+//                if (!enabled)
 
-                    mAdapter = new WordsAdapter(searchWords,  R.layout.item_word_list);
-                    mRecyclerView.setAdapter(mAdapter);
             }
 
             @Override
             public void onSearchConfirmed(CharSequence text) {
-                startSearch(text.toString());
-
-                final List<Entry> searchedWords = new ArrayList<>();
-                final List<Japanese> japaneseList = new ArrayList<>();
-                final List<Sense> senseList = new ArrayList<>();
-                final List<String> tagList = new ArrayList<>();
-                final List<String> engMeanings = new ArrayList<>();
-                final List<String> partOfSpeechList = new ArrayList<>();
-
-                List<Words> apiWords = new ArrayList<>();
-
-                final String character, meaning, meaningMon, kanji, partOfSpeech, level = null;
-
-                final Request jishoRequest = new Request.Builder()
-                        .url("https://jisho.org/api/v1/search/words?keyword="+text.toString())
-                        .build();
-
-                jishoClient.newCall(jishoRequest).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, final Response response) throws IOException {
-
-                        final String res = response.body().string();
-                        jishoHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    JSONObject ob = new JSONObject(res);
-                                    Logger.d(ob);
-
-                                    JSONArray datas = ob.getJSONArray("data");
-
-                                    for (int i = 0; i < datas.length(); i++) {
-
-                                        JSONObject data = datas.getJSONObject(i);
-
-                                        JSONArray tag = data.getJSONArray("tags");
-                                        JSONArray japanese = data.getJSONArray("japanese");
-                                        for (int t = 0; t< tag.length(); t++) {
-                                            tagList.add(tag.getString(t));
-                                            level.concat(tag.getString(t));
-                                        }
-
-                                        for (int j = 0; j< japanese.length(); j++){
-                                            Japanese ja = new Japanese();
-                                            ja.setWord(japanese.getJSONObject(j).getString("word"));
-                                            ja.setReading(japanese.getJSONObject(j).getString("reading"));
-                                            japaneseList.add(ja);
-
-                                        }
-
-                                        JSONArray senses = data.getJSONArray("senses");
-                                        for (int s = 0; s< senses.length(); s++){
-                                            Sense se = new Sense();
-
-                                            JSONObject sObject = senses.getJSONObject(s);
-                                            JSONArray english = sObject.getJSONArray("english_definitions");
-                                            JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
-
-                                            for (int e = 0; e< english.length(); e++) {
-                                                engMeanings.add(english.getString(e));
-                                            }
-                                            for (int p = 0; p< partOfSpeech.length(); p++) {
-                                                partOfSpeechList.add(partOfSpeech.getString(p));
-                                            }
-                                            se.setEnglish_definitions(engMeanings);
-                                            se.setParts_of_speech(partOfSpeechList);
-
-                                        }
-
-
-                                        Entry searchEntry = new Entry();
-                                        searchEntry.setIs_common(data.getBoolean("is_common"));
-                                        searchEntry.setTags(tagList);
-                                        searchEntry.setJapanese(japaneseList);
-                                        searchEntry.setSenses(senseList);
-
-                                        searchedWords.add(searchEntry);
-                                        Logger.d(searchedWords);
-                                    }
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                    }
-                });
+                presenter.search(text.toString());
             }
 
             @Override
@@ -347,16 +249,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         return root;
     }
 
-    public void startSearch(String s) {
-        List<Words> result = new ArrayList<>();
-        for (Words word : searchWords) {
-            if (word.getCharacter().contains(s))
-                result.add(word);
-        }
-        mAdapter = new WordsAdapter(result,  R.layout.item_word_list);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
     @Override
     public void setPresenter(WordsContract.Presenter presenter) {
         this.presenter = checkNotNull(presenter);
@@ -387,7 +279,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     @Override
     public void showWords(List<Words> words) {
         mAdapter.replaceData(words);
-        searchWords = words;
     }
 
     @Override
