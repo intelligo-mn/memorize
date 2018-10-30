@@ -43,13 +43,11 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         favBtn = findViewById(R.id.btnFav);
         Intent intent = getIntent();
 
-        new DetailPresenter(
-                intent.getStringExtra("word_id"),
+        new DetailPresenter((Words) intent.getSerializableExtra("word_detail"),
                 Injection.provideWordsRepository(getApplicationContext()),
                 this);
 
         presenter.init();
-
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,15 +91,19 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
 
     @Override
     public void setData(Words word) {
-        headKanji.setText(word.getKanji());
-        headHiragana.setText(word.getCharacter());
-        meaning.setText("\u2022 ".concat(word.getMeaning().get(0)));
-        meaningMn.setText("\u2022 ".concat(word.getMeaningMon().get(0)));
-        partOfSpeech.setText(word.getPartOfSpeech().get(0));
-        level.setText(word.getLevel().get(0));
-        kanji.setText(word.getKanji());
-        if (word.isFavorite())
-            favBtn.setImageResource(R.drawable.ic_favorite_full);
+        try {
+            headKanji.setText(word.getKanji());
+            headHiragana.setText(word.getCharacter());
+            meaning.setText("\u2022 ".concat(word.getMeaning().get(0)));
+            meaningMn.setText("\u2022 ".concat(word.getMeaningMon().get(0)));
+            partOfSpeech.setText(word.getPartOfSpeech().get(0));
+            level.setText(word.getLevel().get(0));
+            kanji.setText(word.getKanji());
+            if (word.isFavorite())
+                favBtn.setImageResource(R.drawable.ic_favorite_full);
+        } catch (Exception ex){
+            showToast("Алдаа :"+ex);
+        }
     }
 
     @Override

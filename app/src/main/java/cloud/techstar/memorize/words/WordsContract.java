@@ -16,7 +16,7 @@ public interface WordsContract {
 
     void showWords(List<Words> words);
 
-    void showWordDetail(String wordId);
+    void showWordDetail(Words word);
 
     void showLoadingWordsError();
 

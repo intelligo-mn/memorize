@@ -282,10 +282,10 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     }
 
     @Override
-    public void showWordDetail(String wordId) {
+    public void showWordDetail(Words word) {
         Intent intent = new Intent(AppMain.getContext(), DetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("word_id", wordId);
+        intent.putExtra("word_detail", word);
         AppMain.getContext().startActivity(intent);
     }
 

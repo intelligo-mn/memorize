@@ -19,12 +19,12 @@ public class DetailPresenter implements DetailContract.Presenter{
     private Words mWord;
 
     @Nullable
-    private String wordId;
+    private Words word;
 
-    public DetailPresenter(String wordId, WordsRepository wordsRepository, DetailContract.View detailView) {
+    public DetailPresenter(Words word, WordsRepository wordsRepository, DetailContract.View detailView) {
         this.wordsRepository = wordsRepository;
         this.detailView = detailView;
-        this.wordId = wordId;
+        this.word = word;
         detailView.setPresenter(this);
     }
 
@@ -34,31 +34,13 @@ public class DetailPresenter implements DetailContract.Presenter{
     }
 
     private void openWord() {
-        if (Strings.isNullOrEmpty(wordId)) {
+        if (word==null) {
             detailView.showMissingWord();
             return;
+        } else {
+
+            detailView.setData(word);
         }
-
-        detailView.setLoadingIndicator(true);
-        wordsRepository.getWord(wordId, new WordsDataSource.GetWordCallback(){
-
-            @Override
-            public void onWordLoaded(Words word) {
-                if (null == word) {
-                    detailView.showMissingWord();
-                } else {
-                    mWord = word;
-                    detailView.setData(word);
-                }
-
-                detailView.setLoadingIndicator(false);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                detailView.showMissingWord();
-            }
-        });
     }
 
     @Override

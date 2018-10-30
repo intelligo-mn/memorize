@@ -148,8 +148,8 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     @Override
     public void openWordDetails(@NonNull Words requestedWord) {
         checkNotNull(requestedWord, "requestedWord cannot be null!");
-        wordRepository.saveWord(requestedWord);
-        wordsView.showWordDetail(requestedWord.getId());
+        saveWord(requestedWord);
+        wordsView.showWordDetail(requestedWord);
     }
 
     @Override
@@ -234,7 +234,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                 }
 
                                 Words word = new Words(UUID.randomUUID().toString(), character, meaningList, meaningMonList, kanji, partOfSpeechList, levelList, getNowTime());
-                                saveWord(word);
                                 apiWords.add(word);
                             }
 

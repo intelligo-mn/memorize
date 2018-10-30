@@ -10,13 +10,14 @@ import android.support.annotation.Nullable;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
 @Entity(tableName = "words")
-public final class Words {
+public final class Words implements Serializable {
 
     @PrimaryKey
     @NonNull

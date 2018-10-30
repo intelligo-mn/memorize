@@ -141,22 +141,22 @@ public class WordsRepository implements WordsDataSource {
     }
 
     @Override
-    public void saveWord(@NonNull Words word) {
+    public void saveWord(@NonNull final Words word) {
 
         checkWord(word.getCharacter(), new GetWordCallback() {
             @Override
-            public void onWordLoaded(Words word) {
+            public void onWordLoaded(Words checkedWord) {
+                Logger.e("Already created "+checkedWord.getCharacter());
+            }
+
+            @Override
+            public void onDataNotAvailable() {
                 wordsRemoteDataSource.saveWord(word);
                 wordsLocalDataSource.saveWord(word);
 
                 if (cachedWords == null)
                     cachedWords = new LinkedHashMap<>();
                 cachedWords.put(word.getId(), word);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                Logger.e("Already created ");
             }
         });
 
