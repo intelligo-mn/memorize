@@ -159,6 +159,9 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
     @Override
     public void search(String keyWord) {
+
+        wordsView.setLoadingIndicator(true);
+
         List<Words> result = new ArrayList<>();
         for (Words word : searchWords) {
             if (word.getCharacter().contains(keyWord))
@@ -167,6 +170,8 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
         if (result.size() > 0){
             wordsView.showWords(result);
+
+            wordsView.setLoadingIndicator(false);
         } else {
             searchRemote(keyWord);
         }
@@ -177,11 +182,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
         final List<Words> apiWords = new ArrayList<>();
 
-        final List<String> meaningList = new ArrayList<>();
-        final List<String> meaningMonList = new ArrayList<>();
-        final List<String> partOfSpeechList = new ArrayList<>();
-        final List<String> levelList = new ArrayList<>();
-
         final Request jishoRequest = new Request.Builder()
                 .url("https://jisho.org/api/v1/search/words?keyword="+keyWord)
                 .build();
@@ -190,6 +190,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
             @Override
             public void onFailure(Call call, IOException e) {
 
+                wordsView.setLoadingIndicator(false);
             }
 
             @Override
@@ -211,6 +212,9 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
                                 JSONArray tag = data.getJSONArray("tags");
                                 JSONArray japanese = data.getJSONArray("japanese");
+
+                                final List<String> levelList = new ArrayList<>();
+
                                 for (int t = 0; t< tag.length(); t++) {
                                     levelList.add(tag.getString(t));
                                 }
@@ -219,28 +223,31 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                 String character = japanese.getJSONObject(0).getString("reading");
 
                                 JSONArray senses = data.getJSONArray("senses");
-                                for (int s = 0; s< senses.length(); s++){
 
-                                    JSONObject sObject = senses.getJSONObject(s);
-                                    JSONArray english = sObject.getJSONArray("english_definitions");
-                                    JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
+                                List<String> meaningList = new ArrayList<>();
+                                List<String> partOfSpeechList = new ArrayList<>();
 
-                                    for (int e = 0; e< english.length(); e++) {
-                                        meaningList.add(english.getString(e));
-                                    }
-                                    for (int p = 0; p< partOfSpeech.length(); p++) {
-                                        partOfSpeechList.add(partOfSpeech.getString(p));
-                                    }
+
+                                JSONObject sObject = senses.getJSONObject(0);
+                                JSONArray english = sObject.getJSONArray("english_definitions");
+                                JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
+
+                                for (int e = 0; e< english.length(); e++) {
+                                    meaningList.add(english.getString(e));
                                 }
-
-                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, meaningMonList, kanji, partOfSpeechList, levelList, getNowTime());
+                                for (int p = 0; p< partOfSpeech.length(); p++) {
+                                    partOfSpeechList.add(partOfSpeech.getString(p));
+                                }
+                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, null, kanji, partOfSpeechList, levelList, getNowTime());
                                 apiWords.add(word);
                             }
 
                             wordsView.showWords(apiWords);
 
+                            wordsView.setLoadingIndicator(false);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            wordsView.setLoadingIndicator(false);
                         }
                     }
                 });

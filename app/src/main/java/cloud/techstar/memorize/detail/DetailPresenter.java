@@ -16,8 +16,6 @@ public class DetailPresenter implements DetailContract.Presenter{
 
     private final DetailContract.View detailView;
 
-    private Words mWord;
-
     @Nullable
     private Words word;
 
@@ -45,10 +43,10 @@ public class DetailPresenter implements DetailContract.Presenter{
 
     @Override
     public void favoriteWord() {
-        checkNotNull(mWord, "favoriteWord cannot be null!");
-        wordsRepository.favWord(mWord.getId());
+        checkNotNull(word, "favoriteWord cannot be null!");
+        wordsRepository.favWord(word);
 
-        if (!mWord.isFavorite()) {
+        if (!word.isFavorite()) {
             detailView.showFavorite(true);
         }
     }

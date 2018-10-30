@@ -72,6 +72,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/meanings_layout"
                         android:layout_marginLeft="5dp"
                         android:orientation="vertical">
 
@@ -84,74 +85,48 @@
                             android:textColor="@color/primary800"
                             android:text="@string/meaning" />
 
-                        <TextView
-                            android:id="@+id/detail_meaning"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="2"
-                            android:ellipsize="end"
-                            android:textSize="20sp"
-                            tools:text="Meaning" />
+                    </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/detail_meaning_mn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="2"
-                            android:textSize="20sp"
-                            android:ellipsize="end"
-                            tools:text="Meaning"
-                            android:layout_marginBottom="10dp"/>
+                    <TextView
+                        android:id="@+id/detail_meaning_mn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:textSize="20sp"
+                        android:ellipsize="end"
+                        tools:text="Meaning"
+                        android:layout_marginBottom="10dp"/>
 
 
-                        <TextView
-                            android:id="@+id/tvTags"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:textColor="@color/primary800"
-                            android:textSize="12sp"
-                            android:text="@string/tags"/>
+                    <TextView
+                        android:id="@+id/tvTags"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/primary800"
+                        android:textSize="12sp"
+                        android:text="@string/tags"/>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/detail_part_of"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:textSize="12sp"
-                                android:textColor="@color/white"
-                                android:background="@drawable/ic_round_rectangle" />
-
-                            <TextView
-                                android:id="@+id/detail_level"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:background="@drawable/ic_round_rectangle"
-                                android:padding="5dp"
-                                android:textSize="12sp"
-                                android:textColor="@color/white" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/detail_see_more"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_horizontal"
-                            android:padding="5dp"
-                            android:background="@drawable/ic_round_rectangle_second"
-                            android:text="@string/search_more"
-                            android:textColor="@color/white" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tags_layout"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/detail_see_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:background="@drawable/ic_round_rectangle_second"
+                        android:text="@string/search_more"
+                        android:textColor="@color/white" />
+
                     <TextView
                         android:id="@+id/tvKanjis"
                         android:layout_width="wrap_content"
