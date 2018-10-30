@@ -3,11 +3,15 @@ package cloud.techstar.memorize.database.local;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.utils.Converters;
 
-@Database(entities = {Words.class}, version = 1)
+@Database(entities = {Words.class}, version = 2)
+
+@TypeConverters({Converters.class})
 public abstract class MemorizeDatabase extends RoomDatabase {
 
     private static MemorizeDatabase INSTANCE;
@@ -21,6 +25,7 @@ public abstract class MemorizeDatabase extends RoomDatabase {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                         MemorizeDatabase.class, "jisho.db")
+                        .fallbackToDestructiveMigration()
                         .build();
             }
             return INSTANCE;

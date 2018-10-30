@@ -1,5 +1,6 @@
 package cloud.techstar.memorize.database;
 
+@Deprecated
 public class Link {
     private String text;
     private String url;

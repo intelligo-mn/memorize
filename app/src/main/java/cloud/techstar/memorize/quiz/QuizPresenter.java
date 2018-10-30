@@ -132,12 +132,12 @@ public class QuizPresenter implements QuizContract.Presenter {
                             randomIndex = new Random().nextInt(words.size());
                         }
 
-                        possiblesAnswers.add(words.get(randomIndex).getMeaningMon());
+                        possiblesAnswers.add(words.get(randomIndex).getMeaningMon().get(0));
 
                     }
 
                     int rightIndexAnswer = new Random().nextInt(4);
-                    String rightAnswer = currentWord.getMeaningMon();
+                    String rightAnswer = currentWord.getMeaningMon().get(0);
 
                     possiblesAnswers.add(rightIndexAnswer, rightAnswer);
 

@@ -130,7 +130,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
             @Override
             public void onDataNotAvailable() {
                 optionsView.setLoadingIndicator(false);
-                optionsView.showToast("Data not available.");
+                optionsView.showToast("Entry not available.");
             }
         });
     }

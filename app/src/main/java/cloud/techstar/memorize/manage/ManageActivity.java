@@ -92,14 +92,14 @@ public class ManageActivity extends AppCompatActivity implements ManageContract.
             public void onClick(View v) {
                 if (!validateFields())
                     return;
-                presenter.saveWord(
-                        new Words(character.getText().toString(),
-                                meaning.getText().toString(),
-                                meaningMn.getText().toString(),
-                                kanji.getText().toString(),
-                                partOfSpeech.getItemAtPosition(partOfSpeech.getSelectedItemPosition()).toString(),
-                                level.getItemAtPosition(level.getSelectedItemPosition()).toString(),
-                                getNowTime()));
+//                presenter.saveWord(
+//                        new Words(character.getText().toString(),
+//                                meaning.getText().toString(),
+//                                meaningMn.getText().toString(),
+//                                kanji.getText().toString(),
+//                                partOfSpeech.getItemAtPosition(partOfSpeech.getSelectedItemPosition()).toString(),
+//                                level.getItemAtPosition(level.getSelectedItemPosition()).toString(),
+//                                getNowTime()));
             }
         });
 

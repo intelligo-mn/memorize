@@ -78,11 +78,11 @@ public class ManagePresenter implements ManageContract.Presenter{
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("character", words.getCharacter())
-                .add("meanings", words.getMeaning())
-                .add("meaningsMongolia", checkNotNull(words.getMeaningMon()))
-                .add("partOfSpeech", checkNotNull(words.getPartOfSpeech()))
+                .add("meanings", words.getMeaning().get(0))
+                .add("meaningsMongolia", checkNotNull(words.getMeaningMon().get(0)))
+                .add("partOfSpeech", checkNotNull(words.getPartOfSpeech().get(0)))
                 .add("kanji", checkNotNull(words.getKanji()))
-                .add("level", checkNotNull(words.getLevel()))
+                .add("level", checkNotNull(words.getLevel().get(0)))
                 .build();
 
         Request request = new Request.Builder()

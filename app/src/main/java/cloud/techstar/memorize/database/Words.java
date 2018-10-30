@@ -12,6 +12,7 @@ import com.google.common.base.Strings;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(tableName = "words")
@@ -20,49 +21,49 @@ public final class Words {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    private final String id;
+    private String id;
 
     @NonNull
     @ColumnInfo(name = "character")
-    private final String character;
+    private String character;
 
     @NonNull
     @ColumnInfo(name = "meaning")
-    private final String meaning;
+    private List<String> meaning;
 
     @Nullable
     @ColumnInfo(name = "meaningMon")
-    private final String meaningMon;
+    private List<String> meaningMon;
 
     @Nullable
     @ColumnInfo(name = "kanji")
-    private final String kanji;
+    private String kanji;
 
     @Nullable
     @ColumnInfo(name = "partOfSpeech")
-    private final String partOfSpeech;
+    private List<String> partOfSpeech;
 
     @Nullable
     @ColumnInfo(name = "level")
-    private final String level;
+    private List<String> level;
 
     @Nullable
     @ColumnInfo(name = "memorized")
-    private final boolean isMemorize;
+    private boolean isMemorize;
 
     @Nullable
     @ColumnInfo(name = "favorited")
-    private final boolean isFavorite;
+    private boolean isFavorite;
 
     @Nullable
     @ColumnInfo(name = "created")
-    private final String created;
+    private String created;
 
     @Nullable
     @ColumnInfo(name = "local")
-    private final int isLocal;
+    private int isLocal;
 
-    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, boolean isMemorize, boolean isFavorite, String created, int isLocal) {
+    public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, List<String> level, boolean isMemorize, boolean isFavorite, String created, int isLocal) {
         this.id = id;
         this.character = character;
         this.meaning = meaning;
@@ -80,7 +81,7 @@ public final class Words {
      * Use this constructor to create an new word
      */
     @Ignore
-    public Words(@NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created) {
+    public Words(@NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, List<String> level, String created) {
         this(UUID.randomUUID().toString(), character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 1);
     }
 
@@ -88,7 +89,7 @@ public final class Words {
      * Use this constructor to create an active word
      */
     @Ignore
-    public Words(@NonNull String id, @NonNull String character, @NonNull String meaning, String meaningMon, String kanji, String partOfSpeech, String level, String created) {
+    public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, List<String> level, String created) {
         this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 2);
     }
 
@@ -97,19 +98,35 @@ public final class Words {
         return id;
     }
 
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
     @NonNull
     public String getCharacter() {
         return character;
     }
 
+    public void setCharacter(@NonNull String character) {
+        this.character = character;
+    }
+
     @NonNull
-    public String getMeaning() {
+    public List<String> getMeaning() {
         return meaning;
     }
 
+    public void setMeaning(@NonNull List<String> meaning) {
+        this.meaning = meaning;
+    }
+
     @Nullable
-    public String getMeaningMon() {
+    public List<String> getMeaningMon() {
         return meaningMon;
+    }
+
+    public void setMeaningMon(@Nullable List<String> meaningMon) {
+        this.meaningMon = meaningMon;
     }
 
     @Nullable
@@ -117,14 +134,26 @@ public final class Words {
         return kanji;
     }
 
-    @Nullable
-    public String getPartOfSpeech() {
-        return partOfSpeech;
+    public void setKanji(@Nullable String kanji) {
+        this.kanji = kanji;
     }
 
     @Nullable
-    public String getLevel() {
+    public List<String> getPartOfSpeech() {
+        return partOfSpeech;
+    }
+
+    public void setPartOfSpeech(@Nullable List<String> partOfSpeech) {
+        this.partOfSpeech = partOfSpeech;
+    }
+
+    @Nullable
+    public List<String> getLevel() {
         return level;
+    }
+
+    public void setLevel(@Nullable List<String> level) {
+        this.level = level;
     }
 
     @Nullable
@@ -132,14 +161,17 @@ public final class Words {
         return isMemorize;
     }
 
+    public void setMemorize(@Nullable boolean memorize) {
+        isMemorize = memorize;
+    }
+
     @Nullable
     public boolean isFavorite() {
         return isFavorite;
     }
 
-    @Nullable
-    public int getIsLocal() {
-        return isLocal;
+    public void setFavorite(@Nullable boolean favorite) {
+        isFavorite = favorite;
     }
 
     @Nullable
@@ -147,14 +179,17 @@ public final class Words {
         return created;
     }
 
-    public boolean isEmpty() {
-        return Strings.isNullOrEmpty(character) &&
-                Strings.isNullOrEmpty(meaning) &&
-                Strings.isNullOrEmpty(meaningMon) &&
-                Strings.isNullOrEmpty(kanji) &&
-                Strings.isNullOrEmpty(partOfSpeech) &&
-                Strings.isNullOrEmpty(level) &&
-                Strings.isNullOrEmpty(created);
+    public void setCreated(@Nullable String created) {
+        this.created = created;
+    }
+
+    @Nullable
+    public int getIsLocal() {
+        return isLocal;
+    }
+
+    public void setIsLocal(@Nullable int isLocal) {
+        this.isLocal = isLocal;
     }
 
     @Override

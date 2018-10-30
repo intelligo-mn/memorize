@@ -1,5 +1,6 @@
 package cloud.techstar.memorize.database;
 
+@Deprecated
 public class Source {
     private String language;
     private String word;

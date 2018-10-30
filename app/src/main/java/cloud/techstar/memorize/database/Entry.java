@@ -3,13 +3,14 @@ package cloud.techstar.memorize.database;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Data {
+public class Entry {
+    private String entryId;
     private boolean is_common;
     private List<String> tags;
     private List<Japanese> japanese;
     private List<Sense> senses;
 
-    public Data() {
+    public Entry() {
     }
 
     public boolean isIs_common() {

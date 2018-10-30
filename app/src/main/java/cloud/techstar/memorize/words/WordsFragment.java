@@ -2,7 +2,6 @@ package cloud.techstar.memorize.words;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -39,19 +38,17 @@ import java.util.List;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
-import cloud.techstar.memorize.database.Data;
+import cloud.techstar.memorize.database.Entry;
 import cloud.techstar.memorize.database.Japanese;
 import cloud.techstar.memorize.database.Sense;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.detail.DetailActivity;
-import cloud.techstar.memorize.utils.MemorizeConstant;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -153,12 +150,16 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             public void onSearchConfirmed(CharSequence text) {
                 startSearch(text.toString());
 
-                final List<Data> searchedWords = new ArrayList<>();
+                final List<Entry> searchedWords = new ArrayList<>();
                 final List<Japanese> japaneseList = new ArrayList<>();
                 final List<Sense> senseList = new ArrayList<>();
                 final List<String> tagList = new ArrayList<>();
                 final List<String> engMeanings = new ArrayList<>();
                 final List<String> partOfSpeechList = new ArrayList<>();
+
+                List<Words> apiWords = new ArrayList<>();
+
+                final String character, meaning, meaningMon, kanji, partOfSpeech, level = null;
 
                 final Request jishoRequest = new Request.Builder()
                         .url("https://jisho.org/api/v1/search/words?keyword="+text.toString())
@@ -191,6 +192,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                                         JSONArray japanese = data.getJSONArray("japanese");
                                         for (int t = 0; t< tag.length(); t++) {
                                             tagList.add(tag.getString(t));
+                                            level.concat(tag.getString(t));
                                         }
 
                                         for (int j = 0; j< japanese.length(); j++){
@@ -221,13 +223,13 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                                         }
 
 
-                                        Data searchData = new Data();
-                                        searchData.setIs_common(data.getBoolean("is_common"));
-                                        searchData.setTags(tagList);
-                                        searchData.setJapanese(japaneseList);
-                                        searchData.setSenses(senseList);
+                                        Entry searchEntry = new Entry();
+                                        searchEntry.setIs_common(data.getBoolean("is_common"));
+                                        searchEntry.setTags(tagList);
+                                        searchEntry.setJapanese(japaneseList);
+                                        searchEntry.setSenses(senseList);
 
-                                        searchedWords.add(searchData);
+                                        searchedWords.add(searchEntry);
                                         Logger.d(searchedWords);
                                     }
 

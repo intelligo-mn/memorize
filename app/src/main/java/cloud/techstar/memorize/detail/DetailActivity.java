@@ -95,10 +95,10 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     public void setData(Words word) {
         headKanji.setText(word.getKanji());
         headHiragana.setText(word.getCharacter());
-        meaning.setText("\u2022 ".concat(word.getMeaning()));
-        meaningMn.setText("\u2022 ".concat(word.getMeaningMon()));
-        partOfSpeech.setText(word.getPartOfSpeech());
-        level.setText(word.getLevel());
+        meaning.setText("\u2022 ".concat(word.getMeaning().get(0)));
+        meaningMn.setText("\u2022 ".concat(word.getMeaningMon().get(0)));
+        partOfSpeech.setText(word.getPartOfSpeech().get(0));
+        level.setText(word.getLevel().get(0));
         kanji.setText(word.getKanji());
         if (word.isFavorite())
             favBtn.setImageResource(R.drawable.ic_favorite_full);

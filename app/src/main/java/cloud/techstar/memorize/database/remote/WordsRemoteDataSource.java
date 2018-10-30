@@ -12,7 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import cloud.techstar.memorize.AppMain;
@@ -83,14 +85,23 @@ public class WordsRemoteDataSource implements WordsDataSource {
                                 int numWords = 0;
                                 for (int i = 0; i < memorize.length(); i++) {
                                     numWords += 1;
+                                    List<String> meaning = new ArrayList<>();
+                                    List<String> meaningMon = new ArrayList<>();
+                                    List<String> partOfSpeech = new ArrayList<>();
+                                    List<String> level = new ArrayList<>();
+
+                                    meaning.add(memorize.getJSONObject(i).getString("meanings"));
+                                    meaningMon.add(memorize.getJSONObject(i).getString("meaningsMongolia"));
+                                    partOfSpeech.add(memorize.getJSONObject(i).getString("partOfSpeech"));
+                                    level.add(memorize.getJSONObject(i).getString("level"));
                                     Words words = new Words(
                                             memorize.getJSONObject(i).getString("_id"),
                                             memorize.getJSONObject(i).getString("character"),
-                                            memorize.getJSONObject(i).getString("meanings"),
-                                            memorize.getJSONObject(i).getString("meaningsMongolia"),
+                                            meaning,
+                                            meaningMon,
                                             memorize.getJSONObject(i).getString("kanji"),
-                                            memorize.getJSONObject(i).getString("partOfSpeech"),
-                                            memorize.getJSONObject(i).getString("level"),
+                                            partOfSpeech,
+                                            level,
                                             memorize.getJSONObject(i).getBoolean("isMemorize"),
                                             memorize.getJSONObject(i).getBoolean("isFavorite"),
                                             memorize.getJSONObject(i).getString("created"),
