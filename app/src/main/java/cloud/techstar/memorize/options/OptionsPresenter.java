@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import com.google.gson.JsonArray;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
@@ -68,11 +69,11 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                         JSONObject newWords = new JSONObject();
                         try {
                             newWords.put("character", word.getCharacter());
-                            newWords.put("meanings", word.getMeaning());
-                            newWords.put("meaningsMongolia", word.getMeaningMon());
-                            newWords.put("partOfSpeech", word.getPartOfSpeech());
+                            newWords.put("meanings",  new JSONArray(word.getMeaning()));
+                            newWords.put("meaningsMongolia", new JSONArray(word.getMeaningMon()));
+                            newWords.put("partOfSpeech",  new JSONArray(word.getPartOfSpeech()));
                             newWords.put("kanji", word.getKanji());
-                            newWords.put("level", word.getLevel());
+                            newWords.put("level",  new JSONArray(word.getLevel()));
                             newWordsArray.put(newWords);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -82,11 +83,11 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                         try {
                             updatedWords.put("id", word.getId());
                             updatedWords.put("character", word.getCharacter());
-                            updatedWords.put("meanings", word.getMeaning());
-                            updatedWords.put("meaningsMongolia", word.getMeaningMon());
-                            updatedWords.put("partOfSpeech", word.getPartOfSpeech());
+                            updatedWords.put("meanings",  new JSONArray(word.getMeaning()));
+                            updatedWords.put("meaningsMongolia", new JSONArray(word.getMeaningMon()));
+                            updatedWords.put("partOfSpeech",  new JSONArray(word.getPartOfSpeech()));
                             updatedWords.put("kanji", word.getKanji());
-                            updatedWords.put("level", word.getLevel());
+                            updatedWords.put("level",  new JSONArray(word.getLevel()));
                             updatedWords.put("isFavorite", word.isFavorite());
                             updatedWords.put("isMemorize", word.isMemorize());
                             updatedWordsArray.put(updatedWords);

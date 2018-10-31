@@ -91,10 +91,24 @@ public class WordsRemoteDataSource implements WordsDataSource {
                                     List<String> partOfSpeech = new ArrayList<>();
                                     List<String> level = new ArrayList<>();
 
-                                    meaning.add(memorize.getJSONObject(i).getString("meanings"));
-                                    meaningMon.add(memorize.getJSONObject(i).getString("meaningsMongolia"));
-                                    partOfSpeech.add(memorize.getJSONObject(i).getString("partOfSpeech"));
-                                    level.add(memorize.getJSONObject(i).getString("level"));
+                                    JSONArray meaningJSON = memorize.getJSONObject(i).getJSONArray("meanings");
+                                    JSONArray meaningMnJSON = memorize.getJSONObject(i).getJSONArray("meaningsMongolia");
+                                    JSONArray partJSON = memorize.getJSONObject(i).getJSONArray("partOfSpeech");
+                                    JSONArray levelJSON = memorize.getJSONObject(i).getJSONArray("level");
+
+                                    for (int e = 0; e< meaningJSON.length(); e++) {
+                                        meaning.add(meaningJSON.getString(e));
+                                    }
+                                    for (int e = 0; e< meaningMnJSON.length(); e++) {
+                                        meaningMon.add(meaningMnJSON.getString(e));
+                                    }
+                                    for (int e = 0; e< partJSON.length(); e++) {
+                                        partOfSpeech.add(partJSON.getString(e));
+                                    }
+                                    for (int e = 0; e< levelJSON.length(); e++) {
+                                        level.add(levelJSON.getString(e));
+                                    }
+
                                     Words words = new Words(
                                             memorize.getJSONObject(i).getString("_id"),
                                             memorize.getJSONObject(i).getString("character"),
