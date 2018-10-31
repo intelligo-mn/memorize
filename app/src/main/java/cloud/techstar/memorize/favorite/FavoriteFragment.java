@@ -220,7 +220,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
             holder.characterText.setText(words.get(position).getCharacter());
             holder.kanjiText.setText(words.get(position).getKanji());
             holder.meaningText.setText(words.get(position).getMeaning().get(0));
-            holder.meaningMnText.setText(words.get(position).getMeaningMon().get(0));
+//            holder.meaningMnText.setText(words.get(position).getMeaningMon().get(0));
 
             holder.btnMemory.setOnClickListener(new View.OnClickListener() {
                 @Override

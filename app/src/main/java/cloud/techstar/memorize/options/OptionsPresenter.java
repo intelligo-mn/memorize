@@ -69,10 +69,10 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                         try {
                             newWords.put("character", word.getCharacter());
                             newWords.put("meanings", word.getMeaning());
-                            newWords.put("meaningsMongolia", checkNotNull(word.getMeaningMon()));
-                            newWords.put("partOfSpeech", checkNotNull(word.getPartOfSpeech()));
-                            newWords.put("kanji", checkNotNull(word.getKanji()));
-                            newWords.put("level", checkNotNull(word.getLevel()));
+                            newWords.put("meaningsMongolia", word.getMeaningMon());
+                            newWords.put("partOfSpeech", word.getPartOfSpeech());
+                            newWords.put("kanji", word.getKanji());
+                            newWords.put("level", word.getLevel());
                             newWordsArray.put(newWords);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -83,10 +83,10 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                             updatedWords.put("id", word.getId());
                             updatedWords.put("character", word.getCharacter());
                             updatedWords.put("meanings", word.getMeaning());
-                            updatedWords.put("meaningsMongolia", checkNotNull(word.getMeaningMon()));
-                            updatedWords.put("partOfSpeech", checkNotNull(word.getPartOfSpeech()));
-                            updatedWords.put("kanji", checkNotNull(word.getKanji()));
-                            updatedWords.put("level", checkNotNull(word.getLevel()));
+                            updatedWords.put("meaningsMongolia", word.getMeaningMon());
+                            updatedWords.put("partOfSpeech", word.getPartOfSpeech());
+                            updatedWords.put("kanji", word.getKanji());
+                            updatedWords.put("level", word.getLevel());
                             updatedWords.put("isFavorite", word.isFavorite());
                             updatedWords.put("isMemorize", word.isMemorize());
                             updatedWordsArray.put(updatedWords);

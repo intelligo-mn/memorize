@@ -127,8 +127,8 @@ public class QuizPresenter implements QuizContract.Presenter {
                     for(int j  = 0; j < 3; j++) {
                         int randomIndex = new Random().nextInt(words.size());
                         // We look for 3 wrong and different answers
-                        while(possiblesAnswers.contains(words.get(randomIndex).getMeaning())
-                                ||  words.get(randomIndex).getMeaningMon().equals(currentWord.getMeaning())) {
+                        while(possiblesAnswers.contains(words.get(randomIndex).getMeaning().get(0))
+                                ||  words.get(randomIndex).getMeaning().get(0).equals(currentWord.getMeaning().get(0))) {
                             randomIndex = new Random().nextInt(words.size());
                         }
 
