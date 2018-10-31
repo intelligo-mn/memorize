@@ -127,17 +127,17 @@ public class QuizPresenter implements QuizContract.Presenter {
                     for(int j  = 0; j < 3; j++) {
                         int randomIndex = new Random().nextInt(words.size());
                         // We look for 3 wrong and different answers
-                        while(possiblesAnswers.contains(words.get(randomIndex).getMeaningMon())
-                                ||  words.get(randomIndex).getMeaningMon().equals(currentWord.getMeaningMon())) {
+                        while(possiblesAnswers.contains(words.get(randomIndex).getMeaning())
+                                ||  words.get(randomIndex).getMeaningMon().equals(currentWord.getMeaning())) {
                             randomIndex = new Random().nextInt(words.size());
                         }
 
-                        possiblesAnswers.add(words.get(randomIndex).getMeaningMon().get(0));
+                        possiblesAnswers.add(words.get(randomIndex).getMeaning().get(0));
 
                     }
 
                     int rightIndexAnswer = new Random().nextInt(4);
-                    String rightAnswer = currentWord.getMeaningMon().get(0);
+                    String rightAnswer = currentWord.getMeaning().get(0);
 
                     possiblesAnswers.add(rightIndexAnswer, rightAnswer);
 
