@@ -3,8 +3,11 @@ package cloud.techstar.memorize.detail;
 import android.support.annotation.Nullable;
 
 import com.google.common.base.Strings;
+import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.database.Words;
@@ -63,8 +66,16 @@ public class DetailPresenter implements DetailContract.Presenter{
     @Override
     public void addMeaning(String meaning) {
         checkNotNull(word, "Word cannot be null!");
-        wordsRepository.updateWord(new Words(word.getId(), word.getCharacter(), word.getMeaning(), Collections.singletonList(meaning), word.getKanji(), word.getPartOfSpeech(),
-                word.getLevel(), word.isMemorize(), word.isFavorite(), MemorizeUtils.getNowTime(), 2));
+        List<String> meaings = new ArrayList<>();
+        meaings.add(meaning);
+
+        Words updatedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), meaings, word.getKanji(), word.getPartOfSpeech(),
+                word.getLevel(), word.isMemorize(), word.isFavorite(), MemorizeUtils.getNowTime(), word.getIsLocal());
+        // Хэрэв вэбийн өгөгдөлтэй ижил утгатай байвал өөрчлөгдсөн болгоно
+        if (updatedWord.getIsLocal() == 0){
+            updatedWord.setIsLocal(2);
+        }
+        wordsRepository.updateWord(updatedWord);
         detailView.showToast("Монгол орчуулга нэмэгдлээ.");
         word.setMeaningMon(Collections.singletonList(meaning));
         detailView.setData(word, true);

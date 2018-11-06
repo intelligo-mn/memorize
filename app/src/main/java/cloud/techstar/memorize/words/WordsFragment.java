@@ -171,7 +171,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         sortSpinner = root.findViewById(R.id.sort);
         viewSpinner = root.findViewById(R.id.view);
 
-        List<String> sorts = new LinkedList<>(Arrays.asList("Recently", "Active", "All"));
+        List<String> sorts = new LinkedList<>(Arrays.asList("Recently", "Active", "All", "Translate"));
 
         List<String> views = new LinkedList<>(Arrays.asList("List", "Grid", "Card"));
 
@@ -200,6 +200,9 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                         break;
                     case 2 :
                         presenter.setFilterType(WordFilterType.ALL_WORDS);
+                        break;
+                    case 3 :
+                        presenter.setFilterType(WordFilterType.NOT_TRANSLATE);
                         break;
                     default:
                         presenter.setFilterType(WordFilterType.RECENTLY);

@@ -82,16 +82,8 @@ public final class Words implements Serializable {
      * Use this constructor to create an new word
      */
     @Ignore
-    public Words(@NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, List<String> level, String created) {
-        this(UUID.randomUUID().toString(), character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 1);
-    }
-
-    /**
-     * Use this constructor to create an active word
-     */
-    @Ignore
     public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, List<String> level, String created) {
-        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 2);
+        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 1);
     }
 
     @NonNull

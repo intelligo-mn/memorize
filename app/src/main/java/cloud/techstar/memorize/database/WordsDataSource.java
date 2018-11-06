@@ -38,10 +38,6 @@ public interface WordsDataSource {
 
     void favWord(@NonNull String wordId);
 
-    void activeWord(@NonNull Words word);
-
-    void activeWord(@NonNull String wordId);
-
     void refreshWords();
 
     void deleteWord(@NonNull String wordId);

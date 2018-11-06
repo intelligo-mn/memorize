@@ -162,24 +162,6 @@ public class WordsLocalDataSource implements WordsDataSource {
     }
 
     @Override
-    public void activeWord(@NonNull final Words word) {
-        Runnable completeRunnable = new Runnable() {
-            @Override
-            public void run() {
-                wordsDao.updateMemorized(word.getId(), false, 2);
-                wordsDao.updateFavorited(word.getId(), false, 2);
-            }
-        };
-
-        appExecutors.diskIO().execute(completeRunnable);
-    }
-
-    @Override
-    public void activeWord(@NonNull String wordId) {
-        // Not required because the {@link WordsRepository}
-    }
-
-    @Override
     public void refreshWords() {
         // Not required because the {@link WordsRepository}
     }

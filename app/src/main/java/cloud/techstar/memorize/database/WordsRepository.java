@@ -250,35 +250,6 @@ public class WordsRepository implements WordsDataSource {
     }
 
     @Override
-    public void activeWord(@NonNull Words word) {
-        checkNotNull(word);
-        wordsRemoteDataSource.activeWord(word);
-        wordsLocalDataSource.activeWord(word);
-
-        Words actWord = new Words(
-                word.getId(),
-                word.getCharacter(),
-                word.getMeaning(),
-                word.getMeaningMon(),
-                word.getKanji(),
-                word.getPartOfSpeech(),
-                word.getLevel(),
-                word.getCreated());
-
-        // Do in memory cache update to keep the app UI up to date
-        if (cachedWords == null) {
-            cachedWords = new LinkedHashMap<>();
-        }
-        cachedWords.put(word.getId(), actWord);
-    }
-
-    @Override
-    public void activeWord(@NonNull String wordId) {
-        checkNotNull(wordId);
-        activeWord(getWordsWithId(wordId));
-    }
-
-    @Override
     public void refreshWords() {
         mCacheIsDirty = true;
     }

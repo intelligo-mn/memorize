@@ -111,6 +111,10 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                             if (!word.isFavorite() && !word.isMemorize()) {
                                 mainWords.add(word);
                             }
+                        case NOT_TRANSLATE:
+                            if (word.getMeaningMon().size() < 1) {
+                                mainWords.add(word);
+                            }
                             break;
                         default:
                             if (!word.isFavorite() && !word.isMemorize()) {
@@ -219,8 +223,8 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                     levelList.add(tag.getString(t));
                                 }
 
-                                String kanji = null;
-                                String character = null;
+                                String kanji = "";
+                                String character = "";
                                 if (!japanese.getJSONObject(0).isNull("word")){
                                     kanji = japanese.getJSONObject(0).getString("word");
                                 }

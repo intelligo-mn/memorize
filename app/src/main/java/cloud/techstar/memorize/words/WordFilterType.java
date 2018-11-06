@@ -10,5 +10,7 @@ public enum WordFilterType {
 
   ACTIVE_WORDS,
 
-  MEMORIZED_WORDS
+  MEMORIZED_WORDS,
+
+  NOT_TRANSLATE
 }

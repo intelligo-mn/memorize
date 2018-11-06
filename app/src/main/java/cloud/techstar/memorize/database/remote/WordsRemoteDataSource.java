@@ -193,17 +193,6 @@ public class WordsRemoteDataSource implements WordsDataSource {
     }
 
     @Override
-    public void activeWord(@NonNull Words word) {
-        Words activeWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(), word.getCreated());
-        WORDS_SERVICE_DATA.put(word.getId(), activeWord);
-    }
-
-    @Override
-    public void activeWord(@NonNull String wordId) {
-
-    }
-
-    @Override
     public void refreshWords() {
 
     }
