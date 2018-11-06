@@ -159,7 +159,16 @@ public class WordsRepository implements WordsDataSource {
                 cachedWords.put(word.getId(), word);
             }
         });
+    }
 
+    @Override
+    public void updateWord(@NonNull Words word) {
+        wordsRemoteDataSource.updateWord(word);
+        wordsLocalDataSource.updateWord(word);
+
+        if (cachedWords == null)
+            cachedWords = new LinkedHashMap<>();
+        cachedWords.put(word.getId(), word);
     }
 
     @Override

@@ -159,6 +159,11 @@ public class WordsRemoteDataSource implements WordsDataSource {
     }
 
     @Override
+    public void updateWord(@NonNull Words word) {
+        WORDS_SERVICE_DATA.put(word.getId(), word);
+    }
+
+    @Override
     public void checkWord(@NonNull String wordChar, @NonNull GetWordCallback callback) {
 
     }

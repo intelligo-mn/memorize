@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.google.common.base.Strings;
 
+import java.util.Collections;
+
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.database.WordsRepository;
@@ -54,5 +56,12 @@ public class DetailPresenter implements DetailContract.Presenter{
     @Override
     public void memorizeWord() {
 
+    }
+
+    @Override
+    public void addMeaning(String meaning) {
+        checkNotNull(word, "Word cannot be null!");
+        wordsRepository.updateWord(new Words(word.getId(), word.getCharacter(), word.getMeaning(), Collections.singletonList(meaning), word.getKanji(), word.getPartOfSpeech(),
+                word.getLevel(), word.isMemorize(), word.isFavorite(), word.getCreated(), word.getIsLocal()));
     }
 }

@@ -21,5 +21,6 @@ public interface DetailContract {
 
         void memorizeWord();
 
+        void addMeaning(String meaning);
     }
 }

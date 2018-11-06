@@ -219,25 +219,41 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                     levelList.add(tag.getString(t));
                                 }
 
-                                String kanji = japanese.getJSONObject(0).getString("word");
-                                String character = japanese.getJSONObject(0).getString("reading");
+                                String kanji = null;
+                                String character = null;
+                                if (!japanese.getJSONObject(0).isNull("word")){
+                                    kanji = japanese.getJSONObject(0).getString("word");
+                                }
+
+                                if (!japanese.getJSONObject(0).isNull("reading")){
+                                    character = japanese.getJSONObject(0).getString("reading");
+                                }
 
                                 JSONArray senses = data.getJSONArray("senses");
 
                                 List<String> meaningList = new ArrayList<>();
                                 List<String> partOfSpeechList = new ArrayList<>();
 
+                                for (int s = 0; s < senses.length(); s++){
+                                    JSONObject sObject = senses.getJSONObject(s);
+                                    JSONArray english = sObject.getJSONArray("english_definitions");
+                                    JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
 
-                                JSONObject sObject = senses.getJSONObject(0);
-                                JSONArray english = sObject.getJSONArray("english_definitions");
-                                JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
+                                    StringBuilder meaning = new StringBuilder();
+                                    meaning.append("\u2022 ");
+                                    for (int e = 0; e< english.length(); e++) {
+                                        meaning.append(english.getString(e)).append(", ");
+                                    }
+                                    meaning.deleteCharAt(meaning.length() - 2);
+                                    meaningList.add(meaning.toString());
 
-                                for (int e = 0; e< english.length(); e++) {
-                                    meaningList.add(english.getString(e));
+                                    StringBuilder part = new StringBuilder();
+                                    for (int p = 0; p< partOfSpeech.length(); p++) {
+                                        part.append(partOfSpeech.getString(p)).append(" ");
+                                    }
+                                    partOfSpeechList.add(part.toString());
                                 }
-                                for (int p = 0; p< partOfSpeech.length(); p++) {
-                                    partOfSpeechList.add(partOfSpeech.getString(p));
-                                }
+
                                 Words word = new Words(UUID.randomUUID().toString(), character, meaningList, null, kanji, partOfSpeechList, levelList, getNowTime());
                                 apiWords.add(word);
                             }

@@ -26,6 +26,8 @@ public interface WordsDataSource {
 
     void saveWord(@NonNull Words word);
 
+    void updateWord(@NonNull Words word);
+
     void checkWord(@NonNull String wordChar, @NonNull GetWordCallback callback);
 
     void memorizeWord(@NonNull Words word);
