@@ -86,35 +86,62 @@
                             android:text="@string/meaning" />
 
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/detail_meaning_mn"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="2"
-                        android:textSize="20sp"
-                        android:ellipsize="end"
-                        tools:text="Meaning"
-                        android:layout_marginBottom="10dp"/>
+                        android:id="@+id/meanings_mn_layout"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/meanings_mn_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/primary800"
+                            android:text="@string/mongolian_meaning" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvTags"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
                         android:textColor="@color/primary800"
-                        android:textSize="12sp"
                         android:text="@string/tags"/>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tags_layout"
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
-                    </RelativeLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/part_of"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/primary800"
+                        android:text="@string/part_of_speech"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/part_layout"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/detail_see_more"

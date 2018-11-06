@@ -6,16 +6,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.InputType;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -33,7 +40,9 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
 
     private ImageButton favBtn;
     private LinearLayout meaningLayout;
-    private RelativeLayout tagsLayout;
+    private LinearLayout meaningMnLayout;
+    private LinearLayout tagsLayout;
+    private LinearLayout partLayout;
     private TextView headKanji;
     private TextView headHiragana;
     private TextView kanji;
@@ -46,7 +55,9 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         setContentView(R.layout.activity_detail);
 
         meaningLayout = findViewById(R.id.meanings_layout);
+        meaningMnLayout = findViewById(R.id.meanings_mn_layout);
         tagsLayout = findViewById(R.id.tags_layout);
+        partLayout = findViewById(R.id.part_layout);
 
         headKanji = (TextView) findViewById(R.id.header_kanji);
         headHiragana = (TextView) findViewById(R.id.header_hiragana);
@@ -105,114 +116,116 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("ResourceAsColor")
     @Override
-    public void setData(Words word) {
-        try {
-            headKanji.setText(word.getKanji());
-            headHiragana.setText(word.getCharacter());
-            for (int i=0; i < word.getMeaning().size(); i++){
-                TextView text = new TextView(this);
-                text.setText(word.getMeaning().get(i)); // <-- does it really compile without the + sign?
-                text.setTextSize(20);
-                text.setMaxLines(2);
-                text.setGravity(Gravity.START);
-                text.setLayoutParams(new LinearLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
-                meaningLayout.addView(text);
-            }
-
-            assert word.getMeaningMon() != null;
-            if (word.getMeaningMon().size() > 0){
-                for (int i=0; i < word.getMeaningMon().size(); i++){
+    public void setData(Words word, boolean refresh) {
+        if (!refresh) {
+            try {
+                headKanji.setText(word.getKanji());
+                headHiragana.setText(word.getCharacter());
+                for (int i=0; i < word.getMeaning().size(); i++){
                     TextView text = new TextView(this);
-                    text.setText(word.getMeaningMon().get(i)); // <-- does it really compile without the + sign?
+                    text.setText("\u2022 "+word.getMeaning().get(i)); // <-- does it really compile without the + sign?
                     text.setTextSize(20);
                     text.setMaxLines(2);
                     text.setGravity(Gravity.START);
-                    text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    text.setLayoutParams(new LinearLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
                     meaningLayout.addView(text);
                 }
-            } else {
-                AppCompatButton newBtn = new AppCompatButton(this);
-                newBtn.setText(getString(R.string.mongolian_meaning));
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                meaningLayout.addView(newBtn, params);
 
-                newBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        createDialog();
+                if (word.getMeaningMon().size() > 0){
+                    for (int i=0; i < word.getMeaningMon().size(); i++){
+                        TextView text = new TextView(this);
+                        text.setText("\u2022 "+word.getMeaningMon().get(i)); // <-- does it really compile without the + sign?
+                        text.setTextSize(20);
+                        text.setMaxLines(2);
+                        text.setGravity(Gravity.START);
+                        text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        meaningMnLayout.addView(text);
                     }
-                });
+                } else {
+                    AppCompatImageButton newBtn = new AppCompatImageButton(this);
+                    newBtn.setBackgroundDrawable(getDrawable(R.drawable.ic_add_box));
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+                    meaningMnLayout.addView(newBtn, params);
 
+                    newBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DetailActivity.this, R.style.DialogStyle);
+                            View view = getLayoutInflater().inflate(R.layout.detail_bottom_dialog, null);
+                            bottomSheetDialog.setContentView(view);
+
+                            AppCompatButton add = view.findViewById(R.id.detail_bottom_add);
+                            final AppCompatEditText text = view.findViewById(R.id.detail_add_meaning);
+                            add.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    presenter.addMeaning(text.getText().toString());
+                                    bottomSheetDialog.cancel();
+                                }
+                            });
+
+                            bottomSheetDialog.show();
+                        }
+                    });
+                }
+
+                assert word.getPartOfSpeech() != null;
+                for (int i = 0; i < word.getPartOfSpeech().size(); i++){
+                    TextView text = new TextView(this);
+                    text.setText(word.getPartOfSpeech().get(i)); // <-- does it really compile without the + sign?
+                    text.setTextSize(15);
+                    text.setPadding(5,5,5,5);
+                    text.setGravity(Gravity.START);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        text.setTextColor(getColor(R.color.white));
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        text.setBackground(getDrawable(R.drawable.ic_round_rectangle));
+                    }
+                    text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    partLayout.addView(text);
+                }
+
+                assert word.getLevel() != null;
+                for (int i = 0; i < word.getLevel().size(); i++){
+                    TextView text = new TextView(this);
+                    text.setText(word.getLevel().get(i)); // <-- does it really compile without the + sign?
+                    text.setTextSize(15);
+                    text.setPadding(5,5,5,5);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        text.setTextColor(getColor(R.color.white));
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        text.setBackground(getDrawable(R.drawable.ic_round_rectangle));
+                    }
+                    text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    tagsLayout.addView(text);
+                }
+
+                kanji.setText(word.getKanji());
+                if (word.isFavorite())
+                    favBtn.setImageResource(R.drawable.ic_favorite_full);
+            } catch (Exception ex){
+                showToast("Алдаа :"+ex);
             }
-
-            assert word.getPartOfSpeech() != null;
-            for (int i = 0; i < word.getPartOfSpeech().size(); i++){
+        } else {
+            TextView textView = findViewById(R.id.meanings_mn_title);
+            meaningMnLayout.removeAllViews();
+            meaningMnLayout.addView(textView);
+            for (int i=0; i < word.getMeaningMon().size(); i++){
                 TextView text = new TextView(this);
-                text.setText(word.getPartOfSpeech().get(i)); // <-- does it really compile without the + sign?
-                text.setTextSize(15);
-                text.setPadding(5,5,5,5);
+                text.setText(word.getMeaningMon().get(i)); // <-- does it really compile without the + sign?
+                text.setTextSize(20);
+                text.setMaxLines(2);
                 text.setGravity(Gravity.START);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    text.setTextColor(getColor(R.color.white));
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    text.setBackground(getDrawable(R.drawable.ic_round_rectangle));
-                }
-                text.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
-                tagsLayout.addView(text);
+                text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                meaningMnLayout.addView(text);
             }
-
-            assert word.getLevel() != null;
-            for (int i = 0; i < word.getLevel().size(); i++){
-                TextView text = new TextView(this);
-                text.setText(word.getLevel().get(i)); // <-- does it really compile without the + sign?
-                text.setTextSize(15);
-                text.setPadding(5,5,5,5);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    text.setTextColor(getColor(R.color.white));
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    text.setBackground(getDrawable(R.drawable.ic_round_rectangle));
-                }
-                text.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
-                tagsLayout.addView(text);
-            }
-
-            kanji.setText(word.getKanji());
-            if (word.isFavorite())
-                favBtn.setImageResource(R.drawable.ic_favorite_full);
-        } catch (Exception ex){
-            showToast("Алдаа :"+ex);
         }
     }
-    public void createDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
-        builder.setTitle("Монгол орчуулга нэмэх");
-        LinearLayout layout  = new LinearLayout(DetailActivity.this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        final AppCompatEditText meaningEditText = new AppCompatEditText(DetailActivity.this);
-        meaningEditText.setInputType(InputType.TYPE_CLASS_TEXT);
-        meaningEditText.setHint("Орчуулга оруулна уу");
-        layout.addView(meaningEditText);
-        builder.setView(layout);
 
-        builder.setPositiveButton("Хадгалах", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                presenter.addMeaning(meaningEditText.getText().toString());
-            }
-        });
-        builder.setNegativeButton("Буцах", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
     @Override
     public void showFavorite(boolean isFav) {
         if (isFav)
@@ -220,5 +233,4 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         else
             favBtn.setImageResource(R.drawable.ic_favorite);
     }
-
 }

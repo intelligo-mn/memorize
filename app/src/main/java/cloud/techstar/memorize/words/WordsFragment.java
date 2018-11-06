@@ -171,7 +171,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         sortSpinner = root.findViewById(R.id.sort);
         viewSpinner = root.findViewById(R.id.view);
 
-        List<String> sorts = new LinkedList<>(Arrays.asList("Active", "All", "Recently"));
+        List<String> sorts = new LinkedList<>(Arrays.asList("Recently", "Active", "All"));
 
         List<String> views = new LinkedList<>(Arrays.asList("List", "Grid", "Card"));
 
@@ -193,16 +193,16 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                 com.orhanobut.logger.Logger.e("Selected position :"+position);
                 switch (position){
                     case 0 :
-                        presenter.setFilterType(WordFilterType.ACTIVE_WORDS);
-                        break;
-                    case 1 :
-                        presenter.setFilterType(WordFilterType.ALL_WORDS);
-                        break;
-                    case 2 :
                         presenter.setFilterType(WordFilterType.RECENTLY);
                         break;
-                    default:
+                    case 1 :
                         presenter.setFilterType(WordFilterType.ACTIVE_WORDS);
+                        break;
+                    case 2 :
+                        presenter.setFilterType(WordFilterType.ALL_WORDS);
+                        break;
+                    default:
+                        presenter.setFilterType(WordFilterType.RECENTLY);
                         break;
                 }
                 presenter.loadWords(false);

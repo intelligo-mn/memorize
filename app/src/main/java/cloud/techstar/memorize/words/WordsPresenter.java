@@ -240,7 +240,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                     JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
 
                                     StringBuilder meaning = new StringBuilder();
-                                    meaning.append("\u2022 ");
                                     for (int e = 0; e< english.length(); e++) {
                                         meaning.append(english.getString(e)).append(", ");
                                     }
@@ -254,7 +253,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                     partOfSpeechList.add(part.toString());
                                 }
 
-                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, null, kanji, partOfSpeechList, levelList, getNowTime());
+                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, levelList, getNowTime());
                                 apiWords.add(word);
                             }
 

@@ -10,9 +10,10 @@ public interface DetailContract {
 
         void showMissingWord();
 
-        void setData(Words word);
+        void setData(Words word, boolean refresh);
 
         void showFavorite(boolean isFav);
+
     }
 
     interface Presenter extends BasePresenter{

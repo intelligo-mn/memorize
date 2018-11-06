@@ -62,7 +62,7 @@ public final class Words implements Serializable {
 
     @Nullable
     @ColumnInfo(name = "local")
-    private int isLocal;
+    private int isLocal; // 1 new , 2 update
 
     public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, List<String> level, boolean isMemorize, boolean isFavorite, String created, int isLocal) {
         this.id = id;
@@ -91,7 +91,7 @@ public final class Words implements Serializable {
      */
     @Ignore
     public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, List<String> level, String created) {
-        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 1);
+        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 2);
     }
 
     @NonNull
