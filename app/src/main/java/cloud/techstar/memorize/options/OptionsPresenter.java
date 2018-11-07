@@ -96,12 +96,10 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                         }
                     }
                 }
-                optionsView.showToast("Memorized word "+mainWords.size());
             }
 
             @Override
             public void onDataNotAvailable() {
-
 
             }
         });

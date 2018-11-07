@@ -7,7 +7,9 @@
     <FrameLayout
         android:id="@+id/card_back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/transparent">
         <include layout="@layout/card_back" />
     </FrameLayout>
 
@@ -15,6 +17,7 @@
         android:id="@+id/card_front"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/transparent"
         android:gravity="center">
         <include layout="@layout/card_front" />
 
