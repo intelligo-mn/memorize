@@ -26,10 +26,13 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.orhanobut.logger.Logger;
 
+import java.util.List;
+
 import cloud.techstar.imageloader.ImageLoader;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.Injection;
+import cloud.techstar.memorize.license.LicenseActivity;
 import cloud.techstar.memorize.manage.ManageActivity;
 import cloud.techstar.memorize.quiz.QuizActivity;
 import cloud.techstar.memorize.statistic.StatisticActivity;
@@ -251,6 +254,8 @@ public class OptionsFragment extends Fragment implements OptionsContract.View, V
                     presenter.downloadWordsRemote();
                 } else if (position == 5) {
                     presenter.sendWordsRemote();
+                } else if (position == 7) {
+                    startActivity(new Intent(AppMain.getContext(), LicenseActivity.class));
                 }
             }
         }
