@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import cloud.techstar.memorize.favorite.FavoriteFragment;
 import cloud.techstar.memorize.options.OptionsFragment;
 import cloud.techstar.memorize.quiz.QuizActivity;
-import cloud.techstar.memorize.utils.BottomNavigationViewHelper;
 import cloud.techstar.memorize.words.WordsFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        BottomNavigationViewHelper.removeShiftMode(navigation);
         setFragment(WordsFragment.newInstance());
     }
 
