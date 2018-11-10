@@ -1,17 +1,11 @@
 package cloud.techstar.memorize.detail;
 
-import android.support.annotation.Nullable;
-
-import com.google.common.base.Strings;
-import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import cloud.techstar.memorize.AppMain;
+import androidx.annotation.Nullable;
 import cloud.techstar.memorize.database.Words;
-import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.database.WordsRepository;
 import cloud.techstar.memorize.utils.MemorizeUtils;
 

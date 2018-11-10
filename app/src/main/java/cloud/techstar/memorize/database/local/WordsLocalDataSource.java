@@ -1,11 +1,9 @@
 package cloud.techstar.memorize.database.local;
 
-import android.support.annotation.NonNull;
-
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.utils.AppExecutors;

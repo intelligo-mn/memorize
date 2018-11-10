@@ -1,8 +1,8 @@
 package cloud.techstar.memorize;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import cloud.techstar.memorize.database.WordsRepository;
 import cloud.techstar.memorize.database.local.MemorizeDatabase;
 import cloud.techstar.memorize.database.local.WordsLocalDataSource;

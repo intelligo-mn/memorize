@@ -1,7 +1,5 @@
 package cloud.techstar.memorize.widget;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
 
 import cloud.techstar.memorize.BasePresenter;

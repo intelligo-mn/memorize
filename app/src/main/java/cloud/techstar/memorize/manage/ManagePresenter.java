@@ -2,22 +2,17 @@ package cloud.techstar.memorize.manage;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
+import androidx.annotation.NonNull;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.database.Words;
-import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.database.WordsRepository;
 import cloud.techstar.memorize.utils.ConnectionDetector;
 import cloud.techstar.memorize.utils.MemorizeConstant;

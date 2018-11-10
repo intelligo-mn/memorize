@@ -24,7 +24,7 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?android:actionBarSize"
@@ -39,5 +39,5 @@
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

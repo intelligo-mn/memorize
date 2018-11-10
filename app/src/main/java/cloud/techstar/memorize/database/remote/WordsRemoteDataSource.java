@@ -2,7 +2,6 @@ package cloud.techstar.memorize.database.remote;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 
 import com.google.common.collect.Lists;
 import com.orhanobut.logger.Logger;
@@ -17,20 +16,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import cloud.techstar.memorize.AppMain;
+import androidx.annotation.NonNull;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
-import cloud.techstar.memorize.utils.ConnectionDetector;
 import cloud.techstar.memorize.utils.MemorizeConstant;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WordsRemoteDataSource implements WordsDataSource {
 

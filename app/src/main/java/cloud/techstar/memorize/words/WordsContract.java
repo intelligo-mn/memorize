@@ -1,9 +1,8 @@
 package cloud.techstar.memorize.words;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import cloud.techstar.memorize.BasePresenter;
 import cloud.techstar.memorize.BaseView;
 import cloud.techstar.memorize.database.Words;

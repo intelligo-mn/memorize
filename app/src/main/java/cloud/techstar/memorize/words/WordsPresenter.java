@@ -2,7 +2,6 @@ package cloud.techstar.memorize.words;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
 
@@ -12,13 +11,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
-import cloud.techstar.memorize.R;
+import androidx.annotation.NonNull;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import okhttp3.Call;

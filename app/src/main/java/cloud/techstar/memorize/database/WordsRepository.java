@@ -1,7 +1,5 @@
 package cloud.techstar.memorize.database;
 
-import android.support.annotation.NonNull;
-
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -9,6 +7,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

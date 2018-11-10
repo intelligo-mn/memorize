@@ -2,9 +2,7 @@ package cloud.techstar.memorize.options;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 
-import com.google.gson.JsonArray;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
@@ -13,17 +11,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.database.WordsRepository;
 import cloud.techstar.memorize.utils.ConnectionDetector;
 import cloud.techstar.memorize.utils.MemorizeConstant;
-import cloud.techstar.memorize.words.WordFilterType;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -31,8 +27,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class OptionsPresenter implements OptionsContract.Presenter{
 

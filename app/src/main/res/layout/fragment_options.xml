@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:context="cloud.techstar.memorize.options.OptionsFragment">
 
-    <android.widget.LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -53,7 +53,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/options_rv"
                 android:scrollbars="vertical"
                 android:layout_width="match_parent"
@@ -71,6 +71,6 @@
                 android:visibility="invisible"
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
-    </android.widget.LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

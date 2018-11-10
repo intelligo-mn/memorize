@@ -1,15 +1,11 @@
 package cloud.techstar.memorize.statistic;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -20,14 +16,11 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
-import cloud.techstar.memorize.database.Words;
-import cloud.techstar.memorize.options.OptionsContract;
-import cloud.techstar.memorize.options.OptionsPresenter;
 
 public class StatisticActivity extends AppCompatActivity implements StatisticContract.View{
     private PieChart mChart;

@@ -1,8 +1,9 @@
 package cloud.techstar.memorize.database;
 
-import android.support.annotation.NonNull;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public interface WordsDataSource {
 

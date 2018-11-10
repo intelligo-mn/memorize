@@ -1,13 +1,12 @@
 package cloud.techstar.memorize.utils;
 
-import android.arch.persistence.room.TypeConverter;
-
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
+
+import androidx.room.TypeConverter;
 
 public class Converters {
     @TypeConverter

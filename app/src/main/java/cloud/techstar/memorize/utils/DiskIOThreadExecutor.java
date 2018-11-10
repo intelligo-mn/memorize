@@ -1,9 +1,10 @@
 package cloud.techstar.memorize.utils;
 
-import android.support.annotation.NonNull;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import androidx.annotation.NonNull;
 
 public class DiskIOThreadExecutor implements Executor {
 
