@@ -143,7 +143,7 @@ public class WordsRepository implements WordsDataSource {
     @Override
     public void saveWord(@NonNull final Words word) {
 
-        checkWord(word.getCharacter(), new GetWordCallback() {
+        checkWord(word.getCharacter(), word.getKanji(), new GetWordCallback() {
             @Override
             public void onWordLoaded(Words checkedWord) {
                 Logger.e("Already created "+checkedWord.getCharacter());
@@ -172,8 +172,8 @@ public class WordsRepository implements WordsDataSource {
     }
 
     @Override
-    public void checkWord(@NonNull String wordChar, @NonNull final GetWordCallback callback) {
-        wordsLocalDataSource.checkWord(wordChar, new GetWordCallback() {
+    public void checkWord(@NonNull String wordChar, String kanji, @NonNull final GetWordCallback callback) {
+        wordsLocalDataSource.checkWord(wordChar, kanji, new GetWordCallback() {
             @Override
             public void onWordLoaded(Words word) {
                 callback.onWordLoaded(word);

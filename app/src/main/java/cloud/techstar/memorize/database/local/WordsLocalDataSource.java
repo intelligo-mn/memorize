@@ -103,11 +103,11 @@ public class WordsLocalDataSource implements WordsDataSource {
     }
 
     @Override
-    public void checkWord(@NonNull final String wordChar, @NonNull final GetWordCallback callback) {
+    public void checkWord(@NonNull final String wordChar, final String kanji, @NonNull final GetWordCallback callback) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                final Words word = wordsDao.getWordByChar(wordChar);
+                final Words word = wordsDao.checkCharKanji(wordChar, kanji);
 
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override

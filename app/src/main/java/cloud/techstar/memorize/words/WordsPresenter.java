@@ -97,8 +97,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
                 List<Words> mainWords = new ArrayList<Words>();
 
-                Logger.e("Presenter words count : "+words.size());
-
                 for (Words word : words) {
 
                     switch (getFilterType()) {
@@ -130,7 +128,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                         }
                     });
                 }
-                Logger.e("Presenter words count : "+words.size());
 
                 wordsView.showWords(mainWords);
 

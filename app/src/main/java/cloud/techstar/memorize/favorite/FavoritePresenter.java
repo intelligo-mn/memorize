@@ -54,8 +54,6 @@ public class FavoritePresenter implements FavoriteContract.Presenter, WordsDataS
             public void onWordsLoaded(List<Words> words) {
                 List<Words> favWords = new ArrayList<Words>();
 
-                Logger.e("Presenter words count : "+words.size());
-
                 for (Words word : words) {
                     if (word.isFavorite() && !word.isMemorize())
                         favWords.add(word);

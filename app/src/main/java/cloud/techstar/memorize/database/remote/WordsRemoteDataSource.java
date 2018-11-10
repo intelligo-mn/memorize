@@ -158,7 +158,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
     }
 
     @Override
-    public void checkWord(@NonNull String wordChar, @NonNull GetWordCallback callback) {
+    public void checkWord(@NonNull String wordChar, String kanji, @NonNull GetWordCallback callback) {
 
     }
 

@@ -29,7 +29,7 @@ public interface WordsDataSource {
 
     void updateWord(@NonNull Words word);
 
-    void checkWord(@NonNull String wordChar, @NonNull GetWordCallback callback);
+    void checkWord(@NonNull String wordChar, String kanji, @NonNull GetWordCallback callback);
 
     void memorizeWord(@NonNull Words word);
 
