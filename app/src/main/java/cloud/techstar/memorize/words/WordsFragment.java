@@ -49,6 +49,8 @@ public class WordsFragment extends Fragment implements WordsContract.View{
     private RecyclerView.LayoutManager mLayoutManager;
     private List<String> suggestList = new ArrayList<>();
 
+    private TextView filterText;
+
     public WordsFragment() {
     }
 
@@ -78,6 +80,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_words, container, false);
 
+        filterText = root.findViewById(R.id.filter_title);
         searchBar = (MaterialSearchBar) root.findViewById(R.id.searchBar);
         swipeRefreshLayout = root.findViewById(R.id.swipe_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -264,6 +267,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
     @Override
     public void showWords(List<Words> words) {
+        filterText.setText(getString(R.string.filter).concat(" : "+words.size()));
         mAdapter.replaceData(words);
     }
 
