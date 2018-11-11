@@ -17,8 +17,11 @@ import java.util.List;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
+import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
+import cloud.techstar.memorize.utils.ConnectionDetector;
+import cloud.techstar.memorize.utils.MemorizeUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -167,19 +170,22 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                 result.add(word);
         }
 
-        if (result.size() > 0){
+
+
+        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
+
             wordsView.showWords(result);
 
             wordsView.setLoadingIndicator(false);
         } else {
-            searchRemote(keyWord);
+            searchRemote(keyWord, result);
         }
     }
 
     @Override
-    public void searchRemote(String keyWord) {
+    public void searchRemote(String keyWord, List<Words> local) {
 
-        final List<Words> apiWords = new ArrayList<>();
+        final List<Words> apiWords = new ArrayList<>(local);
 
         final Request jishoRequest = new Request.Builder()
                 .url("https://jisho.org/api/v1/search/words?keyword="+keyWord)
@@ -188,7 +194,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
         jishoClient.newCall(jishoRequest).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                wordsView.showWords(apiWords);
                 wordsView.setLoadingIndicator(false);
             }
 
@@ -256,9 +262,14 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                 apiWords.add(word);
                             }
 
-                            wordsView.showWords(apiWords);
+                            if (apiWords.size() > 0) {
+                                wordsView.showWords(apiWords);
+                                wordsView.setLoadingIndicator(false);
+                            } else {
+                                wordsView.setLoadingIndicator(false);
+                                wordsView.showToast("No result !!!");
+                            }
 
-                            wordsView.setLoadingIndicator(false);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             wordsView.setLoadingIndicator(false);

@@ -39,10 +39,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
     private MaterialSearchBar searchBar;
 
-    private SwipeRefreshLayout swipeRefreshLayout = null;
-
-    private Spinner viewSpinner, sortSpinner;
-
     private WordsContract.Presenter presenter;
     private WordsAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -81,8 +77,8 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         View root = inflater.inflate(R.layout.fragment_words, container, false);
 
         filterText = root.findViewById(R.id.filter_title);
-        searchBar = (MaterialSearchBar) root.findViewById(R.id.searchBar);
-        swipeRefreshLayout = root.findViewById(R.id.swipe_layout);
+        searchBar = root.findViewById(R.id.searchBar);
+        SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipe_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -154,8 +150,8 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        sortSpinner = root.findViewById(R.id.sort);
-        viewSpinner = root.findViewById(R.id.view);
+        Spinner sortSpinner = root.findViewById(R.id.sort);
+        Spinner viewSpinner = root.findViewById(R.id.view);
 
         List<String> sorts = new LinkedList<>(Arrays.asList("Recently", "Active", "All", "Translate"));
 
@@ -253,8 +249,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         if (getView() == null) {
             return;
         }
-        final SwipeRefreshLayout refreshLayout =
-                (SwipeRefreshLayout) getView().findViewById(R.id.swipe_layout);
+        final SwipeRefreshLayout refreshLayout = getView().findViewById(R.id.swipe_layout);
 
         // Make sure setRefreshing() is called after the layout is done with everything else.
         refreshLayout.post(new Runnable() {
@@ -267,7 +262,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
     @Override
     public void showWords(List<Words> words) {
-        filterText.setText(getString(R.string.filter).concat(" : "+words.size()));
         mAdapter.replaceData(words);
     }
 
@@ -276,6 +270,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         Intent intent = new Intent(AppMain.getContext(), DetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("word_detail", word);
+        suggestList.add(word.getCharacter());
         AppMain.getContext().startActivity(intent);
     }
 
