@@ -64,7 +64,7 @@ public class DetailPresenter implements DetailContract.Presenter{
         meaings.add(meaning);
 
         Words updatedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), meaings, word.getKanji(), word.getPartOfSpeech(),
-                word.getLevel(), word.isMemorize(), word.isFavorite(), MemorizeUtils.getNowTime(), word.getIsLocal());
+                word.getLevel(), word.getTag(), word.isMemorize(), word.isFavorite(), MemorizeUtils.getNowTime(), word.getIsLocal());
         // Хэрэв вэбийн өгөгдөлтэй ижил утгатай байвал өөрчлөгдсөн болгоно
         if (updatedWord.getIsLocal() == 0){
             updatedWord.setIsLocal(2);

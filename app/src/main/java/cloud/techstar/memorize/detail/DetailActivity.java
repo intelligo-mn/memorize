@@ -178,9 +178,9 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
                 }
 
                 assert word.getLevel() != null;
-                for (int i = 0; i < word.getLevel().size(); i++) {
+                for (int i = 0; i < word.getTag().size(); i++) {
                     TextView text = new TextView(this);
-                    text.setText(word.getLevel().get(i)); // <-- does it really compile without the + sign?
+                    text.setText(word.getTag().get(i)); // <-- does it really compile without the + sign?
                     text.setTextSize(15);
                     text.setPadding(5, 5, 5, 5);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -1,5 +1,6 @@
 package cloud.techstar.memorize.words;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -217,6 +218,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                         break;
                     case 2:
                         presenter.setViewType(WordViewType.CARD);
+                        presenter.getRemotes();
                         break;
                     default:
                         presenter.setViewType(WordViewType.LIST);
@@ -337,6 +339,10 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         public void onBindViewHolder(final WordsAdapter.ViewHolder holder, final int position) {
             holder.kanjiText.setText(words.get(position).getKanji());
             holder.characterText.setText(words.get(position).getCharacter());
+            if (words.get(position).getIsLocal() == 1){
+                holder.kanjiText.setTextColor(getResources().getColor(R.color.chartGreen));
+                holder.characterText.setTextColor(getResources().getColor(R.color.chartGreen));
+            }
         }
 
         @Override

@@ -170,8 +170,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                 result.add(word);
         }
 
-
-
         if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
 
             wordsView.showWords(result);
@@ -181,6 +179,116 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
             searchRemote(keyWord, result);
         }
     }
+
+    @Override
+    public void getRemotes() {
+        final List<Words> apiWords = new ArrayList<>();
+
+
+        final Handler jishHandler = new Handler(Looper.getMainLooper());
+        OkHttpClient jishClient = new OkHttpClient();
+
+        for (int i=1; i <= 200; i++){
+            final Request jishoRequest = new Request.Builder()
+                    .url("https://jisho.org/api/v1/search/words?keyword=%23jlpt-n1&page="+i)
+                .build();
+
+            jishClient.newCall(jishoRequest).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    wordsView.showWords(apiWords);
+                    wordsView.showToast("No result !!!");
+                    wordsView.setLoadingIndicator(false);
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+
+                    final String res = response.body().string();
+                    jishHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject ob = new JSONObject(res);
+
+                                JSONArray datas = ob.getJSONArray("data");
+
+                                for (int i = 0; i < datas.length(); i++) {
+
+                                    JSONObject data = datas.getJSONObject(i);
+
+                                    JSONArray tag = data.getJSONArray("tags");
+                                    JSONArray japanese = data.getJSONArray("japanese");
+
+                                    final List<String> tagList = new ArrayList<>();
+
+                                    for (int t = 0; t< tag.length(); t++) {
+                                        if (!tag.getString(t).equals(""))
+                                            tagList.add(tag.getString(t));
+                                    }
+
+                                    String kanji = "";
+                                    String character = "";
+                                    if (!japanese.getJSONObject(0).isNull("word")){
+                                        kanji = japanese.getJSONObject(0).getString("word");
+                                    }
+
+                                    if (!japanese.getJSONObject(0).isNull("reading")){
+                                        character = japanese.getJSONObject(0).getString("reading");
+                                    }
+
+                                    JSONArray senses = data.getJSONArray("senses");
+
+                                    List<String> meaningList = new ArrayList<>();
+                                    List<String> partOfSpeechList = new ArrayList<>();
+
+                                    for (int s = 0; s < senses.length(); s++){
+                                        JSONObject sObject = senses.getJSONObject(s);
+                                        JSONArray english = sObject.getJSONArray("english_definitions");
+                                        JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
+
+                                        StringBuilder meaning = new StringBuilder();
+                                        for (int e = 0; e< english.length(); e++) {
+                                            meaning.append(english.getString(e)).append(", ");
+                                        }
+                                        meaning.deleteCharAt(meaning.length() - 2);
+                                        meaningList.add(meaning.toString());
+
+                                        StringBuilder part = new StringBuilder();
+                                        for (int p = 0; p< partOfSpeech.length(); p++) {
+                                            part.append(partOfSpeech.getString(p)).append(" ");
+                                        }
+                                        partOfSpeechList.add(part.toString());
+                                    }
+
+                                    Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "jlpt", tagList,  getNowTime());
+                                    if (kanji.equals("")){}
+                                        word.setKanji(word.getCharacter());
+                                    wordRepository.saveWord(word);
+                                    apiWords.add(word);
+                                }
+
+                                if (apiWords.size() > 0) {
+
+                                    wordsView.setLoadingIndicator(false);
+                                } else {
+                                    wordsView.setLoadingIndicator(false);
+                                    wordsView.showToast("No result !!!");
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                wordsView.showToast("Error !!!"+e.getMessage());
+                                wordsView.setLoadingIndicator(false);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+    }
+
 
     @Override
     public void searchRemote(String keyWord, List<Words> local) {
@@ -258,7 +366,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                     partOfSpeechList.add(part.toString());
                                 }
 
-                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, levelList, getNowTime());
+                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "", levelList,  getNowTime());
                                 apiWords.add(word);
                             }
 

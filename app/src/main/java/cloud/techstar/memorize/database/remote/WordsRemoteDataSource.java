@@ -83,13 +83,14 @@ public class WordsRemoteDataSource implements WordsDataSource {
                                     List<String> meaning = new ArrayList<>();
                                     List<String> meaningMon = new ArrayList<>();
                                     List<String> partOfSpeech = new ArrayList<>();
-                                    List<String> level = new ArrayList<>();
+                                    List<String> tag = new ArrayList<>();
 
                                     JSONArray meaningJSON = memorize.getJSONObject(i).getJSONArray("meanings");
                                     JSONArray meaningMnJSON = memorize.getJSONObject(i).getJSONArray("meaningsMongolia");
                                     JSONArray partJSON = memorize.getJSONObject(i).getJSONArray("partOfSpeech");
-                                    JSONArray levelJSON = memorize.getJSONObject(i).getJSONArray("level");
-
+                                    JSONArray tagJSON = memorize.getJSONObject(i).getJSONArray("tag");
+                                    String level = memorize.getJSONObject(i).getString("level");
+                                    
                                     for (int e = 0; e< meaningJSON.length(); e++) {
                                         meaning.add(meaningJSON.getString(e));
                                     }
@@ -99,8 +100,8 @@ public class WordsRemoteDataSource implements WordsDataSource {
                                     for (int e = 0; e< partJSON.length(); e++) {
                                         partOfSpeech.add(partJSON.getString(e));
                                     }
-                                    for (int e = 0; e< levelJSON.length(); e++) {
-                                        level.add(levelJSON.getString(e));
+                                    for (int e = 0; e< tagJSON.length(); e++) {
+                                        tag.add(tagJSON.getString(e));
                                     }
 
                                     Words words = new Words(
@@ -111,6 +112,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
                                             memorize.getJSONObject(i).getString("kanji"),
                                             partOfSpeech,
                                             level,
+                                            tag,
                                             memorize.getJSONObject(i).getBoolean("isMemorize"),
                                             memorize.getJSONObject(i).getBoolean("isFavorite"),
                                             memorize.getJSONObject(i).getString("created"),
@@ -164,7 +166,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
     @Override
     public void memorizeWord(@NonNull Words word) {
-        Words memorizedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(),
+        Words memorizedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(), word.getTag(),
                 true, word.isFavorite(), word.getCreated(), 2);
         WORDS_SERVICE_DATA.put(word.getId(), memorizedWord);
     }
@@ -176,7 +178,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
     @Override
     public void favWord(@NonNull Words word) {
-        Words favoritedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(),
+        Words favoritedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(), word.getTag(),
                 word.isMemorize(), true, word.getCreated(), 2);
         WORDS_SERVICE_DATA.put(word.getId(), favoritedWord);
     }

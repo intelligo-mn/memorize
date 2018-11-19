@@ -44,7 +44,11 @@ public final class Words implements Serializable {
 
     @Nullable
     @ColumnInfo(name = "level")
-    private List<String> level;
+    private String level;
+
+    @Nullable
+    @ColumnInfo(name = "tag")
+    private List<String> tag;
 
     @Nullable
     @ColumnInfo(name = "memorized")
@@ -62,7 +66,7 @@ public final class Words implements Serializable {
     @ColumnInfo(name = "local")
     private int isLocal; // 1 new , 2 update
 
-    public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, List<String> level, boolean isMemorize, boolean isFavorite, String created, int isLocal) {
+    public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, String level, List<String> tag, boolean isMemorize, boolean isFavorite, String created, int isLocal) {
         this.id = id;
         this.character = character;
         this.meaning = meaning;
@@ -70,6 +74,7 @@ public final class Words implements Serializable {
         this.kanji = kanji;
         this.partOfSpeech = partOfSpeech;
         this.level = level;
+        this.tag = tag;
         this.isMemorize = isMemorize;
         this.isFavorite = isFavorite;
         this.created = created;
@@ -80,8 +85,8 @@ public final class Words implements Serializable {
      * Use this constructor to create an new word
      */
     @Ignore
-    public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, List<String> level, String created) {
-        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, false, false, created, 1);
+    public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, String level, List<String> tag, String created) {
+        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, tag, false, false, created, 1);
     }
 
     @NonNull
@@ -139,12 +144,21 @@ public final class Words implements Serializable {
     }
 
     @Nullable
-    public List<String> getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(@Nullable List<String> level) {
+    public void setLevel(@Nullable String level) {
         this.level = level;
+    }
+
+    @Nullable
+    public List<String> getTag() {
+        return tag;
+    }
+
+    public void setTag(@Nullable List<String> tag) {
+        this.tag = tag;
     }
 
     @Nullable

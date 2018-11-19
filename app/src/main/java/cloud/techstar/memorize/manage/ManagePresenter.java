@@ -77,7 +77,7 @@ public class ManagePresenter implements ManageContract.Presenter{
                 .add("meaningsMongolia", checkNotNull(words.getMeaningMon().get(0)))
                 .add("partOfSpeech", checkNotNull(words.getPartOfSpeech().get(0)))
                 .add("kanji", checkNotNull(words.getKanji()))
-                .add("level", checkNotNull(words.getLevel().get(0)))
+                .add("level", checkNotNull(words.getTag().get(0)))
                 .build();
 
         Request request = new Request.Builder()

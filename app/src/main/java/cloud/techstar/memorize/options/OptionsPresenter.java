@@ -67,7 +67,8 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                             newWords.put("meaningsMongolia", new JSONArray(word.getMeaningMon()));
                             newWords.put("partOfSpeech",  new JSONArray(word.getPartOfSpeech()));
                             newWords.put("kanji", word.getKanji());
-                            newWords.put("level",  new JSONArray(word.getLevel()));
+                            newWords.put("tag",  new JSONArray(word.getTag()));
+                            newWords.put("level",  word.getTag());
                             newWordsArray.put(newWords);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -81,7 +82,8 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                             updatedWords.put("meaningsMongolia", new JSONArray(word.getMeaningMon()));
                             updatedWords.put("partOfSpeech",  new JSONArray(word.getPartOfSpeech()));
                             updatedWords.put("kanji", word.getKanji());
-                            updatedWords.put("level",  new JSONArray(word.getLevel()));
+                            updatedWords.put("tag",  new JSONArray(word.getTag()));
+                            updatedWords.put("level",  word.getTag());
                             updatedWords.put("isFavorite", word.isFavorite());
                             updatedWords.put("isMemorize", word.isMemorize());
                             updatedWordsArray.put(updatedWords);
@@ -138,104 +140,117 @@ public class OptionsPresenter implements OptionsContract.Presenter{
 
         optionsView.setLoadingIndicator(true);
 
-        final Handler handler = new Handler(Looper.getMainLooper());
-        OkHttpClient client = new OkHttpClient();
-
-        if (newWordsArray.length() > 0) {
-            RequestBody requestBody = new FormBody.Builder()
-                    .add("new", newWordsArray.toString())
-                    .build();
-
-            Request request = new Request.Builder()
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    .url(MemorizeConstant.CREATE_MULTIPLE)
-                    .post(requestBody)
-                    .build();
-
-            Logger.e(request.toString()+request.headers().toString()+request.body());
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NonNull Call call, IOException e) {
-                    Logger.e(e.getMessage());
-                }
-
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-                    final String res = response.body().string();
-
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            try {
-
-                                JSONObject ob = new JSONObject(res);
-                                if (ob.getString("status").equals("success")) {
-                                    optionsView.showToast(ob.getString("message"));
-                                } else {
-                                    optionsView.showToast(ob.getString("message"));
-                                }
-                                optionsView.setLoadingIndicator(false);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                optionsView.setLoadingIndicator(false);
-                                optionsView.showToast("Алдаа гарлаа: "+e);
-                            }
-
-                        }
-                    });
-                }
-            });
+        if (newWordsArray.length() > 0 || updatedWordsArray.length() > 0){
+            sendNewDatas();
+            sendUpdates();
+        }
+        else if (newWordsArray.length() > 0) {
+            sendNewDatas();
         } else if (updatedWordsArray.length() > 0){
-
-            RequestBody requestBody = new FormBody.Builder()
-                    .add("updated", updatedWordsArray.toString())
-                    .build();
-
-            Request request = new Request.Builder()
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    .url(MemorizeConstant.EDIT_MULTIPLE)
-                    .post(requestBody)
-                    .build();
-
-            Logger.e(request.toString()+request.headers().toString()+request.body());
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NonNull Call call, IOException e) {
-                    Logger.e(e.getMessage());
-                }
-
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-                    final String res = response.body().string();
-
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            try {
-
-                                JSONObject ob = new JSONObject(res);
-                                if (ob.getString("status").equals("success")) {
-                                    optionsView.showToast(ob.getString("message"));
-                                } else {
-                                    optionsView.showToast(ob.getString("message"));
-                                }
-                                optionsView.setLoadingIndicator(false);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                optionsView.setLoadingIndicator(false);
-                                optionsView.showToast("Алдаа гарлаа: "+e);
-                            }
-                        }
-                    });
-                }
-            });
+            sendUpdates();
         } else {
             optionsView.setLoadingIndicator(false);
             optionsView.showToast("Өөрчлөлт байхгүй байна");
         }
+    }
+
+    public void sendNewDatas(){
+        final Handler handler = new Handler(Looper.getMainLooper());
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("new", newWordsArray.toString())
+                .build();
+
+        Request request = new Request.Builder()
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .url(MemorizeConstant.CREATE_MULTIPLE)
+                .post(requestBody)
+                .build();
+
+        Logger.e(request.toString()+request.headers().toString()+request.body());
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, IOException e) {
+                Logger.e(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
+                final String res = response.body().string();
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                            JSONObject ob = new JSONObject(res);
+                            if (ob.getString("status").equals("success")) {
+                                optionsView.showToast(ob.getString("message"));
+                            } else {
+                                optionsView.showToast(ob.getString("message"));
+                            }
+                            optionsView.setLoadingIndicator(false);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            optionsView.setLoadingIndicator(false);
+                            optionsView.showToast("Алдаа гарлаа: "+e);
+                        }
+
+                    }
+                });
+            }
+        });
+    }
+    public void sendUpdates(){
+        final Handler handler = new Handler(Looper.getMainLooper());
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("updated", updatedWordsArray.toString())
+                .build();
+
+        Request request = new Request.Builder()
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .url(MemorizeConstant.EDIT_MULTIPLE)
+                .post(requestBody)
+                .build();
+
+        Logger.e(request.toString()+request.headers().toString()+request.body());
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, IOException e) {
+                Logger.e(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
+                final String res = response.body().string();
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                            JSONObject ob = new JSONObject(res);
+                            if (ob.getString("status").equals("success")) {
+                                optionsView.showToast(ob.getString("message"));
+                            } else {
+                                optionsView.showToast(ob.getString("message"));
+                            }
+                            optionsView.setLoadingIndicator(false);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            optionsView.setLoadingIndicator(false);
+                            optionsView.showToast("Алдаа гарлаа: "+e);
+                        }
+                    }
+                });
+            }
+        });
     }
 }

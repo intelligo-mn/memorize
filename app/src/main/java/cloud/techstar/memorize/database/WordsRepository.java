@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import cloud.techstar.memorize.utils.MemorizeUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -146,11 +147,27 @@ public class WordsRepository implements WordsDataSource {
         checkWord(word.getCharacter(), word.getKanji(), new GetWordCallback() {
             @Override
             public void onWordLoaded(Words checkedWord) {
-                Logger.e("Already created "+checkedWord.getCharacter());
+                assert checkedWord.getKanji() != null;
+                if (checkedWord.getKanji().equals(""))
+                    word.setKanji(checkedWord.getCharacter());
+                word.setId(checkedWord.getId());
+                word.setMeaning(word.getMeaning());
+                word.setMeaningMon(checkedWord.getMeaningMon());
+                word.setLevel("jlpt5");
+                word.setIsLocal(2);
+                wordsRemoteDataSource.updateWord(word);
+                wordsLocalDataSource.updateWord(word);
+
+                if (cachedWords == null)
+                    cachedWords = new LinkedHashMap<>();
+                cachedWords.put(word.getId(), word);
             }
 
             @Override
             public void onDataNotAvailable() {
+
+                if (word.getKanji().equals(""))
+                    word.setKanji(word.getCharacter());
                 wordsRemoteDataSource.saveWord(word);
                 wordsLocalDataSource.saveWord(word);
 
@@ -200,6 +217,7 @@ public class WordsRepository implements WordsDataSource {
                 word.getKanji(),
                 word.getPartOfSpeech(),
                 word.getLevel(),
+                word.getTag(),
                 true,
                 word.isFavorite(),
                 word.getCreated(),
@@ -231,6 +249,7 @@ public class WordsRepository implements WordsDataSource {
                 word.getKanji(),
                 word.getPartOfSpeech(),
                 word.getLevel(),
+                word.getTag(),
                 word.isMemorize(),
                 true,
                 word.getCreated(),
