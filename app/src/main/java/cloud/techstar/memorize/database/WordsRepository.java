@@ -166,6 +166,7 @@ public class WordsRepository implements WordsDataSource {
             @Override
             public void onDataNotAvailable() {
 
+                assert word.getKanji() != null;
                 if (word.getKanji().equals(""))
                     word.setKanji(word.getCharacter());
                 wordsRemoteDataSource.saveWord(word);
