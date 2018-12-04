@@ -339,7 +339,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         public void onBindViewHolder(final WordsAdapter.ViewHolder holder, final int position) {
             holder.kanjiText.setText(words.get(position).getKanji());
             holder.characterText.setText(words.get(position).getCharacter());
-            if (words.get(position).getIsLocal() == 1){
+            if (words.get(position).getIsLocal()){
                 holder.kanjiText.setTextColor(getResources().getColor(R.color.chartGreen));
                 holder.characterText.setTextColor(getResources().getColor(R.color.chartGreen));
             }

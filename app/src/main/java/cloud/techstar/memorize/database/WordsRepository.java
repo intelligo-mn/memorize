@@ -147,14 +147,6 @@ public class WordsRepository implements WordsDataSource {
         checkWord(word.getCharacter(), word.getKanji(), new GetWordCallback() {
             @Override
             public void onWordLoaded(Words checkedWord) {
-                assert checkedWord.getKanji() != null;
-                if (checkedWord.getKanji().equals(""))
-                    word.setKanji(checkedWord.getCharacter());
-                word.setId(checkedWord.getId());
-                word.setMeaning(word.getMeaning());
-                word.setMeaningMon(checkedWord.getMeaningMon());
-                word.setLevel("jlpt5");
-                word.setIsLocal(2);
                 wordsRemoteDataSource.updateWord(word);
                 wordsLocalDataSource.updateWord(word);
 
@@ -166,9 +158,6 @@ public class WordsRepository implements WordsDataSource {
             @Override
             public void onDataNotAvailable() {
 
-                assert word.getKanji() != null;
-                if (word.getKanji().equals(""))
-                    word.setKanji(word.getCharacter());
                 wordsRemoteDataSource.saveWord(word);
                 wordsLocalDataSource.saveWord(word);
 
@@ -222,7 +211,7 @@ public class WordsRepository implements WordsDataSource {
                 true,
                 word.isFavorite(),
                 word.getCreated(),
-                2);
+                true);
         if (cachedWords == null) {
             cachedWords = new LinkedHashMap<>();
         }
@@ -254,7 +243,7 @@ public class WordsRepository implements WordsDataSource {
                 word.isMemorize(),
                 true,
                 word.getCreated(),
-                2);
+                true);
 
         // Do in memory cache update to keep the app UI up to date
         if (cachedWords == null) {

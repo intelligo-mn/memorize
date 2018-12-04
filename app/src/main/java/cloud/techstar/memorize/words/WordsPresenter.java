@@ -141,6 +141,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
             @Override
             public void onDataNotAvailable() {
+                wordsView.setLoadingIndicator(false);
                 wordsView.showLoadingWordsError();
             }
         });
@@ -188,15 +189,14 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
         final Handler jishHandler = new Handler(Looper.getMainLooper());
         OkHttpClient jishClient = new OkHttpClient();
 
-        for (int i=1; i <= 200; i++){
+        for (int i=1; i <= 35; i++){
             final Request jishoRequest = new Request.Builder()
-                    .url("https://jisho.org/api/v1/search/words?keyword=%23jlpt-n1&page="+i)
+                    .url("https://jisho.org/api/v1/search/words?keyword=%23jlpt-n5&page="+i)
                 .build();
 
             jishClient.newCall(jishoRequest).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    wordsView.showWords(apiWords);
                     wordsView.showToast("No result !!!");
                     wordsView.setLoadingIndicator(false);
                 }
@@ -254,16 +254,20 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                         meaning.deleteCharAt(meaning.length() - 2);
                                         meaningList.add(meaning.toString());
 
-                                        StringBuilder part = new StringBuilder();
-                                        for (int p = 0; p< partOfSpeech.length(); p++) {
-                                            part.append(partOfSpeech.getString(p)).append(" ");
+                                        if(partOfSpeech.length() > 0){
+                                            StringBuilder part = new StringBuilder();
+                                            for (int p = 0; p< partOfSpeech.length(); p++) {
+                                                if (!partOfSpeech.getString(p).equals(""))
+                                                    part.append(partOfSpeech.getString(p)).append(" ");
+                                            }
+                                            partOfSpeechList.add(part.toString());
                                         }
-                                        partOfSpeechList.add(part.toString());
                                     }
 
-                                    Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "jlpt", tagList,  getNowTime());
-                                    if (kanji.equals("")){}
+                                    Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "jlpt5", tagList,  getNowTime());
+                                    if (kanji.equals("")){
                                         word.setKanji(word.getCharacter());
+                                    }
                                     wordRepository.saveWord(word);
                                     apiWords.add(word);
                                 }
@@ -286,7 +290,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                 }
             });
         }
-
     }
 
 
@@ -368,6 +371,8 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
                                 Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "", levelList,  getNowTime());
                                 apiWords.add(word);
+
+                                Logger.e("Downloaded words: "+apiWords.size());
                             }
 
                             if (apiWords.size() > 0) {

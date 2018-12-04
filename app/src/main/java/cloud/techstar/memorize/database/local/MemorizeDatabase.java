@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.utils.Converters;
 
-@Database(entities = {Words.class}, version = 3)
+@Database(entities = {Words.class}, version = 4)
 
 @TypeConverters({Converters.class})
 public abstract class MemorizeDatabase extends RoomDatabase {

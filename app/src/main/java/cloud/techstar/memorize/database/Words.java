@@ -64,9 +64,9 @@ public final class Words implements Serializable {
 
     @Nullable
     @ColumnInfo(name = "local")
-    private int isLocal; // 1 new , 2 update
+    private boolean isLocal;
 
-    public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, String level, List<String> tag, boolean isMemorize, boolean isFavorite, String created, int isLocal) {
+    public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, String level, List<String> tag, boolean isMemorize, boolean isFavorite, String created, boolean isLocal) {
         this.id = id;
         this.character = character;
         this.meaning = meaning;
@@ -86,7 +86,7 @@ public final class Words implements Serializable {
      */
     @Ignore
     public Words(@NonNull String id, @NonNull String character, @NonNull List<String> meaning, List<String> meaningMon, String kanji, List<String> partOfSpeech, String level, List<String> tag, String created) {
-        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, tag, false, false, created, 1);
+        this(id, character, meaning, meaningMon, kanji, partOfSpeech, level, tag, false, false, created, true);
     }
 
     @NonNull
@@ -189,11 +189,11 @@ public final class Words implements Serializable {
     }
 
     @Nullable
-    public int getIsLocal() {
+    public boolean getIsLocal() {
         return isLocal;
     }
 
-    public void setIsLocal(@Nullable int isLocal) {
+    public void setIsLocal(@Nullable boolean isLocal) {
         this.isLocal = isLocal;
     }
 

@@ -2,6 +2,7 @@ package cloud.techstar.memorize.database.remote;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
 
 import com.google.common.collect.Lists;
 import com.orhanobut.logger.Logger;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.utils.MemorizeConstant;
@@ -116,12 +118,14 @@ public class WordsRemoteDataSource implements WordsDataSource {
                                             memorize.getJSONObject(i).getBoolean("isMemorize"),
                                             memorize.getJSONObject(i).getBoolean("isFavorite"),
                                             memorize.getJSONObject(i).getString("created"),
-                                            0);
+                                            false);
 
                                     WORDS_SERVICE_DATA.put(words.getId(), words);
                                 }
                                 callback.onWordsLoaded(Lists.newArrayList(WORDS_SERVICE_DATA.values()));
                                 Logger.d("Get remote total words: "+numWords);
+                            } else {
+                                Toast.makeText(AppMain.getContext(), "Data not available !!!", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
@@ -167,7 +171,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
     @Override
     public void memorizeWord(@NonNull Words word) {
         Words memorizedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(), word.getTag(),
-                true, word.isFavorite(), word.getCreated(), 2);
+                true, word.isFavorite(), word.getCreated(), true);
         WORDS_SERVICE_DATA.put(word.getId(), memorizedWord);
     }
 
@@ -179,7 +183,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
     @Override
     public void favWord(@NonNull Words word) {
         Words favoritedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), word.getMeaningMon(), word.getKanji(), word.getPartOfSpeech(), word.getLevel(), word.getTag(),
-                word.isMemorize(), true, word.getCreated(), 2);
+                word.isMemorize(), true, word.getCreated(), true);
         WORDS_SERVICE_DATA.put(word.getId(), favoritedWord);
     }
 

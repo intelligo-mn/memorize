@@ -130,7 +130,7 @@ public class WordsLocalDataSource implements WordsDataSource {
         Runnable completeRunnable = new Runnable() {
             @Override
             public void run() {
-                wordsDao.updateMemorized(word.getId(), true, 2);
+                wordsDao.updateMemorized(word.getId(), true, true);
             }
         };
 
@@ -147,7 +147,7 @@ public class WordsLocalDataSource implements WordsDataSource {
         Runnable completeRunnable = new Runnable() {
             @Override
             public void run() {
-                wordsDao.updateFavorited(word.getId(), true, 2);
+                wordsDao.updateFavorited(word.getId(), true, true);
             }
         };
 

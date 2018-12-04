@@ -177,6 +177,19 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
                     partLayout.addView(text);
                 }
 
+                TextView jlptText = new TextView(this);
+                jlptText.setText(word.getLevel()); // <-- does it really compile without the + sign?
+                jlptText.setTextSize(15);
+                jlptText.setPadding(5, 5, 5, 5);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    jlptText.setTextColor(getColor(R.color.white));
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    jlptText.setBackground(getDrawable(R.drawable.ic_round_rectangle));
+                }
+                jlptText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                tagsLayout.addView(jlptText);
+
                 assert word.getLevel() != null;
                 for (int i = 0; i < word.getTag().size(); i++) {
                     TextView text = new TextView(this);

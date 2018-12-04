@@ -31,10 +31,10 @@ public interface WordsDao {
     int updateWord(Words word);
 
     @Query("UPDATE words SET favorited = :favorited, local = :isLocal WHERE id = :wordId")
-    void updateFavorited(String wordId, boolean favorited, int isLocal);
+    void updateFavorited(String wordId, boolean favorited, boolean isLocal);
 
     @Query("UPDATE words SET memorized = :memorized, local = :isLocal WHERE id = :wordId")
-    void updateMemorized(String wordId, boolean memorized, int isLocal);
+    void updateMemorized(String wordId, boolean memorized, boolean isLocal);
 
     @Query("DELETE FROM words")
     void deleteWords();
