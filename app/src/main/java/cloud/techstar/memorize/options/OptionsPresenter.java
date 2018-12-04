@@ -67,7 +67,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                             updatedWords.put("partOfSpeech",  new JSONArray(word.getPartOfSpeech()));
                             updatedWords.put("kanji", word.getKanji());
                             updatedWords.put("tag",  new JSONArray(word.getTag()));
-                            updatedWords.put("level",  word.getTag());
+                            updatedWords.put("level",  word.getLevel());
                             updatedWords.put("isMemorize", word.isMemorize());
                             updatedWords.put("isFavorite", word.isFavorite());
                             updatedWords.put("isMemorize", word.isMemorize());
