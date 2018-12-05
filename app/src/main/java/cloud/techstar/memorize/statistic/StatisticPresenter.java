@@ -22,7 +22,7 @@ public class StatisticPresenter implements StatisticContract.Presenter{
     }
 
     @Override
-    public void setStats() {
+    public void setStatsPie() {
 
         wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
@@ -55,6 +55,6 @@ public class StatisticPresenter implements StatisticContract.Presenter{
 
     @Override
     public void init() {
-        setStats();
+        setStatsPie();
     }
 }

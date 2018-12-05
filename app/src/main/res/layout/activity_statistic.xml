@@ -20,8 +20,13 @@
             android:background="@null"
             app:srcCompat="@drawable/ic_back_arrow" />
     </RelativeLayout>
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/chart1"
+
+
+    <ListView
+        android:id="@+id/listViewChart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingTop="?android:actionBarSize">
+    </ListView>
+
 </RelativeLayout>

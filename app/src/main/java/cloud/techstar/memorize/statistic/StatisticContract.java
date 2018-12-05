@@ -1,5 +1,7 @@
 package cloud.techstar.memorize.statistic;
 
+import com.github.mikephil.charting.data.PieData;
+
 import java.util.List;
 
 import cloud.techstar.memorize.BasePresenter;
@@ -18,6 +20,6 @@ public interface StatisticContract {
 
         void result(int requestCode, int resultCode);
 
-        void setStats();
+        void setStatsPie();
     }
 }
