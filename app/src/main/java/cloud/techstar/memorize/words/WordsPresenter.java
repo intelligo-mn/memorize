@@ -184,14 +184,14 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     @Override
     public void getRemotes() {
         final List<Words> apiWords = new ArrayList<>();
-
+        wordsView.setLoadingIndicator(true);
 
         final Handler jishHandler = new Handler(Looper.getMainLooper());
         OkHttpClient jishClient = new OkHttpClient();
 
-        for (int i=1; i <= 35; i++){
+        for (int i=1; i <= 175; i++){
             final Request jishoRequest = new Request.Builder()
-                    .url("https://jisho.org/api/v1/search/words?keyword=%23jlpt-n5&page="+i)
+                    .url("https://jisho.org/api/v1/search/words?keyword=%23jlpt-n1&page="+i)
                 .build();
 
             jishClient.newCall(jishoRequest).enqueue(new Callback() {
@@ -264,14 +264,14 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                         }
                                     }
 
-                                    Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "jlpt5", tagList,  getNowTime());
+                                    Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "jlpt-n1", tagList,  getNowTime());
                                     if (kanji.equals("")){
                                         word.setKanji(word.getCharacter());
                                     }
                                     wordRepository.saveWord(word);
                                     apiWords.add(word);
                                 }
-
+                                Logger.d("SIZE: "+apiWords.size());
                                 if (apiWords.size() > 0) {
 
                                     wordsView.setLoadingIndicator(false);
@@ -329,10 +329,11 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                 JSONArray tag = data.getJSONArray("tags");
                                 JSONArray japanese = data.getJSONArray("japanese");
 
-                                final List<String> levelList = new ArrayList<>();
+                                final List<String> tagList = new ArrayList<>();
 
                                 for (int t = 0; t< tag.length(); t++) {
-                                    levelList.add(tag.getString(t));
+                                    if (!tag.getString(t).equals(""))
+                                        tagList.add(tag.getString(t));
                                 }
 
                                 String kanji = "";
@@ -362,17 +363,22 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                     meaning.deleteCharAt(meaning.length() - 2);
                                     meaningList.add(meaning.toString());
 
-                                    StringBuilder part = new StringBuilder();
-                                    for (int p = 0; p< partOfSpeech.length(); p++) {
-                                        part.append(partOfSpeech.getString(p)).append(" ");
+                                    if(partOfSpeech.length() > 0){
+                                        StringBuilder part = new StringBuilder();
+                                        for (int p = 0; p< partOfSpeech.length(); p++) {
+                                            if (!partOfSpeech.getString(p).equals(""))
+                                                part.append(partOfSpeech.getString(p)).append(" ");
+                                        }
+                                        partOfSpeechList.add(part.toString());
                                     }
-                                    partOfSpeechList.add(part.toString());
                                 }
 
-                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "", levelList,  getNowTime());
+                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "jlpt2", tagList,  getNowTime());
+                                if (kanji.equals("")){
+                                    word.setKanji(word.getCharacter());
+                                }
+                                wordRepository.saveWord(word);
                                 apiWords.add(word);
-
-                                Logger.e("Downloaded words: "+apiWords.size());
                             }
 
                             if (apiWords.size() > 0) {

@@ -48,13 +48,23 @@
                 android:layout_alignParentRight="true">
 
                 <Spinner
+                    android:id="@+id/part_of_spin"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_loyalty"
+                    android:prompt="@string/part_of_speech"
+                    android:spinnerMode="dropdown" />
+
+                <Spinner
                     android:id="@+id/sort"
                     android:layout_width="25dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/ic_sort"
-                    android:prompt="@string/part_of_speech"
+                    android:prompt="@string/tags"
                     android:spinnerMode="dropdown" />
 
                 <Spinner

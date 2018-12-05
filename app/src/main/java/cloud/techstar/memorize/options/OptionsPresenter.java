@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import cloud.techstar.memorize.AppMain;
@@ -135,7 +136,10 @@ public class OptionsPresenter implements OptionsContract.Presenter{
 
     public void sendDatas(){
         final Handler handler = new Handler(Looper.getMainLooper());
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS).build();
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("words", newWordsArray.toString())
