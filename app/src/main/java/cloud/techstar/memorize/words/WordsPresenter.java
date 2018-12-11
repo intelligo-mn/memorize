@@ -3,6 +3,8 @@ package cloud.techstar.memorize.words;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
@@ -45,6 +47,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     private OkHttpClient jishoClient;
     private List<Words> searchWords;
 
+    private DatabaseReference mDatabase;
 
     public WordsPresenter(@NonNull WordsDataSource wordRepository, @NonNull WordsContract.View wordsView) {
         this.wordRepository = wordRepository;
@@ -100,6 +103,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
                 List<Words> mainWords = new ArrayList<Words>();
 
+                mDatabase = FirebaseDatabase.getInstance().getReference();
                 for (Words word : words) {
 
                     switch (getFilterType()) {
@@ -291,7 +295,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
             });
         }
     }
-
 
     @Override
     public void searchRemote(String keyWord, List<Words> local) {
