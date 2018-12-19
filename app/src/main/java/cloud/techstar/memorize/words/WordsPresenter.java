@@ -104,7 +104,10 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                 List<Words> mainWords = new ArrayList<Words>();
 
                 mDatabase = FirebaseDatabase.getInstance().getReference();
+
                 for (Words word : words) {
+
+//                    mDatabase.child("words").child(word.getId()).setValue(word);
 
                     switch (getFilterType()) {
                         case ALL_WORDS:
@@ -193,9 +196,13 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
         final Handler jishHandler = new Handler(Looper.getMainLooper());
         OkHttpClient jishClient = new OkHttpClient();
 
-        for (int i=1; i <= 175; i++){
+        String COMMON = "https://jisho.org/api/v1/search/words?keyword=%23common&page="; // page 1055
+        String JLPT = "https://jisho.org/api/v1/search/words?keyword=%23jlpt-n1&page=";
+
+
+        for (int i=1; i <= 1055; i++){
             final Request jishoRequest = new Request.Builder()
-                    .url("https://jisho.org/api/v1/search/words?keyword=%23jlpt-n1&page="+i)
+                    .url("https://jisho.org/api/v1/search/words?keyword=%23common&page="+i)
                 .build();
 
             jishClient.newCall(jishoRequest).enqueue(new Callback() {
@@ -380,7 +387,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                 if (kanji.equals("")){
                                     word.setKanji(word.getCharacter());
                                 }
-                                wordRepository.saveWord(word);
+//                                wordRepository.saveWord(word);
                                 apiWords.add(word);
                             }
 
