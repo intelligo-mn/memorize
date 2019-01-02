@@ -47,8 +47,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     private OkHttpClient jishoClient;
     private List<Words> searchWords;
 
-    private DatabaseReference mDatabase;
-
     public WordsPresenter(@NonNull WordsDataSource wordRepository, @NonNull WordsContract.View wordsView) {
         this.wordRepository = wordRepository;
         this.wordsView = wordsView;
@@ -103,11 +101,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
                 List<Words> mainWords = new ArrayList<Words>();
 
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-
                 for (Words word : words) {
-
-//                    mDatabase.child("words").child(word.getId()).setValue(word);
 
                     switch (getFilterType()) {
                         case ALL_WORDS:
