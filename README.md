@@ -11,8 +11,8 @@ Japanese-English-Mongolian dictionary. It lets you find words, kanji and more qu
       height="80">](https://github.com/opengineer/memorize/releases/latest)
 
 
-| [Features][] | [Screenshots][] | [Authors][] | [Contributors][] | [License][] |
-|---|---|---|---|---|
+| [Features][] | [Screenshots][] | [Architecture][] | [Authors][] | [Contributors][] | [License][] |
+|---|---|---|---|---|---|
 
 ## Features 
 
@@ -33,7 +33,7 @@ Japanese-English-Mongolian dictionary. It lets you find words, kanji and more qu
 
 The architecture of our Android apps is based on the [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) (Model View Presenter) pattern.
 
-![](/.github/mvp-arch.png?raw=true)
+![](/.github/mvp-arch.jpeg?raw=true)
 
 * __Helpers (Model)__: A set of classes, each of them with a very specific responsibility. Their function can range from talking to APIs or a database to implementing some specific business logic. Every project will have different helpers but the most common ones are:
 	- __DatabaseHelper__: It handles inserting, updating and retrieving data from a local SQLite database, using [Room](https://developer.android.com/topic/libraries/architecture/room.html)
@@ -55,7 +55,7 @@ The architecture of our Android apps is based on the [MVP](https://en.wikipedia.
 
 You may contribute in several ways like creating new features, fixing bugs, improving documentation and examples
 or translating any document here to your language. [Find more information in CONTRIBUTING.md](CONTRIBUTING.md).
-<a href="https://github.com/techstar-cloud/techstar-ecommerce/graphs/contributors">Contributors</a>
+<a href="https://github.com/opengineer/memorize/graphs/contributors">Contributors</a>
 
 ## License
 
@@ -70,6 +70,7 @@ Memorize is open-sourced software licensed under the [MIT license](https://opens
 
 [Features]:#features
 [Screenshots]:#screenshots
+[Architecture]:#architecture
 [Authors]:#authors
 [Contributors]:#contributors
 [License]:#license
