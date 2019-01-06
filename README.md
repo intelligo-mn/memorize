@@ -59,9 +59,6 @@ or translating any document here to your language. [Find more information in CON
 
 ## License
 
-Memorize is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-
 > Copyright (C) 2019 Opengineer.  
 > Memorize is open-sourced software licensed under the [MIT](https://opensource.org/licenses/MIT) license.  
 > (See the [LICENSE](https://github.com/opengineer/memorize/blob/master/LICENSE) file for the whole license text.)
