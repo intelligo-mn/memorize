@@ -27,7 +27,7 @@ Japanese-English-Mongolian dictionary. It lets you find words, kanji and more qu
 
 | Home | Search | Details | Quiz | Flash cards |
 |:-:|:-:|:-:|:-:|:-:|
-| ![Home](/.github/home.png?raw=true) | ![Search](/.github/search.png?raw=true) |![details](/.github/details.png?raw=true) |![Quiz](/.github/quiz.png?raw=true) |![flash](/.github/flash-card.png?raw=true) |
+| ![Home](/.github/home.jpg?raw=true) | ![Search](/.github/search.jpg?raw=true) |![details](/.github/details.jpg?raw=true) |![Quiz](/.github/quiz.jpg?raw=true) |![flash](/.github/flash-card.jpg?raw=true) |
 
 ## Architecture
 
