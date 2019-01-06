@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Memorize</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="menu">Menu</string>
+    <string name="jisho">Memorize</string>
+    <string name="japan_character">Japanese</string>
+    <string name="english_meaning">English</string>
+    <string name="mongolian_meaning">Mongolian</string>
+    <string name="meaning">Meanings</string>
+    <string name="tags">Tag</string>
+    <string name="search_more">Details</string>
+    <string name="kanji">Kanji</string>
+    <string name="part_of_speech">Part of speech</string>
+    <string name="quiz">Quiz</string>
+    <string name="level">Level</string>
+    <string name="filter">Filter</string>
+    <string name="memorize_words">Memorize words</string>
+    <string name="create_words">Add word</string>
+    <string name="japan_word">Japanese word</string>
+    <string name="add">Add</string>
+    <string name="menu_new_word">New word</string>
+    <string name="menu_memorize">Memorized</string>
+    <string name="menu_statistic">Statistics</string>
+    <string name="menu_language">Language</string>
+    <string name="menu_download">Download data</string>
+    <string name="menu_upload">Send data</string>
+    <string name="menu_about">About</string>
+    <string name="menu_license">License</string>
+    <string name="menu_desc_new">Add new word</string>
+    <string name="menu_desc_memorize">Memorized words</string>
+    <string name="menu_desc_stat">Statistic</string>
+    <string name="menu_desc_language">Change language</string>
+    <string name="menu_desc_download">Download dictionary data</string>
+    <string name="menu_desc_upload">Local change send to server</string>
+    <string name="menu_desc_about">About app</string>
+    <string name="menu_desc_license">License information</string>
+    <string name="logout">Log out</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="client_id">1049383145361-53a05go6vbfd17grbscq5a8jufu2vvvt.apps.googleusercontent.com</string>
+    <string name="try_again">Try again</string>
+    <string name="license_text">
+                                "MIT License
+
+    Copyright © 2018 Memorize
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE."
+
+        "\n\n\n"
+
+    </string>
+</resources>
