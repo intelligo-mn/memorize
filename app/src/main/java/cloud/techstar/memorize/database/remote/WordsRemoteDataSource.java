@@ -70,7 +70,6 @@ public class WordsRemoteDataSource implements WordsDataSource {
             public void onResponse(Call call, final Response response) throws IOException {
                 assert response.body() != null;
                 final String res = response.body().string();
-                Logger.d(res);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
