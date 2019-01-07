@@ -27,6 +27,8 @@ public interface WordsDataSource {
 
     void saveWord(@NonNull Words word);
 
+    void selectWord(String condition, String value, LoadWordsCallback callback);
+
     void updateWord(@NonNull Words word);
 
     void checkWord(@NonNull String wordChar, String kanji, @NonNull GetWordCallback callback);

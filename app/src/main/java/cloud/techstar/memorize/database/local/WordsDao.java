@@ -21,6 +21,9 @@ public interface WordsDao {
     @Query("SELECT * FROM words WHERE character = :wordCharacter")
     Words getWordByChar(String wordCharacter);
 
+    @Query("SELECT * FROM words WHERE :condition = :value")
+    List<Words> selectWord(String condition, String value);
+
     @Query("SELECT * FROM words WHERE character = :wordCharacter AND kanji = :kanji")
     Words checkCharKanji(String wordCharacter, String kanji);
 

@@ -22,7 +22,6 @@ import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
 import cloud.techstar.memorize.license.LicenseActivity;
-import cloud.techstar.memorize.manage.ManageActivity;
 import cloud.techstar.memorize.quiz.QuizActivity;
 import cloud.techstar.memorize.statistic.StatisticActivity;
 import cloud.techstar.progressbar.TSProgressBar;
@@ -107,7 +106,7 @@ public class OptionsFragment extends Fragment implements OptionsContract.View {
 
     @Override
     public void manageWordShow() {
-        startActivity(new Intent(AppMain.getContext(), ManageActivity.class));
+
     }
 
     @Override

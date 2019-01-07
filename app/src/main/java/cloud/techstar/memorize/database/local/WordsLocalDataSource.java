@@ -92,6 +92,29 @@ public class WordsLocalDataSource implements WordsDataSource {
     }
 
     @Override
+    public void selectWord(final String condition, final String value, final LoadWordsCallback callback) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                final List<Words> words = wordsDao.selectWord(condition, value);
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (words.isEmpty()) {
+                            // This will be called if the table is new or just empty.
+                            callback.onDataNotAvailable();
+                        } else {
+                            callback.onWordsLoaded(words);
+                        }
+                    }
+                });
+            }
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
     public void updateWord(@NonNull final Words word) {
         Runnable saveRunnable = new Runnable() {
             @Override

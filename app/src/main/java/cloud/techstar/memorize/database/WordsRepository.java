@@ -169,6 +169,23 @@ public class WordsRepository implements WordsDataSource {
     }
 
     @Override
+    public void selectWord(final String condition, final String value, final LoadWordsCallback callback) {
+        // Query the local storage if available. If not, query the network.
+        wordsLocalDataSource.selectWord(condition, value, new LoadWordsCallback() {
+            @Override
+            public void onWordsLoaded(List<Words> words) {
+                refreshCache(words);
+                callback.onWordsLoaded(new ArrayList<>(cachedWords.values()));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                wordsRemoteDataSource.selectWord(condition, value, callback);
+            }
+        });
+    }
+
+    @Override
     public void updateWord(@NonNull Words word) {
         wordsRemoteDataSource.updateWord(word);
         wordsLocalDataSource.updateWord(word);

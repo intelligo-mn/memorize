@@ -70,6 +70,7 @@ public class WordsRemoteDataSource implements WordsDataSource {
             public void onResponse(Call call, final Response response) throws IOException {
                 assert response.body() != null;
                 final String res = response.body().string();
+                Logger.d(res);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -156,6 +157,11 @@ public class WordsRemoteDataSource implements WordsDataSource {
     @Override
     public void saveWord(@NonNull Words word) {
         WORDS_SERVICE_DATA.put(word.getId(), word);
+    }
+
+    @Override
+    public void selectWord(String condition, String value, LoadWordsCallback callback) {
+
     }
 
     @Override

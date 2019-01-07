@@ -1,5 +1,6 @@
 package cloud.techstar.memorize.words;
 
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -162,14 +163,19 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     }
 
     @Override
-    public void search(String keyWord) {
+    public void search(final String keyWord) {
 
         wordsView.setLoadingIndicator(true);
 
         List<Words> result = new ArrayList<>();
         for (Words word : searchWords) {
-            if (word.getCharacter().contains(keyWord))
-                result.add(word);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                if (word.getCharacter().contains(keyWord) || word.getMeaning().stream().anyMatch(str -> str.trim().equals(keyWord)) || word.getMeaningMon().contains(keyWord))
+                    result.add(word);
+            } else {
+                if (word.getCharacter().contains(keyWord))
+                    result.add(word);
+            }
         }
 
         if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
@@ -381,7 +387,6 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                 if (kanji.equals("")){
                                     word.setKanji(word.getCharacter());
                                 }
-//                                wordRepository.saveWord(word);
                                 apiWords.add(word);
                             }
 
