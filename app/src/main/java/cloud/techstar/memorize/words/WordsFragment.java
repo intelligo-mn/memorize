@@ -218,7 +218,6 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                         break;
                     case 2:
                         presenter.setViewType(WordViewType.CARD);
-                        presenter.getRemotes();
                         break;
                     default:
                         presenter.setViewType(WordViewType.LIST);

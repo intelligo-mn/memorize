@@ -40,8 +40,6 @@ public interface WordsContract {
 
     void search(String keyWord);
 
-    void getRemotes();
-
     void searchRemote(String keyWord, List<Words> localResult);
 
     void setViewType(WordViewType viewType);
