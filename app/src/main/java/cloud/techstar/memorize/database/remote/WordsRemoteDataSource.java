@@ -55,88 +55,90 @@ public class WordsRemoteDataSource implements WordsDataSource {
         final Handler mHandler = new Handler(Looper.getMainLooper());
         OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder()
-                .url(MemorizeConstant.GET_WORDS)
-                .build();
+        for (int i=0; i <= 55; i++) {
+            Request request = new Request.Builder()
+                    .url(MemorizeConstant.GET_WORDS.concat("?page="+i))
+                    .build();
 
-        client.newCall(request).enqueue(new Callback() {
+            client.newCall(request).enqueue(new Callback() {
 
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Logger.e("Server connection failed : " + e.getMessage());
-            }
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Logger.e("Server connection failed : " + e.getMessage());
+                }
 
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                assert response.body() != null;
-                final String res = response.body().string();
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    assert response.body() != null;
+                    final String res = response.body().string();
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        try {
+                            try {
 
-                            JSONObject ob = new JSONObject(res);
-                            JSONArray memorize = ob.getJSONArray("memorize");
-                            if (memorize.length() > 0) {
-                                int numWords = 0;
-                                for (int i = 0; i < memorize.length(); i++) {
-                                    numWords += 1;
-                                    List<String> meaning = new ArrayList<>();
-                                    List<String> meaningMon = new ArrayList<>();
-                                    List<String> partOfSpeech = new ArrayList<>();
-                                    List<String> tag = new ArrayList<>();
+                                JSONObject ob = new JSONObject(res);
+                                JSONArray memorize = ob.getJSONArray("memorize");
+                                if (memorize.length() > 0) {
+                                    int numWords = 0;
+                                    for (int i = 0; i < memorize.length(); i++) {
+                                        numWords += 1;
+                                        List<String> meaning = new ArrayList<>();
+                                        List<String> meaningMon = new ArrayList<>();
+                                        List<String> partOfSpeech = new ArrayList<>();
+                                        List<String> tag = new ArrayList<>();
 
-                                    JSONArray meaningJSON = memorize.getJSONObject(i).getJSONArray("meanings");
-                                    JSONArray meaningMnJSON = memorize.getJSONObject(i).getJSONArray("meaningsMongolia");
-                                    JSONArray partJSON = memorize.getJSONObject(i).getJSONArray("partOfSpeech");
-                                    JSONArray tagJSON = memorize.getJSONObject(i).getJSONArray("tag");
-                                    String level = memorize.getJSONObject(i).getString("level");
-                                    
-                                    for (int e = 0; e< meaningJSON.length(); e++) {
-                                        meaning.add(meaningJSON.getString(e));
+                                        JSONArray meaningJSON = memorize.getJSONObject(i).getJSONArray("meanings");
+                                        JSONArray meaningMnJSON = memorize.getJSONObject(i).getJSONArray("meaningsMongolia");
+                                        JSONArray partJSON = memorize.getJSONObject(i).getJSONArray("partOfSpeech");
+                                        JSONArray tagJSON = memorize.getJSONObject(i).getJSONArray("tag");
+                                        String level = memorize.getJSONObject(i).getString("level");
+
+                                        for (int e = 0; e < meaningJSON.length(); e++) {
+                                            meaning.add(meaningJSON.getString(e));
+                                        }
+                                        for (int e = 0; e < meaningMnJSON.length(); e++) {
+                                            meaningMon.add(meaningMnJSON.getString(e));
+                                        }
+                                        for (int e = 0; e < partJSON.length(); e++) {
+                                            partOfSpeech.add(partJSON.getString(e));
+                                        }
+                                        for (int e = 0; e < tagJSON.length(); e++) {
+                                            tag.add(tagJSON.getString(e));
+                                        }
+
+                                        Words words = new Words(
+                                                memorize.getJSONObject(i).getString("_id"),
+                                                memorize.getJSONObject(i).getString("character"),
+                                                meaning,
+                                                meaningMon,
+                                                memorize.getJSONObject(i).getString("kanji"),
+                                                partOfSpeech,
+                                                level,
+                                                tag,
+                                                memorize.getJSONObject(i).getBoolean("isMemorize"),
+                                                memorize.getJSONObject(i).getBoolean("isFavorite"),
+                                                memorize.getJSONObject(i).getString("created"),
+                                                false);
+
+                                        WORDS_SERVICE_DATA.put(words.getId(), words);
                                     }
-                                    for (int e = 0; e< meaningMnJSON.length(); e++) {
-                                        meaningMon.add(meaningMnJSON.getString(e));
-                                    }
-                                    for (int e = 0; e< partJSON.length(); e++) {
-                                        partOfSpeech.add(partJSON.getString(e));
-                                    }
-                                    for (int e = 0; e< tagJSON.length(); e++) {
-                                        tag.add(tagJSON.getString(e));
-                                    }
-
-                                    Words words = new Words(
-                                            memorize.getJSONObject(i).getString("_id"),
-                                            memorize.getJSONObject(i).getString("character"),
-                                            meaning,
-                                            meaningMon,
-                                            memorize.getJSONObject(i).getString("kanji"),
-                                            partOfSpeech,
-                                            level,
-                                            tag,
-                                            memorize.getJSONObject(i).getBoolean("isMemorize"),
-                                            memorize.getJSONObject(i).getBoolean("isFavorite"),
-                                            memorize.getJSONObject(i).getString("created"),
-                                            false);
-
-                                    WORDS_SERVICE_DATA.put(words.getId(), words);
+                                    callback.onWordsLoaded(Lists.newArrayList(WORDS_SERVICE_DATA.values()));
+                                    Logger.d("Get remote total words: " + numWords);
+                                } else {
+                                    Toast.makeText(AppMain.getContext(), "Data not available !!!", Toast.LENGTH_SHORT).show();
                                 }
-                                callback.onWordsLoaded(Lists.newArrayList(WORDS_SERVICE_DATA.values()));
-                                Logger.d("Get remote total words: "+numWords);
-                            } else {
-                                Toast.makeText(AppMain.getContext(), "Data not available !!!", Toast.LENGTH_SHORT).show();
-                            }
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
     }
 
     @Override
