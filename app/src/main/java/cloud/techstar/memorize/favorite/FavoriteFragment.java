@@ -25,7 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 import cloud.techstar.memorize.detail.DetailActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;

@@ -1,4 +1,4 @@
-package cloud.techstar.memorize.database;
+package cloud.techstar.memorize.database.entity;
 
 import com.google.common.base.Objects;
 

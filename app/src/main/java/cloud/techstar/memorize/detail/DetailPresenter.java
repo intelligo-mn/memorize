@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.Nullable;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 import cloud.techstar.memorize.database.WordsRepository;
 import cloud.techstar.memorize.utils.MemorizeUtils;
 

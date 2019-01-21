@@ -18,7 +18,7 @@ import androidx.core.content.ContextCompat;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
-import cloud.techstar.memorize.database.Question;
+import cloud.techstar.memorize.database.entity.Question;
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;

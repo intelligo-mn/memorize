@@ -2,7 +2,7 @@ package cloud.techstar.memorize.quiz;
 
 import cloud.techstar.memorize.BasePresenter;
 import cloud.techstar.memorize.BaseView;
-import cloud.techstar.memorize.database.Question;
+import cloud.techstar.memorize.database.entity.Question;
 
 public interface QuizContract {
     interface View extends BaseView<QuizContract.Presenter> {

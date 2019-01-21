@@ -4,6 +4,7 @@ package cloud.techstar.memorize.database;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import cloud.techstar.memorize.database.entity.Words;
 
 public interface WordsDataSource {
 

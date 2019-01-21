@@ -12,7 +12,7 @@ import java.util.Random;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 
 public class WidgetService extends Service {
 

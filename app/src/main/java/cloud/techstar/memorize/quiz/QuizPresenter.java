@@ -8,8 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import cloud.techstar.memorize.database.Question;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Question;
+import cloud.techstar.memorize.database.entity.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.database.WordsRepository;
 import io.reactivex.functions.Consumer;
@@ -108,7 +108,7 @@ public class QuizPresenter implements QuizContract.Presenter {
 
     private List<Question> getQuizWords() {
         final List<Question> questions = new ArrayList<Question>();
-        wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
+        wordsRepository.selectWord("level", "jlpt-n5", new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> wordList) {
                 List<Words> words = new ArrayList<>();

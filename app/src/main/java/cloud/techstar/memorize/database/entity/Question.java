@@ -1,4 +1,4 @@
-package cloud.techstar.memorize.database;
+package cloud.techstar.memorize.database.entity;
 
 import java.io.Serializable;
 import java.util.List;

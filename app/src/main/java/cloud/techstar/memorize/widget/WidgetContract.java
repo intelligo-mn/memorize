@@ -4,7 +4,7 @@ import java.util.List;
 
 import cloud.techstar.memorize.BasePresenter;
 import cloud.techstar.memorize.BaseView;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 
 public interface WidgetContract {
     interface View extends BaseView<WidgetContract.Presenter> {

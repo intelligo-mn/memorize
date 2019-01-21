@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 import cloud.techstar.memorize.utils.Converters;
 
 @Database(entities = {Words.class}, version = 4, exportSchema = false)

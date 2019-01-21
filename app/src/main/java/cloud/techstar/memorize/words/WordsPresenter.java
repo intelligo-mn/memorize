@@ -19,7 +19,7 @@ import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import cloud.techstar.memorize.AppMain;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.utils.ConnectionDetector;
 import okhttp3.Call;

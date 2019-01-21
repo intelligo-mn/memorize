@@ -2,7 +2,7 @@ package cloud.techstar.memorize.statistic;
 
 import java.util.List;
 
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.database.WordsRepository;
 

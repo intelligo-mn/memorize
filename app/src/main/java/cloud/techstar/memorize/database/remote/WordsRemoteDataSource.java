@@ -19,7 +19,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import cloud.techstar.memorize.AppMain;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.utils.MemorizeConstant;
 import okhttp3.Call;
@@ -124,7 +124,6 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
                                         WORDS_SERVICE_DATA.put(words.getId(), words);
                                     }
-                                    callback.onWordsLoaded(Lists.newArrayList(WORDS_SERVICE_DATA.values()));
                                     Logger.d("Get remote total words: " + numWords);
                                 } else {
                                     Toast.makeText(AppMain.getContext(), "Data not available !!!", Toast.LENGTH_SHORT).show();
@@ -140,6 +139,8 @@ public class WordsRemoteDataSource implements WordsDataSource {
                 }
             });
         }
+
+        callback.onWordsLoaded(Lists.newArrayList(WORDS_SERVICE_DATA.values()));
     }
 
     @Override

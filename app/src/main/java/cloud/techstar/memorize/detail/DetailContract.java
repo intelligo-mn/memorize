@@ -2,7 +2,7 @@ package cloud.techstar.memorize.detail;
 
 import cloud.techstar.memorize.BasePresenter;
 import cloud.techstar.memorize.BaseView;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 
 public interface DetailContract {
     interface View extends BaseView<Presenter> {

@@ -22,7 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 
 public class DetailActivity extends AppCompatActivity implements DetailContract.View {
 

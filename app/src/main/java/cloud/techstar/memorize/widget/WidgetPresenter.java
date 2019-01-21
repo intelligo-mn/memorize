@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import cloud.techstar.memorize.database.Words;
+import cloud.techstar.memorize.database.entity.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 
 public class WidgetPresenter implements WidgetContract.Presenter, WordsDataSource.LoadWordsCallback {

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import cloud.techstar.memorize.database.entity.Words;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
