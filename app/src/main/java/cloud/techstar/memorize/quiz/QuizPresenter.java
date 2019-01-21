@@ -16,7 +16,7 @@ import io.reactivex.functions.Consumer;
 
 public class QuizPresenter implements QuizContract.Presenter {
 
-    private final WordsRepository wordsRepository;
+    private final WordsDataSource wordsRepository;
 
     private final QuizContract.View quizView;
 

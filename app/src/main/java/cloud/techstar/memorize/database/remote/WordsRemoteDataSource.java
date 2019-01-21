@@ -124,7 +124,6 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
                                         WORDS_SERVICE_DATA.put(words.getId(), words);
                                     }
-                                    Logger.d("Get remote total words: " + numWords);
                                 } else {
                                     Toast.makeText(AppMain.getContext(), "Data not available !!!", Toast.LENGTH_SHORT).show();
                                 }
