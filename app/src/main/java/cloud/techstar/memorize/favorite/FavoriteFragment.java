@@ -30,7 +30,7 @@ import cloud.techstar.memorize.detail.DetailActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class FavoriteFragment extends Fragment implements FavoriteContract.View{
+public class FavoriteFragment extends Fragment implements FavoriteContract.View {
 
     private FavoritePresenter favoritePresenter;
     private FavoriteContract.Presenter presenter;
@@ -70,7 +70,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
         snapHelper.attachToRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
 
-        swipeRefreshLayout = (SwipeRefreshLayout)root.findViewById(R.id.fav_swiper);
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.fav_swiper);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -137,7 +137,7 @@ public class FavoriteFragment extends Fragment implements FavoriteContract.View{
 
     }
 
-    public void refreshRecycler(){
+    public void refreshRecycler() {
         mAdapter = new FavoriteAdapter(new ArrayList<Words>(0));
         mRecyclerView.setAdapter(mAdapter);
     }

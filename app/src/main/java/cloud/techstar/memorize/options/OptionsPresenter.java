@@ -29,7 +29,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class OptionsPresenter implements OptionsContract.Presenter{
+public class OptionsPresenter implements OptionsContract.Presenter {
 
     private final WordsRepository wordsRepository;
 
@@ -58,17 +58,17 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                         mainWords.add(word);
                     }
 
-                    if (word.getIsLocal()){
+                    if (word.getIsLocal()) {
                         JSONObject updatedWords = new JSONObject();
                         try {
                             updatedWords.put("id", word.getId());
                             updatedWords.put("character", word.getCharacter());
-                            updatedWords.put("meanings",  new JSONArray(word.getMeaning()));
+                            updatedWords.put("meanings", new JSONArray(word.getMeaning()));
                             updatedWords.put("meaningsMongolia", new JSONArray(word.getMeaningMon()));
-                            updatedWords.put("partOfSpeech",  new JSONArray(word.getPartOfSpeech()));
+                            updatedWords.put("partOfSpeech", new JSONArray(word.getPartOfSpeech()));
                             updatedWords.put("kanji", word.getKanji());
-                            updatedWords.put("tag",  new JSONArray(word.getTag()));
-                            updatedWords.put("level",  word.getLevel());
+                            updatedWords.put("tag", new JSONArray(word.getTag()));
+                            updatedWords.put("level", word.getLevel());
                             updatedWords.put("isMemorize", word.isMemorize());
                             updatedWords.put("isFavorite", word.isFavorite());
                             updatedWords.put("isMemorize", word.isMemorize());
@@ -95,7 +95,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
     @Override
     public void downloadWordsRemote() {
 
-        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
+        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())) {
             optionsView.showToast("No internet connection !!!");
             return;
         }
@@ -105,7 +105,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
             @Override
             public void onWordsLoaded(List<Words> words) {
                 optionsView.setLoadingIndicator(false);
-                optionsView.showToast("Download "+words.size()+" word.");
+                optionsView.showToast("Download " + words.size() + " word.");
             }
 
             @Override
@@ -119,7 +119,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
     @Override
     public void sendWordsRemote() {
 
-        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
+        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())) {
             optionsView.showToast("No internet connection !!!");
             return;
         }
@@ -134,7 +134,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
         }
     }
 
-    public void sendDatas(){
+    public void sendDatas() {
         final Handler handler = new Handler(Looper.getMainLooper());
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -151,7 +151,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                 .post(requestBody)
                 .build();
 
-        Logger.e(request.toString()+request.headers().toString()+request.body());
+        Logger.e(request.toString() + request.headers().toString() + request.body());
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -179,7 +179,7 @@ public class OptionsPresenter implements OptionsContract.Presenter{
                         } catch (JSONException e) {
                             e.printStackTrace();
                             optionsView.setLoadingIndicator(false);
-                            optionsView.showToast("Алдаа гарлаа: "+e);
+                            optionsView.showToast("Алдаа гарлаа: " + e);
                         }
 
                     }

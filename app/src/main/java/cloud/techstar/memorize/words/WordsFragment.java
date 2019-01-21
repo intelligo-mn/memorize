@@ -1,6 +1,5 @@
 package cloud.techstar.memorize.words;
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +35,7 @@ import cloud.techstar.memorize.detail.DetailActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class WordsFragment extends Fragment implements WordsContract.View{
+public class WordsFragment extends Fragment implements WordsContract.View {
 
     private MaterialSearchBar searchBar;
 
@@ -101,7 +100,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                 Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + searchBar.getText());
                 // send the entered text to our filter and let it manage everything
                 List<String> suggest = new ArrayList<>();
-                for (String search: suggestList){
+                for (String search : suggestList) {
                     if (search.toLowerCase().contains(searchBar.getText().toLowerCase()))
                         suggest.add(search);
                 }
@@ -129,7 +128,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
             @Override
             public void onButtonClicked(int buttonCode) {
-                switch (buttonCode){
+                switch (buttonCode) {
                     case MaterialSearchBar.BUTTON_NAVIGATION:
 
                         break;
@@ -173,18 +172,18 @@ public class WordsFragment extends Fragment implements WordsContract.View{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                com.orhanobut.logger.Logger.e("Selected position :"+position);
-                switch (position){
-                    case 0 :
+                com.orhanobut.logger.Logger.e("Selected position :" + position);
+                switch (position) {
+                    case 0:
                         presenter.setFilterType(WordFilterType.RECENTLY);
                         break;
-                    case 1 :
+                    case 1:
                         presenter.setFilterType(WordFilterType.ACTIVE_WORDS);
                         break;
-                    case 2 :
+                    case 2:
                         presenter.setFilterType(WordFilterType.ALL_WORDS);
                         break;
-                    case 3 :
+                    case 3:
                         presenter.setFilterType(WordFilterType.NOT_TRANSLATE);
                         break;
                     default:
@@ -313,6 +312,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
 
             private TextView kanjiText;
             private TextView characterText;
+
             private ViewHolder(View v) {
                 super(v);
                 v.setOnClickListener(this);
@@ -325,6 +325,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
                 presenter.openWordDetails(words.get(this.getAdapterPosition()));
             }
         }
+
         @Override
         public WordsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                           int viewType) {
@@ -338,7 +339,7 @@ public class WordsFragment extends Fragment implements WordsContract.View{
         public void onBindViewHolder(final WordsAdapter.ViewHolder holder, final int position) {
             holder.kanjiText.setText(words.get(position).getKanji());
             holder.characterText.setText(words.get(position).getCharacter());
-            if (words.get(position).getIsLocal()){
+            if (words.get(position).getIsLocal()) {
                 holder.kanjiText.setTextColor(getResources().getColor(R.color.chartGreen));
                 holder.characterText.setTextColor(getResources().getColor(R.color.chartGreen));
             }

@@ -44,5 +44,5 @@ public interface WordsDao {
 
     @Query("DELETE FROM Words WHERE id = :wordId")
     int deleteWordById(String wordId);
-    
+
 }

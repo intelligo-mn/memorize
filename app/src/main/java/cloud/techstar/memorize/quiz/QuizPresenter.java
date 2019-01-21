@@ -69,66 +69,66 @@ public class QuizPresenter implements QuizContract.Presenter {
         }, 400);
 
         quizView.onAnswer()
-            .subscribe(new Consumer<Integer>() {
-                @Override
-                public void accept(@io.reactivex.annotations.NonNull Integer indexAnswer) throws Exception {
-                    quizView.disableClicks();
-                    Boolean isRight = isRightAnswer(indexAnswer);
-                    if (isRight) {
-                        countRightAnswer++;
-                        quizView.showSuccess(indexAnswer);
-                        quizView.setRightAndWrongAnswer(countRightAnswer, countWrongAnswer);
-                        wordsRepository.memorizeWord(quizWords.get(indexAnswer).getQuestionId());
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                nextQuestion();
-                            }
-                        }, 500);
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(@io.reactivex.annotations.NonNull Integer indexAnswer) throws Exception {
+                        quizView.disableClicks();
+                        Boolean isRight = isRightAnswer(indexAnswer);
+                        if (isRight) {
+                            countRightAnswer++;
+                            quizView.showSuccess(indexAnswer);
+                            quizView.setRightAndWrongAnswer(countRightAnswer, countWrongAnswer);
+                            wordsRepository.memorizeWord(quizWords.get(indexAnswer).getQuestionId());
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    nextQuestion();
+                                }
+                            }, 500);
 
-                    } else {
-                        countWrongAnswer++;
-                        quizView.showWrongAnswer(indexAnswer, getCurrentQuestion().getRightAnswerIndex());
-                        quizView.setRightAndWrongAnswer(countRightAnswer, countWrongAnswer);
+                        } else {
+                            countWrongAnswer++;
+                            quizView.showWrongAnswer(indexAnswer, getCurrentQuestion().getRightAnswerIndex());
+                            quizView.setRightAndWrongAnswer(countRightAnswer, countWrongAnswer);
 
-                        wordsRepository.favWord(quizWords.get(indexAnswer).getQuestionId());
+                            wordsRepository.favWord(quizWords.get(indexAnswer).getQuestionId());
 
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                nextQuestion();
-                            }
-                        }, 1000);
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    nextQuestion();
+                                }
+                            }, 1000);
+                        }
                     }
-                }
-            });
+                });
     }
 
-    private List<Question> getQuizWords(){
+    private List<Question> getQuizWords() {
         final List<Question> questions = new ArrayList<Question>();
         wordsRepository.getWords(new WordsDataSource.LoadWordsCallback() {
             @Override
             public void onWordsLoaded(List<Words> wordList) {
                 List<Words> words = new ArrayList<>();
-                for (Words word: wordList){
+                for (Words word : wordList) {
                     if (!word.isMemorize())
                         words.add(word);
 
                 }
                 Collections.shuffle(words);
-                for(int i  = 0; i < 25; i++) {
+                for (int i = 0; i < 25; i++) {
 
                     Words currentWord = words.get(i);
                     List<String> possiblesAnswers = new ArrayList<>();
 
                     // Answers
-                    for(int j  = 0; j < 3; j++) {
+                    for (int j = 0; j < 3; j++) {
                         int randomIndex = new Random().nextInt(words.size());
                         // We look for 3 wrong and different answers
-                        while(possiblesAnswers.contains(words.get(randomIndex).getMeaning().get(0))
-                                ||  words.get(randomIndex).getMeaning().get(0).equals(currentWord.getMeaning().get(0))) {
+                        while (possiblesAnswers.contains(words.get(randomIndex).getMeaning().get(0))
+                                || words.get(randomIndex).getMeaning().get(0).equals(currentWord.getMeaning().get(0))) {
                             randomIndex = new Random().nextInt(words.size());
                         }
 

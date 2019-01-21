@@ -38,7 +38,7 @@ public class WidgetService extends Service {
                 for (int widgetId : appWidgetIds) {
                     List<Words> qList = widgetPresenter.loadWords();
                     int nextInt = random.nextInt(qList.size());
-                    RemoteViews remoteViews = new RemoteViews(getPackageName(),	R.layout.word_widget);
+                    RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.word_widget);
 //                    remoteViews.setTextViewText(R.id.widget_character, qList.get(nextInt).getCharacter());
 //                    remoteViews.setTextViewText(R.id.widget_meaning, qList.get(nextInt).getMeaning());
 //                    remoteViews.setTextViewText(R.id.widget_meaning_mn, qList.get(nextInt).getMeaningMon());
@@ -47,7 +47,7 @@ public class WidgetService extends Service {
                 }
                 stopSelf();
             }
-        } catch (Exception ex ){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 

@@ -47,7 +47,8 @@ public class WordsRemoteDataSource implements WordsDataSource {
 
 
     // Prevent direct instantiation.
-    private WordsRemoteDataSource() {}
+    private WordsRemoteDataSource() {
+    }
 
     @Override
     public void getWords(@NonNull final LoadWordsCallback callback) {
@@ -55,9 +56,9 @@ public class WordsRemoteDataSource implements WordsDataSource {
         final Handler mHandler = new Handler(Looper.getMainLooper());
         OkHttpClient client = new OkHttpClient();
 
-        for (int i=0; i <= 55; i++) {
+        for (int i = 0; i <= 55; i++) {
             Request request = new Request.Builder()
-                    .url(MemorizeConstant.GET_WORDS.concat("?page="+i))
+                    .url(MemorizeConstant.GET_WORDS.concat("?page=" + i))
                     .build();
 
             client.newCall(request).enqueue(new Callback() {

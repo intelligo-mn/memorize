@@ -2,7 +2,6 @@ package cloud.techstar.memorize.options;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.orhanobut.logger.Logger;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -67,7 +64,7 @@ public class OptionsFragment extends Fragment implements OptionsContract.View {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_options, container, false);
 
-        prgLoading = (TSProgressBar)rootView.findViewById(R.id.options_progress);
+        prgLoading = (TSProgressBar) rootView.findViewById(R.id.options_progress);
         titleId = getResources().getStringArray(R.array.title);
         subtitleId = getResources().getStringArray(R.array.subtitle);
 
@@ -86,6 +83,7 @@ public class OptionsFragment extends Fragment implements OptionsContract.View {
 
         return rootView;
     }
+
     @Override
     public void setPresenter(OptionsContract.Presenter presenter) {
         this.presenter = presenter;
@@ -145,6 +143,7 @@ public class OptionsFragment extends Fragment implements OptionsContract.View {
             private TextView title;
             private TextView subtitle;
             private ImageView imageView;
+
             private ViewHolder(View v) {
                 super(v);
                 v.setOnClickListener(this);

@@ -6,7 +6,7 @@ import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.database.WordsRepository;
 
-public class StatisticPresenter implements StatisticContract.Presenter{
+public class StatisticPresenter implements StatisticContract.Presenter {
     private final WordsRepository wordsRepository;
     private final StatisticContract.View statisticView;
 
@@ -39,7 +39,7 @@ public class StatisticPresenter implements StatisticContract.Presenter{
                     } else if (word.isFavorite() && !word.isMemorize()) {
                         fav++;
                     } else {
-                       active++;
+                        active++;
                     }
                 }
 

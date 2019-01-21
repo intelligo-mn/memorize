@@ -5,7 +5,7 @@ import cloud.techstar.memorize.BaseView;
 import cloud.techstar.memorize.database.Words;
 
 public interface DetailContract {
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
         void setLoadingIndicator(boolean active);
 
         void showMissingWord();
@@ -16,7 +16,7 @@ public interface DetailContract {
 
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter extends BasePresenter {
 
         void favoriteWord();
 

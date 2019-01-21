@@ -23,7 +23,7 @@ import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 
-public class QuizActivity extends AppCompatActivity implements QuizContract.View{
+public class QuizActivity extends AppCompatActivity implements QuizContract.View {
 
     private QuizContract.Presenter presenter;
 
@@ -45,6 +45,7 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
     private Handler handler;
     private Button tryButton;
     private ScrollView quizScroll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
         answer2 = findViewById(R.id.answer_2);
         answer3 = findViewById(R.id.answer_3);
         answer4 = findViewById(R.id.answer_4);
-        backBtn = (ImageButton)findViewById(R.id.quiz_back);
+        backBtn = (ImageButton) findViewById(R.id.quiz_back);
         quizProgress = findViewById(R.id.quiz_progress);
         quizScroll = findViewById(R.id.quiz_scroll);
         tryButton = findViewById(R.id.quiz_again);
@@ -115,6 +116,7 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
 
         return null;
     }
+
     @Override
     public void showSuccess(Integer choice) {
         getCorrectCardView(choice).setBackgroundColor(ContextCompat.getColor(this, R.color.chartGreen));
@@ -136,8 +138,8 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
         right = right * 4;
         wrong = wrong * 4;
         quizProgress.setProgress(right);
-        quizProgress.setSecondaryProgress(right+wrong);
-        quizTitle.setText("Асуулт "+count+" / 25");
+        quizProgress.setSecondaryProgress(right + wrong);
+        quizTitle.setText("Асуулт " + count + " / 25");
     }
 
     @Override
@@ -180,10 +182,10 @@ public class QuizActivity extends AppCompatActivity implements QuizContract.View
     }
 
     @Override
-    public void tryAgain(int score){
+    public void tryAgain(int score) {
         quizScroll.setVisibility(View.INVISIBLE);
         tryButton.setVisibility(View.VISIBLE);
-        question.setText("Зөв хариулсан "+score+" / 25");
+        question.setText("Зөв хариулсан " + score + " / 25");
     }
 
     @Override

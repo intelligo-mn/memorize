@@ -11,7 +11,8 @@ import androidx.room.TypeConverter;
 public class Converters {
     @TypeConverter
     public static List<String> fromTimestamp(String value) {
-        Type listType = new TypeToken<List<String>>() {}.getType();
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
         return new Gson().fromJson(value, listType);
         // return value == null ? null : new Date(value);
     }

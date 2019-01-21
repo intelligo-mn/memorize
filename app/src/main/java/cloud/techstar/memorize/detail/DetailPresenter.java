@@ -11,7 +11,7 @@ import cloud.techstar.memorize.utils.MemorizeUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class DetailPresenter implements DetailContract.Presenter{
+public class DetailPresenter implements DetailContract.Presenter {
 
     private final WordsRepository wordsRepository;
 
@@ -33,7 +33,7 @@ public class DetailPresenter implements DetailContract.Presenter{
     }
 
     private void openWord() {
-        if (word==null) {
+        if (word == null) {
             detailView.showMissingWord();
             return;
         } else {
@@ -66,7 +66,7 @@ public class DetailPresenter implements DetailContract.Presenter{
         Words updatedWord = new Words(word.getId(), word.getCharacter(), word.getMeaning(), meaings, word.getKanji(), word.getPartOfSpeech(),
                 word.getLevel(), word.getTag(), word.isMemorize(), word.isFavorite(), MemorizeUtils.getNowTime(), word.getIsLocal());
         // Хэрэв вэбийн өгөгдөлтэй ижил утгатай байвал өөрчлөгдсөн болгоно
-        if (!updatedWord.getIsLocal()){
+        if (!updatedWord.getIsLocal()) {
             updatedWord.setIsLocal(true);
         }
         wordsRepository.updateWord(updatedWord);

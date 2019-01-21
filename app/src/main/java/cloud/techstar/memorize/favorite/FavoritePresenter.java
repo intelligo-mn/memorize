@@ -1,7 +1,5 @@
 package cloud.techstar.memorize.favorite;
 
-import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,7 @@ import cloud.techstar.memorize.database.WordsDataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class FavoritePresenter implements FavoriteContract.Presenter, WordsDataSource.LoadWordsCallback{
+public class FavoritePresenter implements FavoriteContract.Presenter, WordsDataSource.LoadWordsCallback {
 
     @NonNull
     private final WordsDataSource wordRepository;

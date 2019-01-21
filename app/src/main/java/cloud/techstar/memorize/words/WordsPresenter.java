@@ -4,8 +4,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
@@ -24,7 +22,6 @@ import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.database.Words;
 import cloud.techstar.memorize.database.WordsDataSource;
 import cloud.techstar.memorize.utils.ConnectionDetector;
-import cloud.techstar.memorize.utils.MemorizeUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -125,7 +122,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                     }
                 }
 
-                if (currentFilterType == WordFilterType.RECENTLY){
+                if (currentFilterType == WordFilterType.RECENTLY) {
                     Collections.sort(mainWords, new Comparator<Words>() {
                         @Override
                         public int compare(Words o1, Words o2) {
@@ -158,7 +155,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
     }
 
     @Override
-    public void saveWord(Words word){
+    public void saveWord(Words word) {
         wordRepository.saveWord(word);
     }
 
@@ -178,7 +175,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
             }
         }
 
-        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())){
+        if (!ConnectionDetector.isNetworkAvailable(AppMain.getContext())) {
 
             wordsView.showWords(result);
 
@@ -194,7 +191,7 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
         final List<Words> apiWords = new ArrayList<>(local);
 
         final Request jishoRequest = new Request.Builder()
-                .url("https://jisho.org/api/v1/search/words?keyword="+keyWord)
+                .url("https://jisho.org/api/v1/search/words?keyword=" + keyWord)
                 .build();
 
         jishoClient.newCall(jishoRequest).enqueue(new Callback() {
@@ -226,18 +223,18 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
 
                                 final List<String> tagList = new ArrayList<>();
 
-                                for (int t = 0; t< tag.length(); t++) {
+                                for (int t = 0; t < tag.length(); t++) {
                                     if (!tag.getString(t).equals(""))
                                         tagList.add(tag.getString(t));
                                 }
 
                                 String kanji = "";
                                 String character = "";
-                                if (!japanese.getJSONObject(0).isNull("word")){
+                                if (!japanese.getJSONObject(0).isNull("word")) {
                                     kanji = japanese.getJSONObject(0).getString("word");
                                 }
 
-                                if (!japanese.getJSONObject(0).isNull("reading")){
+                                if (!japanese.getJSONObject(0).isNull("reading")) {
                                     character = japanese.getJSONObject(0).getString("reading");
                                 }
 
@@ -246,21 +243,21 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                 List<String> meaningList = new ArrayList<>();
                                 List<String> partOfSpeechList = new ArrayList<>();
 
-                                for (int s = 0; s < senses.length(); s++){
+                                for (int s = 0; s < senses.length(); s++) {
                                     JSONObject sObject = senses.getJSONObject(s);
                                     JSONArray english = sObject.getJSONArray("english_definitions");
                                     JSONArray partOfSpeech = sObject.getJSONArray("parts_of_speech");
 
                                     StringBuilder meaning = new StringBuilder();
-                                    for (int e = 0; e< english.length(); e++) {
+                                    for (int e = 0; e < english.length(); e++) {
                                         meaning.append(english.getString(e)).append(", ");
                                     }
                                     meaning.deleteCharAt(meaning.length() - 2);
                                     meaningList.add(meaning.toString());
 
-                                    if(partOfSpeech.length() > 0){
+                                    if (partOfSpeech.length() > 0) {
                                         StringBuilder part = new StringBuilder();
-                                        for (int p = 0; p< partOfSpeech.length(); p++) {
+                                        for (int p = 0; p < partOfSpeech.length(); p++) {
                                             if (!partOfSpeech.getString(p).equals(""))
                                                 part.append(partOfSpeech.getString(p)).append(" ");
                                         }
@@ -268,8 +265,8 @@ public class WordsPresenter implements WordsContract.Presenter, WordsDataSource.
                                     }
                                 }
 
-                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "jlpt2", tagList,  getNowTime());
-                                if (kanji.equals("")){
+                                Words word = new Words(UUID.randomUUID().toString(), character, meaningList, new ArrayList<String>(), kanji, partOfSpeechList, "jlpt2", tagList, getNowTime());
+                                if (kanji.equals("")) {
                                     word.setKanji(word.getCharacter());
                                 }
                                 apiWords.add(word);

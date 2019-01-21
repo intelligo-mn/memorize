@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -32,13 +30,12 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import cloud.techstar.memorize.AppMain;
 import cloud.techstar.memorize.Injection;
 import cloud.techstar.memorize.R;
 
 import static cloud.techstar.memorize.AppMain.getContext;
 
-public class StatisticActivity extends AppCompatActivity implements StatisticContract.View{
+public class StatisticActivity extends AppCompatActivity implements StatisticContract.View {
 
     private StatisticContract.Presenter presenter;
     private PieData pieData;
@@ -71,6 +68,7 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
     public void setLoadingIndicator(boolean active) {
 
     }
+
     private class ChartDataAdapter extends ArrayAdapter<ChartItem> {
 
         ChartDataAdapter(Context context, List<ChartItem> objects) {
@@ -104,13 +102,13 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
         entries.add(new PieEntry((float) memorized,
-                "Цээжилсэн үг "+memorized,
+                "Цээжилсэн үг " + memorized,
                 getResources().getDrawable(R.drawable.ic_timeline)));
         entries.add(new PieEntry((float) favorited,
-                "Цээжилж байгаа "+favorited,
+                "Цээжилж байгаа " + favorited,
                 getResources().getDrawable(R.drawable.ic_timeline)));
         entries.add(new PieEntry((float) active,
-                "Цээжлээгүй "+active,
+                "Цээжлээгүй " + active,
                 getResources().getDrawable(R.drawable.ic_timeline)));
 
         PieDataSet dataSet = new PieDataSet(entries, "Memorize results");
@@ -136,9 +134,9 @@ public class StatisticActivity extends AppCompatActivity implements StatisticCon
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
 
-        SpannableString s = new SpannableString("Нийт үг :"+total);
+        SpannableString s = new SpannableString("Нийт үг :" + total);
         s.setSpan(new RelativeSizeSpan(1.7f), 0, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()),0, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), 0, s.length(), 0);
 
 
         pieData = new PieData(dataSet);

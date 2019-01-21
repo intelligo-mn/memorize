@@ -42,7 +42,7 @@ public class WidgetPresenter implements WidgetContract.Presenter, WordsDataSourc
             @Override
             public void onWordsLoaded(List<Words> words) {
 
-                Logger.e("Presenter words count : "+words.size());
+                Logger.e("Presenter words count : " + words.size());
 
                 for (Words word : words) {
                     if (word.isFavorite())

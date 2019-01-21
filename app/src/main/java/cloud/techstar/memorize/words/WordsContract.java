@@ -9,41 +9,41 @@ import cloud.techstar.memorize.database.Words;
 
 public interface WordsContract {
 
-  interface View extends BaseView<Presenter> {
+    interface View extends BaseView<Presenter> {
 
-    void setLoadingIndicator(boolean active);
+        void setLoadingIndicator(boolean active);
 
-    void showWords(List<Words> words);
+        void showWords(List<Words> words);
 
-    void showWordDetail(Words word);
+        void showWordDetail(Words word);
 
-    void showLoadingWordsError();
+        void showLoadingWordsError();
 
-    void showNoWords();
+        void showNoWords();
 
-    boolean isActive();
-  }
+        boolean isActive();
+    }
 
-  interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter {
 
-    void result(int requestCode, int resultCode);
+        void result(int requestCode, int resultCode);
 
-    void loadWords(boolean forceUpdate);
+        void loadWords(boolean forceUpdate);
 
-    void openWordDetails(@NonNull Words requestedWord);
+        void openWordDetails(@NonNull Words requestedWord);
 
-    void setFilterType(WordFilterType filterType);
+        void setFilterType(WordFilterType filterType);
 
-    WordFilterType getFilterType();
+        WordFilterType getFilterType();
 
-    void saveWord(Words word);
+        void saveWord(Words word);
 
-    void search(String keyWord);
+        void search(String keyWord);
 
-    void searchRemote(String keyWord, List<Words> localResult);
+        void searchRemote(String keyWord, List<Words> localResult);
 
-    void setViewType(WordViewType viewType);
+        void setViewType(WordViewType viewType);
 
-    WordViewType getViewType();
-  }
+        WordViewType getViewType();
+    }
 }

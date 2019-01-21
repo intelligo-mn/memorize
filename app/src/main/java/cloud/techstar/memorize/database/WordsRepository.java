@@ -1,21 +1,17 @@
 package cloud.techstar.memorize.database;
 
-import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
-import cloud.techstar.memorize.utils.MemorizeUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WordsRepository implements WordsDataSource {
 
-    private static  WordsRepository INSTANCE = null;
+    private static WordsRepository INSTANCE = null;
 
     private final WordsDataSource wordsRemoteDataSource;
 
@@ -29,6 +25,7 @@ public class WordsRepository implements WordsDataSource {
         this.wordsRemoteDataSource = wordsRemoteDataSource;
         this.wordsLocalDataSource = wordsLocalDataSource;
     }
+
     /**
      * Returns the single instance of this class, creating it if necessary.
      *
@@ -108,7 +105,7 @@ public class WordsRepository implements WordsDataSource {
             return;
         }
 
-        wordsLocalDataSource.getWord(wordId, new GetWordCallback(){
+        wordsLocalDataSource.getWord(wordId, new GetWordCallback() {
 
             @Override
             public void onWordLoaded(Words word) {
@@ -310,7 +307,7 @@ public class WordsRepository implements WordsDataSource {
         mCacheIsDirty = false;
     }
 
-    private void refreshLocalDataSource(List<Words> words){
+    private void refreshLocalDataSource(List<Words> words) {
         checkNotNull(words);
         wordsLocalDataSource.deleteAllWords();
 
@@ -319,9 +316,9 @@ public class WordsRepository implements WordsDataSource {
         }
     }
 
-    private Words getWordsWithId(@NonNull String id){
+    private Words getWordsWithId(@NonNull String id) {
         checkNotNull(id);
-        if (cachedWords == null || cachedWords.isEmpty()){
+        if (cachedWords == null || cachedWords.isEmpty()) {
             return null;
         } else {
             return cachedWords.get(id);

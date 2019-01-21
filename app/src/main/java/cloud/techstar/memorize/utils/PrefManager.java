@@ -17,8 +17,10 @@ public class PrefManager {
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
+
     /**
      * Application хамгийн анх ачааллахад
+     *
      * @param isFirstTime анх програм нээхэд true
      */
     public void setIsFirstTimeLaunch(boolean isFirstTime) {

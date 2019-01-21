@@ -223,7 +223,7 @@ public final class Words implements Serializable {
                 '}';
     }
 
-    public String getNowTime(){
+    public String getNowTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(calendar.getTime());

@@ -12,14 +12,13 @@ public class AppMain extends Application {
     private static Context context;
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
         context = this.getApplicationContext();
         com.orhanobut.logger.Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
-    public static Context getContext(){
+    public static Context getContext() {
         return context;
     }
 }
