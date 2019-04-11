@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/background"
-    tools:context="cloud.techstar.memorize.detail.DetailActivity">
+    tools:context="systems.intelligo.memorize.detail.DetailActivity">
 
     <LinearLayout android:id="@+id/header"
         android:layout_width="match_parent"

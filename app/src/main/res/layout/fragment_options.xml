@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context="cloud.techstar.memorize.options.OptionsFragment">
+    tools:context="systems.intelligo.memorize.options.OptionsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

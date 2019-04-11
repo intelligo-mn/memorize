@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".statistic.StatisticActivity">
+    tools:context="systems.intelligo.memorize.statistic.StatisticActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

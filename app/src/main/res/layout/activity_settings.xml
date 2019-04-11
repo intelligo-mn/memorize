@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".settings.SettingsActivity">
+    tools:context="systems.intelligo.memorize.settings.SettingsActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

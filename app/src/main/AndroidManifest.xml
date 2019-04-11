@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="cloud.techstar.memorize">
+    package="systems.intelligo.memorize">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".AppMain"
+        android:name="systems.intelligo.memorize.AppMain"
         android:allowBackup="true"
         android:appComponentFactory="@string/app_name"
         android:icon="@mipmap/ic_launcher"
@@ -19,19 +19,19 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory"
         tools:targetApi="p">
-        <activity android:name=".MainActivity">
+        <activity android:name="systems.intelligo.memorize.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".detail.DetailActivity" />
+        <activity android:name="systems.intelligo.memorize.detail.DetailActivity" />
 
-        <service android:name=".widget.WidgetService" />
+        <service android:name="systems.intelligo.memorize.widget.WidgetService" />
 
         <receiver
-            android:name=".widget.WidgetView"
+            android:name="systems.intelligo.memorize.widget.WidgetView"
             android:label="word widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -41,22 +41,11 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/word_widget_info" />
         </receiver>
-        <receiver
-            android:name=".manage.ManageReceiver"
-            android:label="ManageReceiver">
-            <intent-filter>
-                <action
-                    android:name="android.net.conn.CONNECTIVITY_CHANGE"
-                    tools:ignore="BatteryLife" />
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-            </intent-filter>
-        </receiver>
 
-        <activity android:name=".manage.ManageActivity" />
-        <activity android:name=".statistic.StatisticActivity" />
-        <activity android:name=".quiz.QuizActivity" />
-        <activity android:name=".license.LicenseActivity" />
-        <activity android:name=".settings.SettingsActivity" />
+        <activity android:name="systems.intelligo.memorize.statistic.StatisticActivity" />
+        <activity android:name="systems.intelligo.memorize.quiz.QuizActivity" />
+        <activity android:name="systems.intelligo.memorize.license.LicenseActivity" />
+        <activity android:name="systems.intelligo.memorize.settings.SettingsActivity" />
     </application>
 
 </manifest>

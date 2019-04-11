@@ -33,8 +33,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="@string/license_text"
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceMedium" />
