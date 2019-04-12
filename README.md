@@ -51,6 +51,8 @@ The architecture of our Android apps is based on the [MVP](https://en.wikipedia.
 ---|---
 [Turtuvshin](https://github.com/tortuvshin) | [Doljinsuren](https://github.com/doljko) 
 
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y3TOMP)
+
 ## Contributors
 
 You may contribute in several ways like creating new features, fixing bugs, improving documentation and examples
