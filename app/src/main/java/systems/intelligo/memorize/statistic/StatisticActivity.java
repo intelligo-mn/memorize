@@ -31,7 +31,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import systems.intelligo.memorize.Injection;
-import cloud.techstar.memorize.R;
+import systems.intelligo.memorize.R;
 
 import static systems.intelligo.memorize.AppMain.getContext;
 

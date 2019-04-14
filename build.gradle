@@ -6,7 +6,6 @@ buildscript {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
-        maven { url "https://kotlin.bintray.com/kotlinx/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
@@ -22,7 +21,6 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
-        maven { url "https://kotlin.bintray.com/kotlinx/" }
     }
 }
 

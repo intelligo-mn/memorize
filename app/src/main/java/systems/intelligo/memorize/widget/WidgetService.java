@@ -11,7 +11,7 @@ import java.util.Random;
 
 import systems.intelligo.memorize.AppMain;
 import systems.intelligo.memorize.Injection;
-import cloud.techstar.memorize.R;
+import systems.intelligo.memorize.R;
 import systems.intelligo.memorize.database.entity.Words;
 
 public class WidgetService extends Service {

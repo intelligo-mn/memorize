@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import systems.intelligo.memorize.AppMain;
 import systems.intelligo.memorize.Injection;
-import cloud.techstar.memorize.R;
+import systems.intelligo.memorize.R;
 import systems.intelligo.memorize.database.entity.Words;
 import systems.intelligo.memorize.detail.DetailActivity;
 

@@ -11,7 +11,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.LineData;
 
-import cloud.techstar.memorize.R;
+import systems.intelligo.memorize.R;
+
 
 public class LineChartItem extends ChartItem {
 

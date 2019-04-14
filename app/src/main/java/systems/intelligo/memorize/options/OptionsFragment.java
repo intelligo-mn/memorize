@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import systems.intelligo.memorize.AppMain;
 import systems.intelligo.memorize.Injection;
-import cloud.techstar.memorize.R;
+import systems.intelligo.memorize.R;
 import systems.intelligo.memorize.license.LicenseActivity;
 import systems.intelligo.memorize.quiz.QuizActivity;
 import systems.intelligo.memorize.statistic.StatisticActivity;
