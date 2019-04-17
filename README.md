@@ -11,8 +11,8 @@ Japanese-English-Mongolian dictionary. It lets you find words, kanji and more qu
       height="80">](https://github.com/opengineer/memorize/releases/latest)
 
 
-| [Features][] | [Screenshots][] | [Architecture][] | [Authors][] | [Contributors][] | [License][] |
-|---|---|---|---|---|---|
+| [Features][] | [Screenshots][] | [Architecture][] | [Authors][] | [Donate][] | [Contributors][] | [License][] |
+|---|---|---|---|---|---|---|
 
 ## Features 
 
@@ -51,7 +51,14 @@ The architecture of our Android apps is based on the [MVP](https://en.wikipedia.
 ---|---
 [Turtuvshin](https://github.com/tortuvshin) | [Doljinsuren](https://github.com/doljko) 
 
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y3TOMP)
+## Donate
+
+If you'd like to join them, please consider:
+
+ <a href='https://www.ko-fi.com/turtuvshin' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> <a href='https://www.patreon.com/turtuvshin' target='_blank'><img height='35' src='https://c5.patreon.com/external/logo/become_a_patron_button@2x.png' border='0' alt='Become a Patron!' /></a>
+ <a href="https://opencollective.com/intelligo/donate" target="_blank">
+  <img src="https://opencollective.com/intelligo/donate/button@2x.png?color=blue" height=35/>
+</a>
 
 ## Contributors
 
@@ -71,5 +78,6 @@ or translating any document here to your language. [Find more information in CON
 [Screenshots]:#screenshots
 [Architecture]:#architecture
 [Authors]:#authors
+[Donate]:#donate
 [Contributors]:#contributors
 [License]:#license
