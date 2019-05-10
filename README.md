@@ -8,7 +8,7 @@ Japanese-English-Mongolian dictionary. It lets you find words, kanji and more qu
 -->
 [<img src=".github/direct-apk-download.png"
       alt="Direct apk download"
-      height="80">](https://github.com/opengineer/memorize/releases/latest)
+      height="80">](https://github.com/intelligo-systems/memorize/releases/latest)
 
 
 | [Features][] | [Screenshots][] | [Architecture][] | [Authors][] | [Donate][] | [Contributors][] | [License][] |
