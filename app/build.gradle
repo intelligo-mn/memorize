@@ -42,7 +42,7 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
 
     implementation "androidx.room:room-runtime:2.1.0-alpha04"
-    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
+    annotationProcessor "androidx.room:room-compiler:2.6.1"
 
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.orhanobut:logger:2.1.1'
